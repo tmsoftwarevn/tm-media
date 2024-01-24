@@ -1,0 +1,94 @@
+:root {
+    --color-red: #cf2e2e;
+}
+.container {
+    max-width: 1200px !important;
+    margin: 0 auto;
+}
+.header-1 {
+    padding: 10px;
+    background-color: var(--color-red);
+    color: white;
+    font-weight: 600;
+    font-size: 12px;
+    font-family: 'roboto';
+    &_content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        text-transform: uppercase;
+    }
+}
+.header-2 {
+    padding: 20px 0;
+    &_content {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        .logo {
+            width: 250px;
+            img {
+                width: 100%;
+            }
+        }
+        .menu {
+            .parent-ul {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                gap: 30px;
+                font-family: 'roboto';
+                font-weight: 600;
+                color: #7d7d7d;
+                .arrow-header {
+                    font-size: 18px;
+                }
+                padding-bottom: 10px;
+                
+                .parent-li {
+                    text-transform: uppercase;
+                    font-size: 15px;
+                    border-bottom: 3px solid transparent;
+                    
+                    &:hover {
+                        cursor: pointer;
+                        border-bottom: 3px solid var(--color-red);
+                        transition: 0.5s;
+                        
+                    }
+                }
+                .dropdown-child {
+                    display: none;
+                }
+                .drop-parent {
+                    position: relative;
+                    &:hover {
+                        .dropdown-child {
+                            z-index: 999;
+                            display: block;
+                            position: absolute;
+                            left: 0;
+                            top: 110%;
+                            padding: 20px;
+                            width: 240px;
+                            background-color: #ffffff;
+                            box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+                            li {
+                                font-size: 16px !important;
+                                text-transform: none !important;
+                                font-family: sans-serif !important;
+                                color: #777;
+                                padding: 7px 0;
+                                line-height: 1.2;
+                                &:hover {
+                                    transition: 0.3s;
+                                    color: #34495e;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

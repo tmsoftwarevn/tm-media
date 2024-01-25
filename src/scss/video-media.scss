@@ -1,0 +1,92 @@
+:root {
+    --color-red: #cf2e2e;
+    --color-orange: #ff9900;
+}
+.carousel-item-padding-40-px {
+    margin-right: 20px;
+}
+.media {
+    &_title {
+        color: var(--color-red);
+        font-family: 'roboto';
+        font-size: 26px;
+        font-weight: 600;
+
+        margin-top: 100px;
+        margin-bottom: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        p {
+            height: 2px;
+            width: 400px;
+            max-width: 400px;
+            background-color: rgb(235, 198, 198);
+        }
+        p:nth-child(1){
+            margin-right: 20px;
+        }
+        p:nth-child(2){
+            margin-left: 20px;
+        }
+    }
+    &_carousel {
+        &_group {
+            width: 100%;
+            position: relative;
+            cursor: pointer;
+
+            img {
+                width: 100%;
+            }
+            svg {
+                width: 60px;
+                height: 60px;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+            }
+            .glightbox_video {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+            }
+
+            .outer_circle {
+                stroke-width: 3;
+                stroke-dasharray: 410;
+                stroke-dashoffset: 0;
+                stroke-linecap: square;
+                transition: all 0.4s ease-out;
+            }
+
+            .glightbox_video:hover .outer_circle {
+                stroke-dashoffset: 410;
+                transition:
+                    stroke 0.7s 0.4s ease-out,
+                    stroke-dashoffset 0.4s ease-out;
+            }
+
+            .glightbox_video:hover .inner-circle {
+                fill: #bf2428;
+                transition: fill 0.4s 0.3s ease-out;
+            }
+
+            .glightbox_video:hover .play {
+                fill: white;
+                transition: fill 0.4s 0.3s ease-out;
+            }
+            p {
+                font-size: 20px;
+                font-family: 'roboto';
+                text-transform: uppercase;
+                color: var(--color-red);
+                margin-top: 20px;
+                text-align: center;
+                font-weight: 600;
+            }
+        }
+    }
+}

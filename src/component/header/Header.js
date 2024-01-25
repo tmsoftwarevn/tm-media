@@ -1,11 +1,24 @@
 import "../../scss/header.scss";
 import logo from "../../assets/logo.png";
 import { MdKeyboardArrowDown } from "react-icons/md";
+import { useLayoutEffect, useState } from "react";
 
 const Header = () => {
+  const [scrollPosition, setPosition] = useState(0);
+  useLayoutEffect(() => {
+    function updatePosition() {
+      setPosition(window.scrollY);
+    }
+    window.addEventListener("scroll", updatePosition);
+    updatePosition();
+    return () => window.removeEventListener("scroll", updatePosition);
+  }, []);
   return (
     <div className="header">
-      <div className="header-1">
+      <div
+        className="header-1"
+        // className={scrollPosition > 500 ? "" : "header-1"}
+      >
         <div className="container">
           <div className="header-1_content">
             <p>sản xuất video quảng cáo</p>
@@ -14,7 +27,10 @@ const Header = () => {
         </div>
       </div>
 
-      <div className="header-2">
+      <div
+        //className="header-2"
+        className={scrollPosition > 500 ? "header-sticky" : "header-2"}
+      >
         <div className="container">
           <div className="header-2_content">
             <div className="logo">
@@ -56,7 +72,6 @@ const Header = () => {
                   <MdKeyboardArrowDown className="arrow-header" />
                   <ul className="dropdown-child">
                     <li>Dịch vụ xây kênh tiktok</li>
-                    
                   </ul>
                 </li>
                 <li className="parent-li">bài viết</li>

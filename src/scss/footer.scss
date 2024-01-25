@@ -1,0 +1,84 @@
+@import "./responsive.scss";
+:root {
+    --color-bg-ft: #f4f4f4;
+    --color-main: #0984e3;
+}
+
+.footer {
+    background-color: var(--color-bg-ft);
+    .main-f {
+        //display: flex;
+        // justify-content: space-between;
+
+        @include xs {
+            padding: 50px 20px 20px 20px;
+        }
+        @include sm {
+            padding: 50px 20px 20px 20px;
+        }
+        @include lg {
+        }
+        @include xl {
+            padding: 70px 0;
+        }
+        .title-f {
+            color: #333;
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            margin-top: 20px;
+        }
+        .des-f {
+            font-size: 15px;
+            font-weight: 600;
+            color: #838383;
+            .footer-3 {
+                p {
+                    margin: 0;
+                }
+            }
+            .box-tm {
+                margin-bottom: 20px;
+                .t-tm {
+                    cursor: pointer;
+                    &:hover {
+                        color: var(--color-main);
+                    }
+                }
+                li {
+                    margin-bottom: 5px;
+                    text-transform: capitalize;
+                    &:hover {
+                        color: var(--color-main);
+                        cursor: pointer;
+                    }
+                }
+            }
+
+            .email-f {
+                margin-left: 5px;
+                cursor: pointer;
+                color: #838383;
+                &:hover {
+                    color: var(--color-main);
+                }
+            }
+            .web {
+                margin-left: 5px;
+                cursor: pointer;
+                &:hover {
+                    color: var(--color-main);
+                }
+            }
+            .icon-f {
+                cursor: pointer;
+                &:hover {
+                    color: var(--color-main);
+                }
+            }
+            @include xs {
+                font-size: 13px;
+            }
+        }
+    }
+}

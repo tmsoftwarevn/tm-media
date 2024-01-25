@@ -1,0 +1,114 @@
+:root {
+    --color-red: #cf2e2e;
+    --color-orange: #ff9900;
+}
+.lienhe {
+    margin-bottom: 80px;
+    &_title {
+        color: var(--color-red);
+        font-family: 'roboto';
+        font-size: 26px;
+        font-weight: 600;
+        text-transform: uppercase;
+        margin-top: 100px;
+        margin-bottom: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        p {
+            height: 2px;
+            width: 400px;
+            max-width: 400px;
+            background-color: rgb(235, 198, 198);
+        }
+        p:nth-child(1) {
+            margin-right: 20px;
+        }
+        p:nth-child(2) {
+            margin-left: 20px;
+        }
+    }
+    &_left {
+        font-family: roboto;
+        font-size: 16px;
+        padding-right: 30px;
+        .anh {
+            width: 200px;
+            margin: 0 auto;
+            img {
+                width: 100%;
+            }
+        }
+
+        span {
+            font-weight: bold;
+        }
+        p {
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+        .web {
+            cursor: pointer;
+        }
+        &_tuvan {
+            color: #f8f8f8;
+            font-weight: 600;
+            padding: 12px 20px;
+            background-color: #c71313;
+            border-radius: 10px;
+            width: fit-content;
+            text-transform: uppercase;
+            font-size: 16px;
+            cursor: pointer;
+            font-family: roboto;
+        }
+    }
+    &_right {
+        box-shadow:
+            rgba(9, 30, 66, 0.25) 0px 4px 8px -2px,
+            rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;
+        padding: 20px;
+        .custom-input {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #ccc;
+            padding: 8px 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            input {
+                width: 100%;
+                border: none;
+                outline: none;
+            }
+            img {
+                width: 35px;
+                margin-right: 7px;
+            }
+        }
+        textarea {
+            width: 100%;
+            border: 1px solid #ccc;
+            margin-bottom: 20px;
+            outline: none;
+            padding: 5px;
+            margin-bottom: 40px;
+        }
+        .btn-lienhe {
+            display: flex;
+            justify-content: center;
+            font-size: 16px;
+            font-family: roboto;
+            font-weight: 600;
+            text-transform: uppercase;
+            padding: 6px 12px;
+            background-color: var(--color-red);
+            color: white;
+            border-radius: 3px;
+            outline: none;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+        }
+    }
+}

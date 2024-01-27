@@ -3,6 +3,7 @@ import logo from "../../assets/logo.png";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import { useLayoutEffect, useState } from "react";
 
+
 const Header = () => {
   const [scrollPosition, setPosition] = useState(0);
   useLayoutEffect(() => {

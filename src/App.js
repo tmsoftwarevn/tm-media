@@ -1,6 +1,12 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Home from "./page/Home.js/Home";
 import Layout from "./component/layout/Layout";
+import Login from "./component/admin/login/login";
+import LayoutAdmin from "./component/layout/LayoutAdmin";
+
+import QuanliLienhe from "./component/admin/quan ly lien he/QuanliLienhe";
+import QuanliMenu from "./component/admin/quan ly menu/QuanliMenu";
+import QuanliMedia from "./component/admin/quan ly media/QuanliMedia";
 
 
 const App =()=> {
@@ -17,6 +23,28 @@ const App =()=> {
           
       ],
     },
+    {
+      path: "/login",
+      element: <Login />,
+    },
+    {
+      path: "/admin",
+      element: <LayoutAdmin />,
+      children: [
+        {
+          path: "lienhe",
+          element: <QuanliLienhe />
+        },
+        {
+          path: "menu/:id",
+          element: <QuanliMenu />
+        },
+        {
+          path: "media/:id",
+          element: <QuanliMedia />
+        },
+      ],
+    }
   ]);
   return <RouterProvider router={router} />;
 }

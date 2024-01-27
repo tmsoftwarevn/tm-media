@@ -1,7 +1,7 @@
 import "../../scss/home.scss";
 import { IoCall } from "react-icons/io5";
 import bg_video from "../../assets/banner-bg/home-video.jpg";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useOutletContext } from "react-router-dom";
 import doi_tac from "../../assets/doi-tac-tieu-bieu.png";
 import CountUp from "react-countup";
@@ -9,8 +9,16 @@ import PhimSuKien from "../../component/media/PhimSuKien";
 import PhimDoanhNghiep from "../../component/media/PhimDoanhNghiep";
 import PhimQuangCao from "../../component/media/PhimQuangCao";
 import LienHe from "../lien he/LienHe";
+import { callTest } from "../../service/api";
 const Home = () => {
   const [isShowVideo, handleSetVideo] = useOutletContext();
+  const callApi = async () => {
+    const res = await callTest(2);
+    console.log("tttttt", res);
+  };
+  useEffect(() => {
+    callApi();
+  }, []);
   return (
     <>
       <div className="home">
@@ -168,9 +176,9 @@ const Home = () => {
             width="100%"
             height="450"
             style={{ border: 0 }}
-            allowfullscreen=""
+            allowFullScreen=""
             loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade"
+            referrerPolicy="no-referrer-when-downgrade"
           ></iframe>
         </div>
       </div>

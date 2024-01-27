@@ -33,7 +33,7 @@ const LienHe = () => {
           <div className="col-md-6">
             <div className="lienhe_left">
               <div className="anh">
-                <img src={logo} />
+                <img src={logo} alt="logo"/>
               </div>
 
               <p>

@@ -4,6 +4,9 @@ import { FaFacebook, FaYoutube, FaTiktok } from "react-icons/fa";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+
+
+
 const Footer = () => {
   const [isList, setList] = useState(false);
   const navigate = useNavigate();

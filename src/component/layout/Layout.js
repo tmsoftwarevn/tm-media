@@ -3,6 +3,10 @@ import Header from "../header/Header";
 import Footer from "../footer/Footer";
 import { useState } from "react";
 import "../../scss/show_video.scss";
+
+import "the-new-css-reset/css/reset.css";
+
+
 import { MdCancelPresentation } from "react-icons/md";
 const Layout = () => {
   const [isShowVideo, setShowVideo] = useState(false);
@@ -26,7 +30,7 @@ const Layout = () => {
             title="DỊCH VỤ QUAY DỰNG VIDEO SỰ KIỆN ĐẲNG CẤP - CHINH PHỤC MỌI KHOẢNH KHẮC"
             frameborder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowfullscreen
+            allowFullScreen
           ></iframe>
         </div>
       )}

@@ -29,6 +29,7 @@ const App = () => {
   const [listMenu_3, setListMenu_3] = useState([]);
 
   const fetchMenu_byId = async () => {
+    // get all name menu theo 1,2,3
     let res_1 = await callMenu_byid(1);
     if (res_1 && res_1.EC === 1) {
       setListMenu_1(res_1.data);
@@ -60,6 +61,18 @@ const App = () => {
     });
     return arr;
   };
+  const renderItems_video = (list) => {
+    let arr = [];
+    list.map((item, index) => {
+      arr.push(
+        getItem(
+          <Link to={`/admin/video/${item.id}`}>{item.name}</Link>,
+          `${item.id}-${index}`
+        )
+      );
+    });
+    return arr;
+  };
   const items = [
     getItem(
       <Link to="/admin/lienhe">Quản lý liên hệ</Link>,
@@ -86,7 +99,6 @@ const App = () => {
       "Dịch vụ quay phim",
       "sub2",
       <UserOutlined />,
-     
       renderItems(listMenu_1)
     ),
     getItem(
@@ -100,6 +112,25 @@ const App = () => {
       "sub4",
       <UserOutlined />,
       renderItems(listMenu_3)
+    ),
+    // list video theo menu
+    getItem(
+      "Video quay phim",
+      "sub5",
+      <UserOutlined />,
+      renderItems_video(listMenu_1)
+    ),
+    getItem(
+      "Video chụp ảnh",
+      "sub6",
+      <UserOutlined />,
+      renderItems_video(listMenu_2)
+    ),
+    getItem(
+      "Video xây kênh",
+      "sub7",
+      <UserOutlined />,
+      renderItems_video(listMenu_3)
     ),
   ];
 

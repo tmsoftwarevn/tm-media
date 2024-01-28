@@ -1,5 +1,5 @@
 import { Button, Card, Col, Flex, Input, Row, message } from "antd";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Upload } from "antd";
 import {
@@ -10,37 +10,31 @@ import {
   callUpload_Single_Img_baiviet,
 } from "../../../service/api";
 import ReactPlayer from "react-player";
+//import ReactCkeditor from "./ReactCkeditor";
 
-import { CKEditor } from "@ckeditor/ckeditor5-react";
-import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-
+import { Editor } from "@tinymce/tinymce-react";
 
 const QuanliMedia = () => {
-  // upload ảnh
-  function uploadAdapter(loader) {
-    return {
-      upload: () => {
-        return new Promise(async (resolve, reject) => {
-          try {
-            const file = await loader.file;
-            const res = await callUpload_Single_Img_baiviet(file);
-            resolve({
-              default: `${process.env.REACT_APP_BACKEND_URL}/images/baiviet/${res.data.fileUploaded}`,
-            });
-          } catch (error) {
-            reject("Upload ảnh thất bại");
-          }
-        });
-      },
-      abort: () => {},
-    };
-  }
-  function uploadPlugin(editor) {
-    editor.plugins.get("FileRepository").createUploadAdapter = (loader) => {
-      return uploadAdapter(loader);
-    };
-  }
+  const editorRef = useRef(null);
+  const filePickerCallback = function (cb, value, meta) {
+    const input = document.createElement("input");
+    input.setAttribute("type", "file");
+    input.setAttribute("accept", "image/*");
 
+    input.onchange = async function () {
+      const file = input.files[0];
+
+      const res = await callUpload_Single_Img_baiviet(file);
+      if (res && res.EC === 1) {
+        cb(
+          `${process.env.REACT_APP_BACKEND_URL}/images/baiviet/${res.data.fileUploaded}`,
+          { alt: file.name }
+        );
+      }
+    };
+
+    input.click();
+  };
   ////////////////////
   const params = useParams();
   const [detailMedia, setDetailMedia] = useState();
@@ -89,16 +83,17 @@ const QuanliMedia = () => {
       ]);
     }
     // set data hiển thị khi call api thành công
-    setPathBannerBg(res.data.banner_bg);
-    setPathBannerVideo(res.data.video_bg);
-    setLink(res.data.link);
-    setNoidung(res.data.noidung);
+    setPathBannerBg(res.data?.banner_bg);
+    setPathBannerVideo(res.data?.video_bg);
+    setLink(res.data?.link);
+    setNoidung(res.data?.noidung);
   };
 
   useEffect(() => {
     fetchDetailMedia();
   }, [params.id]);
-
+  console.log('rrrr',detailMedia)
+  //console.log('iddd', params.id)
   const onChange = ({ fileList: newFileList }) => {
     setFileList(newFileList);
   };
@@ -163,8 +158,14 @@ const QuanliMedia = () => {
       link: link,
       noidung: noidung,
     };
-
-    const res = await callUpdateMedia(params.id, data);
+    console.log("check data: ", data);
+    const res = await callUpdateMedia(
+      params.id,
+      pathBannerBg,
+      pathBannerVideo,
+      link,
+      noidung
+    );
     if (res && res.EC === 1) {
       message.success("Cập nhật thành công");
       fetchDetailMedia();
@@ -226,88 +227,53 @@ const QuanliMedia = () => {
         </Col>
       </Row>
       {/* // react edit word */}
-      {params.id != 1 && (
-        <div>
-          <CKEditor
-            config={{
-              // toolbar: [
-              //   "undo",
-              //   "redo",
-              //   "bold",
-              //   "italic",
-              //   "blockQuote",
-              //   "imageTextAlternative",
-              //   "imageUpload",
-              //   "heading",
-              //   "imageStyle:side",
-              //   "link",
-              //   "numberedList",
-              //   "bulletedList",
 
-              // ],
-              toolbar: {
-                items: [
-                  "undo",
-                  "redo",
-                  "|",
-                  "heading",
-                  "|",
-                  "fontfamily",
-                  "fontsize",
-                  "fontColor",
-                  "fontBackgroundColor",
-                  "|",
-                  "bold",
-                  "italic",
-                  "strikethrough",
-                  "subscript",
-                  "superscript",
-                  "code",
-                  "-", // break point
-                  "|",
-                  "alignment",
-                  "link",
-                  "uploadImage",
-                  "blockQuote",
-                  "codeBlock",
-                  "|",
-                  "bulletedList",
-                  "numberedList",
-                  "todoList",
-                  "outdent",
-                  "indent",
-                  "|",
-                  "TextColor",
-                  "BGColor",
-                ],
-              },
-             
-              extraPlugins: [uploadPlugin],
-            }}
-            editor={ClassicEditor}
-            //editor={editor}
-            onReady={(editor) => {
-              editor.editing.view.change((writer) => {
-                writer.setStyle(
-                  "height",
-                  "500px",
-                  editor.editing.view.document.getRoot()
-                );
-              });
-            }}
-            onBlur={(event, editor) => {}}
-            onFocus={(event, editor) => {}}
-            onChange={(e, editor) => {
-              setNoidung(editor.getData());
-            }}
-            data={noidung}
-          />
-        </div>
-      )}
+      <Editor
+        apiKey="htwmksgkmbhnyfvm52bd7ud6y20qqa47efjw5s9rxklqmkgd"
+        //onInit={(evt, editor) => (editor._beforeUnload(noidung))}
+        onChange={(evt, editor) => setNoidung(editor.getContent())}
+        initialValue={noidung}
+        
+        //value={noidung}
+        init={{
+          height: 500,
+          menubar: false,
+          plugins: [
+            "advlist",
+            "autolink",
+            "lists",
+            "link",
+            "image",
+            "charmap",
+            "preview",
+            "anchor",
+            "searchreplace",
+            "visualblocks",
+            "code",
+            "fullscreen",
+            "insertdatetime",
+            "media",
+            "table",
+            "code",
+            "help",
+            "wordcount",
+          ],
+          toolbar:
+            "undo redo | blocks | " +
+            "bold italic forecolor | alignleft aligncenter " +
+            "alignright alignjustify | bullist numlist outdent indent | " +
+            "removeformat | help | image",
+          content_style:
+            "body { font-family: Helvetica, Arial, sans-serif; font-size: 14px }",
+
+          file_picker_types: "image",
+          file_picker_callback: filePickerCallback,
+        }}
+      />
 
       {/* /////////// */}
 
-      <Flex justify="center">
+      <Flex justify="center" className="mt-5">
         <Button type="primary" onClick={() => handleCallUpdate()}>
           Cập nhật
         </Button>

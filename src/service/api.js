@@ -24,8 +24,8 @@ export const callUpdateMenu = (id, name) => {
   return axios.put(`/api/v1/menu/${id}`, { name });
 };
 
-export const callAddMenu = (name, type_id) => {
-  return axios.post(`/api/v1/menu/`, { name, type_id });
+export const callAddMenu = (data) => {
+  return axios.post(`/api/v1/menu/`, data.name, data.type_id);
 };
 
 // upload ảnh
@@ -55,18 +55,48 @@ export const callUpload_Single_Img_baiviet = (fileImg) => {
 };
 // xóa ảnh, not use body with delete
 export const callDeleteImg = (file) => {
-  // console.log("apiii:", file);
   return axios.post("/api/v1/deleteImg", { fileImg: file });
 };
 
-export const callUpdateMedia =(id,data)=>{
-  return axios.put(`/api/v1/media/${id}`,{data})
-}
+// media
+export const callUpdateMedia = (id, banner_bg, video_bg, link, noidung) => {
+  return axios.put(`/api/v1/media/${id}`, {
+    banner_bg,
+    video_bg,
+    link,
+    noidung,
+  });
+};
 
-export const callAddMedia =(data)=>{
-  return axios.post(`/api/v1/media`,{data})
-}
+export const callAddMedia = (data) => {
+  return axios.post(
+    `/api/v1/media`,
+    data.banner_bg,
+    data.video_bg,
+    data.link,
+    data.noidung,
+    data.type_id
+  );
+};
 
-export const callDetailMedia = (id)=>{
-  return axios.get(`/api/v1/media/${id}`)
-}
+export const callDetailMedia = (id) => {
+  return axios.get(`/api/v1/media/${id}`);
+};
+
+// video noi bat
+export const callAddVideoNoibat = (data) => {
+  return axios.post(`/api/v1/video-noibat`, { data });
+};
+
+export const callUpadteVideoNoibat = (id, data) => {
+  return axios.put(
+    `/api/v1/video-noibat/${id}`,
+    data.video_bg,
+    data.link,
+    data.name
+  );
+};
+
+export const callGetVideoNoibat = (id) => {
+  return axios.get(`/api/v1/video-noibat/detail/${id}`);
+};

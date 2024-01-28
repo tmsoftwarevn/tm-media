@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Button, Col, Form, Input, Modal, Row, message } from "antd";
-import { callAddMedia, callAddMenu } from "../../../service/api";
+import {
+  callAddMedia,
+  callAddMenu,
+  callAddVideoNoibat,
+} from "../../../service/api";
 import { useParams } from "react-router-dom";
 
 const AddMenu = (props) => {
@@ -11,25 +15,36 @@ const AddMenu = (props) => {
   const handleCancel = () => {
     setIsModalAddMenu(false);
   };
-  const onFinish = async (values) => {
+  const onFinish = (values) => {
     const { name } = values;
     fetchAddMenu(name);
     form.resetFields();
   };
- 
+
   const fetchAddMenu = async (name) => {
-    let res = await callAddMenu(name, params.id);
+    const menu = {
+      name: name,
+      type_id: params.id,
+    };
+    let res = await callAddMenu(menu);
     if (res && res.EC === 1) {
-      // thêm media khi tạo menu, để update 
+      // thêm media khi tạo menu, để update
       const data = {
         banner_bg: "",
-        video_bg : "",
-        link : "",
+        video_bg: "",
+        link: "",
         noidung: "",
-        type_id: res.data.id
-      }
+        type_id: res.data.id,
+      };
+      const video_noibat = {
+        video_bg: "",
+        link: "",
+        name: "",
+        type_id: res.data.id,
+      };
+      const add_video = await callAddVideoNoibat(video_noibat);
       const add = await callAddMedia(data);
-      
+
       message.success("Thêm thành công");
       setIsModalAddMenu(false);
       fetchMenu_byId();
@@ -64,7 +79,6 @@ const AddMenu = (props) => {
                     message: "Tên không được để trống !",
                   },
                 ]}
-                
               >
                 <Input />
               </Form.Item>

@@ -33,6 +33,9 @@ export const callAddMenu = (name, type_id) => {
   return axios.post(`/api/v1/menu/`, { name, type_id });
 };
 
+export const callActive_menu = () =>{
+  return axios.get(`/api/v1/menu_active`);
+}
 // upload ảnh
 export const callUpload_Single_Img = (fileImg) => {
   const bodyFormData = new FormData();
@@ -121,7 +124,9 @@ export const callAddVideoNoibat = (type_id, video_bg, link, name) => {
 export const callUpadteVideoNoibat = (id, video_bg, link, name) => {
   return axios.put(`/api/v1/video-noibat/${id}`, { video_bg, link, name });
 };
+
 // danh sach video theo id
+
 export const callGetVideoNoibat_byid = (id) => {
   return axios.get(`/api/v1/video-noibat/${id}`);
 };
@@ -187,3 +192,5 @@ export const callGetBaiviet_paginate = (page, limit) => {
 export const callGetAll_Baiviet = () =>{
   return axios.get(`/api/v1/listbaiviet`);
 }
+
+//////

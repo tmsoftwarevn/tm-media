@@ -1,11 +1,16 @@
 import "../../scss/header.scss";
 import logo from "../../assets/logo.png";
 import { MdKeyboardArrowDown } from "react-icons/md";
-import { useLayoutEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
+import { callMenu_byid } from "../../service/api";
 
 
 const Header = () => {
   const [scrollPosition, setPosition] = useState(0);
+  const [menu_video, setMenu_video] = useState([]);
+  const [menu_chupanh, setMenu_chupanh] = useState([]);
+  const [menu_xaykenh, setMenu_xaykenh] = useState([]);
+
   useLayoutEffect(() => {
     function updatePosition() {
       setPosition(window.scrollY);
@@ -14,19 +19,42 @@ const Header = () => {
     updatePosition();
     return () => window.removeEventListener("scroll", updatePosition);
   }, []);
+  const fetch_getMenu = async () => {
+    //1: video, 2: chup anh, 3: xay kenh
+    let video = await callMenu_byid(1);
+    {
+      if (video && video.EC === 1) {
+        setMenu_video(video.data);
+      }
+    }
+    let chupanh = await callMenu_byid(2);
+    {
+      if (chupanh && chupanh.EC === 1) {
+        setMenu_chupanh(chupanh.data);
+      }
+    }
+    let xaykenh = await callMenu_byid(3);
+    {
+      if (xaykenh && xaykenh.EC === 1) {
+        setMenu_xaykenh(xaykenh.data);
+      }
+    }
+  };
+  useEffect(() => {
+    fetch_getMenu();
+  }, []);
+
   return (
     <div className="header">
-      <div
-        className="header-1"
-        // className={scrollPosition > 500 ? "" : "header-1"}
-      >
+  
+      {/* <div className="header-1">
         <div className="container">
           <div className="header-1_content">
-            <p>sản xuất video quảng cáo</p>
+            <p>TM MEDIA</p>
             <p>HOTLINE: 0123.555.444</p>
           </div>
         </div>
-      </div>
+      </div> */}
 
       <div
         //className="header-2"
@@ -44,35 +72,27 @@ const Header = () => {
                   sản xuất video
                   <MdKeyboardArrowDown className="arrow-header" />
                   <ul className="dropdown-child">
-                    <li>Dịch vụ quay phim</li>
-                    <li>Quay phim sự kiện</li>
-                    <li>Quay phim Doanh Nghiệp</li>
-                    <li>Quay phim TVC</li>
-                    <li>Quay phim sản phẩm</li>
-                    <li>Quay phim Spa</li>
-                    <li>Quay phim Teambuilding</li>
+                    {menu_video.map((item) => {
+                      return <li>{item.name}</li>;
+                    })}
                   </ul>
                 </li>
                 <li className="parent-li drop-parent">
                   chụp ảnh quảng cáo
                   <MdKeyboardArrowDown className="arrow-header" />
                   <ul className="dropdown-child">
-                    <li>Chụp ảnh sản phẩm</li>
-                    <li>Chụp hình sự kiện</li>
-                    <li>Chụp ảnh khai trương</li>
-                    <li>Chụp team building</li>
-                    <li>Chụp ảnh profile</li>
-                    <li>Chụp ảnh nhà hàng</li>
-                    <li>Chụp hình menu</li>
-                    <li>Chụp look book</li>
-                    <li>Chụp ảnh công trình</li>
+                    {menu_chupanh.map((item, index) => {
+                      return <li key={item.id}>{item.name}</li>;
+                    })}
                   </ul>
                 </li>
                 <li className="parent-li drop-parent">
-                  xây kênh tiktok
+                  dịch vụ xây kênh
                   <MdKeyboardArrowDown className="arrow-header" />
                   <ul className="dropdown-child">
-                    <li>Dịch vụ xây kênh tiktok</li>
+                    {menu_xaykenh.map((item) => {
+                      return <li key={item.id}>{item.name}</li>;
+                    })}
                   </ul>
                 </li>
                 <li className="parent-li">bài viết</li>

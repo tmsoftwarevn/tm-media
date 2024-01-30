@@ -6,24 +6,41 @@ import { useOutletContext } from "react-router-dom";
 import doi_tac from "../../assets/doi-tac-tieu-bieu.png";
 import CountUp from "react-countup";
 import PhimSuKien from "../../component/media/PhimSuKien";
-import PhimDoanhNghiep from "../../component/media/PhimDoanhNghiep";
-import PhimQuangCao from "../../component/media/PhimQuangCao";
+
 import LienHe from "../lien he/LienHe";
-import { callTest } from "../../service/api";
+import { callActive_menu, callDetailMedia } from "../../service/api";
+import Video from "../../component/video/Video";
 const Home = () => {
   const [isShowVideo, handleSetVideo] = useOutletContext();
-  const callApi = async () => {
-    const res = await callTest(2);
-    console.log("tttttt", res);
+  const [mediaHome, setMediaHome] = useState("");
+  const [activeMenu, setActiveMenu] = useState([]);
+  const fetch_mediaHome = async () => {
+    const res = await callDetailMedia(1);
+    if (res && res.EC === 1) {
+      setMediaHome(res.data);
+    }
   };
+  const fetch_ActiveMenu = async () => {
+    const res = await callActive_menu();
+    if (res && res.EC === 1) {
+      setActiveMenu(res.data);
+    }
+  };
+  
   useEffect(() => {
-    callApi();
+    fetch_mediaHome();
+    fetch_ActiveMenu();
   }, []);
+
   return (
     <>
       <div className="home">
         <section id="b-5324">
-          <div className="bg-banner"></div>
+          <div className="bg-banner">
+            <img
+              src={`${process.env.REACT_APP_BACKEND_URL}/images/banner/${mediaHome?.banner_bg}`} alt=""
+            />
+          </div>
           <div className="overlay"></div>
 
           <div className="bg-banner_content">
@@ -45,11 +62,13 @@ const Home = () => {
 
                 <div className="col-md-6 bg-banner_content_right">
                   <div className="group-right">
-                    <img src={bg_video} />
+                    <img
+                      src={`${process.env.REACT_APP_BACKEND_URL}/images/banner/${mediaHome?.video_bg}`} alt=""
+                    />
 
                     <div
                       className="glightbox_video"
-                      onClick={() => handleSetVideo(true)}
+                      onClick={() => handleSetVideo(true, mediaHome?.link)}
                     >
                       <svg
                         viewBox="0 0 131 131"
@@ -108,7 +127,7 @@ const Home = () => {
                 </div>
               </div>
               <div className="col-md-6 thuonghieu">
-                <img src={doi_tac} />
+                <img src={doi_tac} alt=""/>
                 <p>
                   HƠN 2.183 THƯƠNG HIỆU BẬC NHẤT ĐANG TIN DÙNG DỊCH VỤ SẢN XUẤT
                   VIDEO{" "}
@@ -156,17 +175,16 @@ const Home = () => {
           </div>
         </section>
 
-        <PhimSuKien isShowVideo={isShowVideo} handleSetVideo={handleSetVideo} />
-
-        <PhimDoanhNghiep
-          isShowVideo={isShowVideo}
-          handleSetVideo={handleSetVideo}
-        />
-
-        <PhimQuangCao
-          isShowVideo={isShowVideo}
-          handleSetVideo={handleSetVideo}
-        />
+        {activeMenu && activeMenu.map((item) => {
+          return (
+            <Video
+              name={item}
+              isShowVideo={isShowVideo}
+              handleSetVideo={handleSetVideo}
+            />
+          );
+        })}
+        {/* <Video isShowVideo={isShowVideo} handleSetVideo={handleSetVideo} /> */}
 
         <LienHe />
 

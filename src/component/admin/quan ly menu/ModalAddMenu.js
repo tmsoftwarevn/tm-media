@@ -31,7 +31,7 @@ const AddMenu = (props) => {
     if (res && res.EC === 1) {
       // thêm media khi tạo menu, để update
 
-      const add_video = await callAddVideoNoibat(res.data.id, "", "", "");
+      //const add_video = await callAddVideoNoibat(res.data.id, "", "", "");
       const add = await callAddMedia(res.data.id, "", "", "", "", "", "");
 
       message.success("Thêm thành công");

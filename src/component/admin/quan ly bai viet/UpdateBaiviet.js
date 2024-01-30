@@ -1,4 +1,4 @@
-import { Button, Card, Col, Flex, Input, Modal, Row, message } from "antd";
+import {  Card, Col,Input, Modal, Row, message } from "antd";
 import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Upload } from "antd";
@@ -217,7 +217,7 @@ const UpdateBaiviet = (props) => {
           </Row>
           {/* // react edit word */}
 
-          {params.id != 1 && (
+          {params.id !== 1 && (
             <>
               <h4 className="mb-4">Nội dung:</h4>
               <Editor

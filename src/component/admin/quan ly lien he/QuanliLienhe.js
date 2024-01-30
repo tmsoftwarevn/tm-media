@@ -183,7 +183,6 @@ const QuanliLienhe = () => {
       dataIndex: "STT",
       key: "STT",
 
-      ...getColumnSearchProps("STT"),
     },
     {
       title: "Họ tên",

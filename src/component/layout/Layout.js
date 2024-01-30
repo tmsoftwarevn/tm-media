@@ -1,41 +1,71 @@
 import { Outlet } from "react-router-dom";
 import Header from "../header/Header";
 import Footer from "../footer/Footer";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "../../scss/show_video.scss";
 
 import "the-new-css-reset/css/reset.css";
 
-
 import { MdCancelPresentation } from "react-icons/md";
+import Loading from "../Loading/Loading";
+import ReactPlayer from "react-player";
 const Layout = () => {
   const [isShowVideo, setShowVideo] = useState(false);
-  const handleSetVideo = (b) => {
-    setShowVideo(b);
-  };
-  return (
-    <>
-      <Header />
-      <Outlet context={[isShowVideo, handleSetVideo]} />
-      <Footer />
+  const [link, setLink] = useState("");
+  const refOutside = useRef(null);
 
-      {isShowVideo && (
-        <div className="show-video">
-          <div className="blur"></div>
-          <div className="icon-x" onClick={() => setShowVideo(false)}>
-            <MdCancelPresentation />
+  const handleSetVideo = (b, video) => {
+    setShowVideo(b);
+    setLink(video);
+  };
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
+  }, []);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        refOutside &&
+        refOutside.current &&
+        !refOutside.current?.contains(event.target)
+      ) {
+        setShowVideo(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+
+  if (isLoading === true) {
+    return <Loading />;
+  } else
+    return (
+      <>
+        <Header />
+        <Outlet context={[isShowVideo, handleSetVideo]} />
+        <Footer />
+
+        {isShowVideo && (
+          <div className="show-video">
+            <div className="blur"></div>
+            {/* <div className="icon-x" onClick={() => setShowVideo(false)}>
+              <MdCancelPresentation />
+            </div> */}
+
+            <div className="video-yt" ref={refOutside}>
+              <ReactPlayer url={link} controls={true} />
+            </div>
           </div>
-          <iframe
-            src="https://www.youtube.com/embed/dJ30OQ7EsPk"
-            title="DỊCH VỤ QUAY DỰNG VIDEO SỰ KIỆN ĐẲNG CẤP - CHINH PHỤC MỌI KHOẢNH KHẮC"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowFullScreen
-          ></iframe>
-        </div>
-      )}
-    </>
-  );
+        )}
+      </>
+    );
 };
 
 export default Layout;

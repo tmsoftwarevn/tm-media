@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 //import "../../../scss/login.scss";
 import "../change pass/changePass.scss";
 import { callLogin } from "../../../service/api";
@@ -7,11 +7,16 @@ import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const navigate = useNavigate();
+  useEffect(() =>{
+    if (sessionStorage.getItem("Tm media")) {
+      navigate("/admin/lienhe");
+    }
+  },[])
   const onFinish = async (values) => {
     const { name, password } = values;
     let res = await callLogin(name, password);
     if (res && res.EC === 1) {
-      navigate("/admin/baiviet");
+      navigate("/admin/lienhe");
       sessionStorage.setItem("Tm media", "login");
     } else {
       message.error("Tài khoản hoặc mật khẩu không đúng !");

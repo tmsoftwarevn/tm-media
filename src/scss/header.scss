@@ -13,17 +13,17 @@
     box-shadow: 0px 25px 20px -20px rgba(0, 0, 0, 0.45);
     animation: slideDown 0.5s ease-in-out;
     margin: 0 auto;
-    z-index: 999999;
+    z-index: 99;
     top: 0;
     left: 0;
     width: 100%;
     background-color: #fff;
-    padding: 0;
-    //color: white;
+    padding: 10px 0;
+    
 }
 
 .header-1 {
-    padding: 10px 10px 0;
+    padding: 10px 0;
     background-color: var(--color-red);
     color: white;
     font-weight: 600;
@@ -37,7 +37,7 @@
     }
 }
 .header-2 {
-    padding: 20px 0 0;
+    padding: 10px 0;
     &_content {
         display: flex;
         align-items: center;
@@ -45,12 +45,13 @@
 
         .logo {
             width: 250px;
-            padding-bottom: 20px;
+            //padding-bottom: 20px;
             img {
                 width: 100%;
             }
         }
         .menu {
+            padding-top: 20px;
             .parent-ul {
                 display: flex;
                 justify-content: space-between;
@@ -68,7 +69,7 @@
                     text-transform: uppercase;
                     font-size: 15px;
                     border-bottom: 3px solid transparent;
-                    padding-bottom: 20px;
+                    //padding-bottom: 20px;
                     &:hover {
                         cursor: pointer;
                         border-bottom: 3px solid var(--color-red);

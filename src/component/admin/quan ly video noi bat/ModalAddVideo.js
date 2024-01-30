@@ -13,23 +13,21 @@ import { useParams } from "react-router-dom";
 const AddVideo = (props) => {
   const params = useParams();
 
-  const [pathBannerVideo, setPathBannerVideo] = useState();
-  const [name, setName] = useState();
-  const [link, setLink] = useState();
+  const [pathBannerVideo, setPathBannerVideo] = useState("");
+  const [name, setName] = useState("");
+  const [link, setLink] = useState("");
 
   const { isModalAddVideo, setIsModalAddVideo, fetchAllVideo } = props;
 
   const [fileList, setFileList] = useState([
-    {
-      uid: "-1",
-      name: "ảnh",
-      status: "done",
-      url: `${process.env.REACT_APP_BACKEND_URL}/images/banner/`,
-    },
+    
   ]);
 
   const handleCancel = () => {
     setIsModalAddVideo(false);
+    setFileList([]);
+    setLink("");
+    setName("");
   };
 
   const onChange = ({ fileList: newFileList }) => {
@@ -106,6 +104,7 @@ const AddVideo = (props) => {
               <Input
                 onChange={(e) => setName(e.target.value)}
                 placeholder="Nhập tên video"
+                value={name}
               ></Input>
             </Card>
           </Col>
@@ -113,7 +112,7 @@ const AddVideo = (props) => {
             <Card title="Ảnh nền video" bordered={true}>
               <Upload
                 listType="picture-card"
-                //fileList={fileList}
+                fileList={fileList}
                 customRequest={handleUploadFile_bannerVideo}
                 onChange={onChange}
                 onPreview={onPreview}
@@ -131,6 +130,7 @@ const AddVideo = (props) => {
                 className="mb-4"
                 onChange={(e) => setLink(e.target.value)}
                 placeholder="Nhập link youtube"
+                value={link}
               ></Input>
             </Card>
           </Col>

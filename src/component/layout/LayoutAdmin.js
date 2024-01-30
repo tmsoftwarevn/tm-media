@@ -3,14 +3,9 @@ import "../../scss/layoutAdmin.scss";
 
 import {
   ContactsOutlined,
-  DesktopOutlined,
   EditOutlined,
-  FileOutlined,
   HomeOutlined,
   MenuFoldOutlined,
-  PieChartOutlined,
-  TeamOutlined,
-  UserOutlined,
   VideoCameraAddOutlined,
   YoutubeOutlined,
 } from "@ant-design/icons";
@@ -34,6 +29,7 @@ const App = () => {
   const [listMenu_2, setListMenu_2] = useState([]);
   const [listMenu_3, setListMenu_3] = useState([]);
 
+  const [pathActive, setPathActive] = useState("/admin/lienhe");
   useEffect(() => {
     if (!sessionStorage.getItem("Tm media")) {
       navigate("/login");
@@ -72,6 +68,13 @@ const App = () => {
     });
     return arr;
   };
+  useEffect(() => {
+    const currentPathname = window.location.pathname;
+    const pathArray = currentPathname.split('/');
+    const pathString = pathArray.slice(1, 3).join('/');
+    setPathActive(`/${pathString}`);
+  }, [window.location.pathname]); 
+console.log(pathActive)
   const renderItems_video = (list) => {
     let arr = [];
     list.map((item, index) => {
@@ -97,8 +100,8 @@ const App = () => {
     ),
 
     getItem("Quản lý menu", "sub1", <MenuFoldOutlined />, [
-      getItem(<Link to="/admin/menu/1">Dịch vụ quay phim</Link>, "1"),
-      getItem(<Link to="/admin/menu/2">Dịch vụ chụp ảnh</Link>, "2"),
+      getItem(<Link to="/admin/menu/1">Sản xuất video</Link>, "1"),
+      getItem(<Link to="/admin/menu/2">Chụp ảnh quảng cáo</Link>, "2"),
       getItem(<Link to="/admin/menu/3">Dịch vụ Xây kênh</Link>, "3"),
     ]),
     getItem(
@@ -106,14 +109,16 @@ const App = () => {
       "/admin/trangchu",
       <HomeOutlined />
     ),
+
+
     getItem(
-      "Dịch vụ quay phim",
+      "Sản xuất video",
       "sub2",
       <VideoCameraAddOutlined />,
       renderItems(listMenu_1)
     ),
     getItem(
-      "Dịch vụ chụp hình",
+      "Chụp ảnh quảng cáo",
       "sub3",
       <VideoCameraAddOutlined />,
       renderItems(listMenu_2)
@@ -177,9 +182,12 @@ const App = () => {
 
         <Menu
           theme="light"
-          defaultSelectedKeys={["1"]}
+          //defaultSelectedKeys={["/admin/lienhe"]}
+          activeKey={pathActive}
+
           mode="inline"
           items={items}
+          onClick={(e) => setPathActive(e.key)}
         />
       </Sider>
 

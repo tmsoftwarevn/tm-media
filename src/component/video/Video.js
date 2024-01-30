@@ -18,6 +18,9 @@ const responsive = {
     items: 1,
   },
 };
+const customRight = () => {
+  return <div className=""></div>;
+};
 const Video = (props) => {
   const { isShowVideo, handleSetVideo, name } = props;
   const [listVideo, setListVideo] = useState([]);
@@ -41,12 +44,11 @@ const Video = (props) => {
         </div>
         <div className="media_carousel">
           <Carousel
-          
             responsive={responsive}
             itemClass="carousel-item-padding-40-px"
-            showDots={true}
-            arrows={false}
-            focusOnSelect={false} 
+            //showDots={true}
+            //arrows={false}
+            focusOnSelect={false}
             draggable={false} // ko kéo
             swipeable={false} // vuốt
             partialVisbile={false}
@@ -55,15 +57,15 @@ const Video = (props) => {
               listVideo.map((item) => {
                 return (
                   <div>
-                    <div className="media_carousel_group">
+                    <div
+                      className="media_carousel_group"
+                      onClick={() => handleSetVideo(true, item.link)}
+                    >
                       <img
                         src={`${process.env.REACT_APP_BACKEND_URL}/images/banner/${item?.video_bg}`}
                         alt=""
                       />
-                      <div
-                        className="glightbox_video"
-                        onClick={() => handleSetVideo(true, item.link)}
-                      >
+                      <div className="glightbox_video">
                         <svg
                           viewBox="0 0 131 131"
                           fill="none"
@@ -91,12 +93,11 @@ const Video = (props) => {
                         </svg>
                       </div>
                     </div>
-                    
+
                     <p>{item.name}</p>
                   </div>
                 );
               })}
-           
           </Carousel>
         </div>
       </div>

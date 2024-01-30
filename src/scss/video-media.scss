@@ -12,8 +12,8 @@
         font-family: 'roboto';
         font-size: 26px;
         font-weight: 600;
-        //margin-top: 100px;
-        //margin-bottom: 30px;
+        margin-top: 100px;
+        margin-bottom: 30px;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -23,30 +23,50 @@
             width: 400px;
             max-width: 400px;
             background-color: rgb(235, 198, 198);
-
             margin: auto;
         }
         p:nth-child(1){
-            margin-right: 20px;
+           // margin-right: 20px;
         }
         p:nth-child(2){
-            margin-right: 20px;
+           // margin-right: 20px;
         }
     }
     &_carousel {
         padding-right: -20px;
+        position: relative;
         &_group {
             width: 100%;
             position: relative;
-            cursor: pointer;
-
+           
+            &:hover{
+                cursor: pointer;
+                .outer_circle {
+                    stroke-dashoffset: 410;
+                    transition:
+                        stroke 0.7s 0.4s ease-out,
+                        stroke-dashoffset 0.4s ease-out;
+                }
+    
+                .inner-circle {
+                    fill: #bf2428;
+                    transition: fill 0.4s 0.3s ease-out;
+                }
+    
+                .play {
+                    fill: white;
+                    transition: fill 0.4s 0.3s ease-out;
+                }
+            }
             img {
                 width: 100%;
                 max-width: 100%;
+                
             }
             svg {
-                width: 60px;
-                height: 60px;
+                cursor: pointer;
+                width: 55px;
+                height: 55px;
                 position: absolute;
                 top: 50%;
                 left: 50%;
@@ -95,4 +115,18 @@
             font-weight: 600;
         }
     }
+}
+
+// ghi de carousel 
+.react-multiple-carousel__arrow{
+    top: 32%;
+    &:hover{
+        background-color: #eb3535;
+    }
+}
+.react-multiple-carousel__arrow--right{
+    right: calc(2% + 1px);
+}
+.react-multiple-carousel__arrow--left{
+    left: calc(1% + 1px);
 }

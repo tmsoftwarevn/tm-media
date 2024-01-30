@@ -5,23 +5,29 @@ import iconphone from "../../assets/icon-phone.png";
 import iconemail from "../../assets/icon-email.png";
 import { useState } from "react";
 import { IoCall } from "react-icons/io5";
+import { callAddLienhe } from "../../service/api";
+import { message } from "antd";
 
 const LienHe = () => {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [noidung, setNoidung] = useState("");
-    
 
-  const handleSaveForm = (e) => {
-    // e.preventDefault();
-    const data = {
-      name,
-      phone,
-      email,
-      noidung,
-    };
-    console.log(data);
+  const handleSaveForm = async (e) => {
+    e.preventDefault();
+
+    const res = await callAddLienhe(name, phone, email, noidung);
+    if (res && res.EC === 1) {
+      message.success("Cảm ơn bạn đã liên hệ với TM Media");
+      setName("");
+      setEmail("");
+      setPhone("");
+      setNoidung("");
+    }
+    else{
+      message.error("Vui lòng thử lại !");
+    }
   };
   return (
     <div className="lienhe">
@@ -33,7 +39,7 @@ const LienHe = () => {
           <div className="col-md-6">
             <div className="lienhe_left">
               <div className="anh">
-                <img src={logo} alt="logo"/>
+                <img src={logo} alt="logo" />
               </div>
 
               <p>
@@ -54,13 +60,13 @@ const LienHe = () => {
               </p>
             </div>
             <div className="lienhe_left_tuvan">
-                    <IoCall style={{ marginRight: "5px" }} />
-                    tư vấn ngay
-                  </div>
+              <IoCall style={{ marginRight: "5px" }} />
+              tư vấn ngay
+            </div>
           </div>
           <div className="col-md-6">
             <div className="lienhe_right">
-              <form>
+              <form onSubmit={handleSaveForm}>
                 <div className="custom-input">
                   <img src={iconname} />
                   <input
@@ -68,6 +74,7 @@ const LienHe = () => {
                     required
                     placeholder="Họ và tên"
                     onChange={(e) => setName(e.target.value)}
+                    value={name}
                   />
                 </div>
                 <div className="custom-input">
@@ -78,6 +85,7 @@ const LienHe = () => {
                     placeholder="Số điện thoại"
                     pattern="(03|05|07|08|09)[0-9]{8}"
                     onChange={(e) => setPhone(e.target.value)}
+                    value={phone}
                   />
                 </div>
                 <div className="custom-input">
@@ -87,14 +95,19 @@ const LienHe = () => {
                     required
                     placeholder="Email"
                     onChange={(e) => setEmail(e.target.value)}
+                    value={email}
                   />
                 </div>
                 <textarea
                   onChange={(e) => setNoidung(e.target.value)}
                   rows={10}
                   placeholder="Nội dung"
+                  value={noidung}
                 ></textarea>
-                <div className="btn-lienhe" onClick={(e) => handleSaveForm(e)}>
+                <div
+                  className="btn-lienhe"
+                  //onClick={(e) => handleSaveForm(e)}
+                >
                   <button type="submit" className="btn-lienhe">
                     Gửi liên hệ
                   </button>

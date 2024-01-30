@@ -17,6 +17,17 @@ export const callAllLienhe = () => {
 export const callDeleteLienhe = (id) => {
   return axios.delete(`/api/v1/lienhe/${id}`);
 };
+export const callAddLienhe = ( name,
+  phone,
+  email,
+  noidung) =>{
+  return axios.post(`/api/v1/lienhe`,{
+    name,
+    phone,
+    email,
+    noidung
+  });
+}
 // menu
 export const callMenu_byid = (id) => {
   return axios.get(`/api/v1/menu/${id}`);

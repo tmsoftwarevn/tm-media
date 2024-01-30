@@ -19,7 +19,7 @@ export const nonAccentVietnamese = (str) => {
   return str;
 };
 
-export const convertSlug = (str) => {
+export  const convertSlug = (str) => {
   str = nonAccentVietnamese(str);
   str = str.replace(/^\s+|\s+$/g, ""); // trim
   str = str.toLowerCase();

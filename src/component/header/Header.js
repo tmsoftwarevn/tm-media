@@ -3,13 +3,17 @@ import logo from "../../assets/logo.png";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import { useEffect, useLayoutEffect, useState } from "react";
 import { callMenu_byid } from "../../service/api";
+import { useNavigate } from "react-router-dom";
 
+import { convertSlug } from "../../utils/convertSlug";
 
 const Header = () => {
   const [scrollPosition, setPosition] = useState(0);
   const [menu_video, setMenu_video] = useState([]);
   const [menu_chupanh, setMenu_chupanh] = useState([]);
   const [menu_xaykenh, setMenu_xaykenh] = useState([]);
+
+  const navigate = useNavigate();
 
   useLayoutEffect(() => {
     function updatePosition() {
@@ -46,7 +50,6 @@ const Header = () => {
 
   return (
     <div className="header">
-  
       {/* <div className="header-1">
         <div className="container">
           <div className="header-1_content">
@@ -67,13 +70,26 @@ const Header = () => {
             </div>
             <div className="menu">
               <ul className="parent-ul">
-                <li className="parent-li">Trang chủ</li>
+                <li className="parent-li" onClick={() => navigate("/")}>
+                  Trang chủ
+                </li>
                 <li className="drop-parent parent-li">
                   sản xuất video
                   <MdKeyboardArrowDown className="arrow-header" />
                   <ul className="dropdown-child">
-                    {menu_video.map((item) => {
-                      return <li>{item.name}</li>;
+                    {menu_video.map((item, index) => {
+                      
+                      let name_slug = convertSlug(item.name) ;
+                      return (
+                        <li
+                          key={item.id}
+                          onClick={() =>
+                            navigate(`/media/${name_slug}?id=${item.id}`)
+                          }
+                        >
+                          {item.name}
+                        </li>
+                      );
                     })}
                   </ul>
                 </li>

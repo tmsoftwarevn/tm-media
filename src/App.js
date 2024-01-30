@@ -10,6 +10,7 @@ import QuanliMedia from "./component/admin/quan ly media/QuanliMedia";
 import Video_Noibat from "./component/admin/quan ly video noi bat/VideoNoiBat";
 import QuanlyBaiviet from "./component/admin/quan ly bai viet/QuanlyBaiviet";
 import ChangePass from "./component/admin/change pass/ChangePass";
+import DichVuMedia from "./component/media/DichVuMedia";
 
 const App = () => {
   const router = createBrowserRouter([
@@ -19,7 +20,8 @@ const App = () => {
       children: [
         { index: true, element: <Home /> },
         {
-          path: "/",
+          path: "/media/:name",
+          element: <DichVuMedia />
         },
       ],
     },

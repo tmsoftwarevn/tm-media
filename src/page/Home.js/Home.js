@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { useOutletContext } from "react-router-dom";
 import doi_tac from "../../assets/doi-tac-tieu-bieu.png";
 import CountUp from "react-countup";
-import PhimSuKien from "../../component/media/PhimSuKien";
+
 
 import LienHe from "../lien he/LienHe";
 import { callActive_menu, callDetailMedia } from "../../service/api";
@@ -56,7 +56,7 @@ const Home = () => {
                   </h3>
                   <div className="tuvan">
                     <IoCall style={{ marginRight: "5px" }} />
-                    tư vấn ngay
+                    Tư vấn ngay
                   </div>
                 </div>
 
@@ -122,8 +122,8 @@ const Home = () => {
                 </div>
                 {/* <div className="thong-tin_btn">yêu cầu tư vấn</div> */}
                 <div className="thong-tin_btn">
-                  <IoCall style={{ marginRight: "5px" }} />
-                  tư vấn ngay
+                  {/* <IoCall style={{ marginRight: "5px" }} /> */}
+                  Liên hệ ngay
                 </div>
               </div>
               <div className="col-md-6 thuonghieu">
@@ -184,7 +184,6 @@ const Home = () => {
             />
           );
         })}
-        {/* <Video isShowVideo={isShowVideo} handleSetVideo={handleSetVideo} /> */}
 
         <LienHe />
 

@@ -9,6 +9,7 @@ import "the-new-css-reset/css/reset.css";
 import { MdCancelPresentation } from "react-icons/md";
 import Loading from "../Loading/Loading";
 import ReactPlayer from "react-player";
+import BasicSpeedDial from "../icon contact/ContactMui";
 const Layout = () => {
   const [isShowVideo, setShowVideo] = useState(false);
   const [link, setLink] = useState("");
@@ -42,29 +43,28 @@ const Layout = () => {
     };
   }, []);
 
-
   if (isLoading === true) {
     return <Loading />;
   } else
     return (
-      <>
+      <div >
+        
         <Header />
         <Outlet context={[isShowVideo, handleSetVideo]} />
         <Footer />
+       
+        <BasicSpeedDial className="contact-mui"/>
 
         {isShowVideo && (
           <div className="show-video">
             <div className="blur"></div>
-            {/* <div className="icon-x" onClick={() => setShowVideo(false)}>
-              <MdCancelPresentation />
-            </div> */}
 
             <div className="video-yt" ref={refOutside}>
               <ReactPlayer url={link} controls={true} />
             </div>
           </div>
         )}
-      </>
+      </div>
     );
 };
 

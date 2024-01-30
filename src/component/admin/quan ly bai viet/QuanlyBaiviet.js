@@ -1,7 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
-import { SearchOutlined } from "@ant-design/icons";
+import Highlighter from "react-highlight-words";
+import { useParams } from "react-router-dom";
+
+import { CiEdit } from "react-icons/ci";
 import {
   Button,
+  Checkbox,
+  Flex,
+  Image,
   Input,
   Popconfirm,
   Space,
@@ -9,49 +15,18 @@ import {
   message,
   notification,
 } from "antd";
-import Highlighter from "react-highlight-words";
-import { callAllLienhe, callDeleteLienhe } from "../../../service/api";
-import moment from "moment";
-import { CSVLink } from "react-csv";
 import { MdDelete } from "react-icons/md";
+import { callDeleteBaiviet, callGetAll_Baiviet } from "../../../service/api";
+import { SearchOutlined } from "@ant-design/icons";
+import moment from "moment";
+import AddBaiviet from "./AddBaiviet";
+import UpdateBaiviet from "./UpdateBaiviet";
 
 const title = "Xác nhận xóa ?";
-const QuanliLienhe = () => {
+const QuanlyBaiviet = () => {
   const [searchText, setSearchText] = useState("");
   const [searchedColumn, setSearchedColumn] = useState("");
   const searchInput = useRef(null);
-  // set value
-  const [listLienhe, setListLienhe] = useState([]);
-
-  const fetchAllLienhe = async () => {
-    let res = await callAllLienhe();
-    if (res && res.EC === 1) {
-      customLienhe(res.data);
-    }
-  };
-  const customLienhe = (list) => {
-    let arr = [];
-    if (list && list.length > 0) {
-      list.map((item, index) => {
-        arr.push({
-          id: item.id,
-          key: index + 1,
-          STT: index + 1,
-          name: item.name,
-          phone: item.phone,
-          email: item.email,
-          noidung: item.noidung,
-          createdAt: moment(item?.createdAt).format("DD-MM-YY hh:mm:ss"),
-          action: index,
-        });
-      });
-    }
-    setListLienhe(arr);
-  };
-
-  useEffect(() => {
-    fetchAllLienhe();
-  }, []);
 
   const handleSearch = (selectedKeys, confirm, dataIndex) => {
     confirm();
@@ -61,19 +36,6 @@ const QuanliLienhe = () => {
   const handleReset = (clearFilters) => {
     clearFilters();
     setSearchText("");
-  };
-
-  const confirm = async (id) => {
-    console.log("tttttttt", id);
-    let res = await callDeleteLienhe(id);
-    if (res && res.EC === 1) {
-      message.success("Xóa thành công ");
-      fetchAllLienhe();
-    } else {
-      notification.error({
-        description: "Xóa thất bại",
-      });
-    }
   };
   const getColumnSearchProps = (dataIndex) => ({
     filterDropdown: ({
@@ -177,47 +139,106 @@ const QuanliLienhe = () => {
         text
       ),
   });
+  //////
+  const params = useParams();
+  const [listBaiviet, setListBaiviet] = useState([]);
+
+  const [isModalAddBaiviet, setIsModalAddBaiviet] = useState(false);
+  const [dataUpdate, setDataUpdate] = useState("");
+  const [isModalUpdateBaiviet, setIsModalUpdateBaiviet] = useState(false);
+
+  useEffect(() => {
+    fetchBaiviet_All();
+  }, []);
+
+  const fetchBaiviet_All = async () => {
+    let res = await callGetAll_Baiviet();
+    if (res && res.EC === 1) {
+      customBaiviet(res.data);
+    }
+  };
+  const confirm = async (id) => {
+    let res = await callDeleteBaiviet(id);
+    if (res && res.EC === 1) {
+      message.success("Xóa thành công ");
+      fetchBaiviet_All();
+    } else {
+      notification.error({
+        description: "Có lỗi xảy ra",
+      });
+    }
+  };
+
+  const customBaiviet = (list) => {
+    let arr = [];
+    list.map((item, index) => {
+      arr.push({
+        key: index + 1,
+        STT: index + 1,
+        id: item.id,
+        tieude: item.tieude,
+        meta_des: item.meta_des,
+        noidung: item.noidung,
+        thumbnail: item.thumbnail,
+        key_word: item.key_word,
+        mota_ngan: item.mota_ngan,
+        createdAt:  moment(item?.createdAt).format("DD-MM-YY hh:mm:ss"),
+        updatedAt:  moment(item?.updatedAt).format("DD-MM-YY hh:mm:ss"),
+        action: index,
+      });
+    });
+
+    setListBaiviet(arr);
+  };
+
+  const handleUpdateBaiviet = (record) => {
+    setIsModalUpdateBaiviet(true);
+    setDataUpdate(record);
+  };
+
   const columns = [
     {
       title: "STT",
       dataIndex: "STT",
       key: "STT",
-
-      ...getColumnSearchProps("STT"),
     },
     {
-      title: "Họ tên",
-      dataIndex: "name",
-      key: "name",
-
-      ...getColumnSearchProps("name"),
+      title: "Tiêu đề",
+      dataIndex: "tieude",
+      key: "tieude",
+      ...getColumnSearchProps("tieude"),
     },
     {
-      title: "Số điện thoại",
-      dataIndex: "phone",
-      key: "phone",
-
-      ...getColumnSearchProps("phone"),
+      title: "Ảnh bài viết",
+      dataIndex: "thumbnail",
+      key: "thumbnail",
+      render: (text, record, index) => {
+        return (
+          <div>
+            <Image
+              width={200}
+              src={`${process.env.REACT_APP_BACKEND_URL}/images/banner/${record?.thumbnail}`}
+            />
+          </div>
+        );
+      },
     },
     {
-      title: "Email",
-      dataIndex: "email",
-      key: "email",
-      ...getColumnSearchProps("email"),
-    },
-    {
-      title: "Nội dung",
-      dataIndex: "noidung",
-      key: "noidung",
-      ...getColumnSearchProps("noidung"),
-    },
-    {
-      title: "Ngày liên hệ",
+      title: "Ngày tạo",
       dataIndex: "createdAt",
       key: "createdAt",
       sorter: {
         compare: (a, b) =>
-          moment(a.createdAt,"DD-MM-YY hh:mm:ss") - moment(b.createdAt, "DD-MM-YY hh:mm:ss"),
+          moment(a.createdAt, "DD-MM-YY hh:mm:ss") - moment(b.createdAt, "DD-MM-YY hh:mm:ss"),
+      },
+    },
+    {
+      title: "Ngày cập nhật",
+      dataIndex: "updatedAt",
+      key: "updatedAt",
+      sorter: {
+        compare: (a, b) =>
+          moment(a.updatedAt, "DD-MM-YY hh:mm:ss") - moment(b.updatedAt, "DD-MM-YY hh:mm:ss"),
       },
     },
     {
@@ -259,6 +280,21 @@ const QuanliLienhe = () => {
                 </Button>
               </Popconfirm>
             </div>
+
+            <div>
+              <Button
+                size="small"
+                type="primary"
+                style={{ display: "flex", alignItems: "center" }}
+              >
+                <CiEdit
+                  style={{ fontSize: "15px" }}
+                  onClick={() => {
+                    handleUpdateBaiviet(record);
+                  }}
+                />
+              </Button>
+            </div>
           </div>
         );
       },
@@ -266,21 +302,37 @@ const QuanliLienhe = () => {
   ];
   return (
     <>
-      <CSVLink data={listLienhe}>
-        <Button type="primary" className="mb-3">
-          Excel
+      <Flex justify="flex-end">
+        <Button
+          type="primary"
+          className="mb-3"
+          onClick={() => setIsModalAddBaiviet(true)}
+        >
+          Thêm mới
         </Button>
-      </CSVLink>
+      </Flex>
+
       <Table
         columns={columns}
-        dataSource={listLienhe}
+        dataSource={listBaiviet}
         pagination={{
           showSizeChanger: true,
           position: ["bottomCenter"],
           pageSizeOptions: [2, 10, 50, 100],
         }}
       />
+      <AddBaiviet
+      isModalAddBaiviet = {isModalAddBaiviet}
+      setIsModalAddBaiviet ={setIsModalAddBaiviet}
+      fetchBaiviet_All = {fetchBaiviet_All}
+       />
+       <UpdateBaiviet 
+       isModalUpdateBaiviet = {isModalUpdateBaiviet}
+       setIsModalUpdateBaiviet = {setIsModalUpdateBaiviet}
+       fetchBaiviet_All = {fetchBaiviet_All}
+       dataUpdate = {dataUpdate}
+       />
     </>
   );
 };
-export default QuanliLienhe;
+export default QuanlyBaiviet;

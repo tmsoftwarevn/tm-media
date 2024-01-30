@@ -1,16 +1,21 @@
 import React, { useEffect, useState } from "react";
 import "../../scss/layoutAdmin.scss";
 
-
 import {
+  ContactsOutlined,
   DesktopOutlined,
+  EditOutlined,
   FileOutlined,
+  HomeOutlined,
+  MenuFoldOutlined,
   PieChartOutlined,
   TeamOutlined,
   UserOutlined,
+  VideoCameraAddOutlined,
+  YoutubeOutlined,
 } from "@ant-design/icons";
 import { Breadcrumb, Button, Layout, Menu, theme } from "antd";
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 import { callMenu_byid } from "../../service/api";
 const { Header, Content, Footer, Sider } = Layout;
 function getItem(label, key, icon, children) {
@@ -23,12 +28,18 @@ function getItem(label, key, icon, children) {
 }
 
 const App = () => {
+  const navigate = useNavigate();
   const [collapsed, setCollapsed] = useState(false);
   const [listMenu_1, setListMenu_1] = useState([]);
   const [listMenu_2, setListMenu_2] = useState([]);
   const [listMenu_3, setListMenu_3] = useState([]);
 
-  const fetchMenu_byId = async () => {
+  useEffect(() => {
+    if (!sessionStorage.getItem("Tm media")) {
+      navigate("/login");
+    }
+  }, []);
+  const fetchMenu_byId_layout = async () => {
     // get all name menu theo 1,2,3
     let res_1 = await callMenu_byid(1);
     if (res_1 && res_1.EC === 1) {
@@ -44,13 +55,13 @@ const App = () => {
     }
   };
   useEffect(() => {
-    fetchMenu_byId();
+    fetchMenu_byId_layout();
   }, []);
 
   // custom antd render list
   const renderItems = (list) => {
     let arr = [];
-   
+
     list.map((item, index) => {
       arr.push(
         getItem(
@@ -77,15 +88,15 @@ const App = () => {
     getItem(
       <Link to="/admin/lienhe">Quản lý liên hệ</Link>,
       "/admin/lienhe",
-      <PieChartOutlined />
+      <ContactsOutlined />
     ),
     getItem(
       <Link to="/admin/baiviet">Quản lý bài viết</Link>,
       "/admin/baiviet",
-      <PieChartOutlined />
+      <EditOutlined />
     ),
 
-    getItem("Quản lý menu", "sub1", <UserOutlined />, [
+    getItem("Quản lý menu", "sub1", <MenuFoldOutlined />, [
       getItem(<Link to="/admin/menu/1">Dịch vụ quay phim</Link>, "1"),
       getItem(<Link to="/admin/menu/2">Dịch vụ chụp ảnh</Link>, "2"),
       getItem(<Link to="/admin/menu/3">Dịch vụ Xây kênh</Link>, "3"),
@@ -93,43 +104,43 @@ const App = () => {
     getItem(
       <Link to="/admin/media/1">Baner trang chủ</Link>,
       "/admin/trangchu",
-      <PieChartOutlined />
+      <HomeOutlined />
     ),
     getItem(
       "Dịch vụ quay phim",
       "sub2",
-      <UserOutlined />,
+      <VideoCameraAddOutlined />,
       renderItems(listMenu_1)
     ),
     getItem(
       "Dịch vụ chụp hình",
       "sub3",
-      <UserOutlined />,
+      <VideoCameraAddOutlined />,
       renderItems(listMenu_2)
     ),
     getItem(
       "Dịch vụ xây kênh",
       "sub4",
-      <UserOutlined />,
+      <VideoCameraAddOutlined />,
       renderItems(listMenu_3)
     ),
     // list video theo menu
     getItem(
       "Video quay phim",
       "sub5",
-      <UserOutlined />,
+      <YoutubeOutlined />,
       renderItems_video(listMenu_1)
     ),
     getItem(
       "Video chụp ảnh",
       "sub6",
-      <UserOutlined />,
+      <YoutubeOutlined />,
       renderItems_video(listMenu_2)
     ),
     getItem(
       "Video xây kênh",
       "sub7",
-      <UserOutlined />,
+      <YoutubeOutlined />,
       renderItems_video(listMenu_3)
     ),
   ];
@@ -179,7 +190,11 @@ const App = () => {
             background: colorBgContainer,
           }}
         >
-          <Button type="primary" className="ms-3">
+          <Button
+            type="primary"
+            className="ms-3"
+            onClick={() => navigate("/doimatkhau")}
+          >
             Đổi mật khẩu
           </Button>
         </Header>
@@ -202,7 +217,7 @@ const App = () => {
               borderRadius: borderRadiusLG,
             }}
           >
-            <Outlet />
+            <Outlet context={[collapsed, fetchMenu_byId_layout]} />
           </div>
         </Content>
         <Footer

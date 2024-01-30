@@ -1,15 +1,24 @@
 import React, { useEffect, useRef, useState } from "react";
 
-import { useParams } from "react-router-dom";
+import { useOutletContext, useParams } from "react-router-dom";
 import { callDeleteMenu_byId, callMenu_byid } from "../../../service/api";
 import { CiEdit } from "react-icons/ci";
-import { Button, Flex, Popconfirm, Table, message, notification } from "antd";
+import {
+  Button,
+  Checkbox,
+  Flex,
+  Popconfirm,
+  Table,
+  message,
+  notification,
+} from "antd";
 import { MdDelete } from "react-icons/md";
 import UpdateMenu from "./ModalUpdateMenu";
 import AddMenu from "./ModalAddMenu";
 
 const title = "Xác nhận xóa ?";
 const QuanliMenu = () => {
+  const [collapsed, fetchMenu_byId_layout] = useOutletContext();
   const params = useParams();
   const [listMenu, setListMenu] = useState([]);
 
@@ -32,6 +41,7 @@ const QuanliMenu = () => {
     if (res && res.EC === 1) {
       message.success("Xóa thành công ");
       fetchMenu_byId();
+      fetchMenu_byId_layout();
     } else {
       notification.error({
         description: "Có lỗi xảy ra",
@@ -47,6 +57,7 @@ const QuanliMenu = () => {
         id: item.id,
         name: item.name,
         action: index,
+        active: item.active,
       });
     });
     setListMenu(arr);
@@ -55,6 +66,7 @@ const QuanliMenu = () => {
     setIsModalUpdateMenu(true);
     setDataUpdate(record);
   };
+
   const columns = [
     {
       title: "STT",
@@ -65,6 +77,18 @@ const QuanliMenu = () => {
       title: "Tên",
       dataIndex: "name",
       key: "name",
+    },
+    {
+      title: "Trạng thái ở trang chủ",
+      dataIndex: "active",
+      key: "active",
+      render: (text, record, index) => {
+        return (
+          <Checkbox checked={+listMenu[index]?.active === 1 ? true : false}>
+            Hiện
+          </Checkbox>
+        );
+      },
     },
     {
       title: "Thao tác",
@@ -151,11 +175,13 @@ const QuanliMenu = () => {
         setIsModalUpdateMenu={setIsModalUpdateMenu}
         dataUpdate={dataUpdate}
         fetchMenu_byId={fetchMenu_byId}
+        fetchMenu_byId_layout={fetchMenu_byId_layout}
       />
       <AddMenu
         isModalAddMenu={isModalAddMenu}
         setIsModalAddMenu={setIsModalAddMenu}
-        fetchMenu_byId = {fetchMenu_byId}
+        fetchMenu_byId={fetchMenu_byId}
+        fetchMenu_byId_layout={fetchMenu_byId_layout}
       />
     </>
   );

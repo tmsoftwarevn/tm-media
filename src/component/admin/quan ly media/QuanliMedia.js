@@ -13,9 +13,11 @@ import ReactPlayer from "react-player";
 //import ReactCkeditor from "./ReactCkeditor";
 
 import { Editor } from "@tinymce/tinymce-react";
+import TextArea from "antd/es/input/TextArea";
 
 const QuanliMedia = () => {
   const editorRef = useRef(null);
+  // luu anh phan noi dung
   const filePickerCallback = function (cb, value, meta) {
     const input = document.createElement("input");
     input.setAttribute("type", "file");
@@ -38,7 +40,8 @@ const QuanliMedia = () => {
   ////////////////////
   const params = useParams();
   const [detailMedia, setDetailMedia] = useState();
-
+  const [key_word, setKey_word] = useState("");
+  const [meta_des, setMeta_des] = useState("");
   const [pathBannerBg, setPathBannerBg] = useState();
   const [pathBannerVideo, setPathBannerVideo] = useState();
   const [noidung, setNoidung] = useState("");
@@ -87,13 +90,14 @@ const QuanliMedia = () => {
     setPathBannerVideo(res.data?.video_bg);
     setLink(res.data?.link);
     setNoidung(res.data?.noidung);
+    setKey_word(res.data?.key_word);
+    setMeta_des(res.data?.meta_des);
   };
 
   useEffect(() => {
     fetchDetailMedia();
   }, [params.id]);
-  console.log('rrrr',detailMedia)
-  //console.log('iddd', params.id)
+
   const onChange = ({ fileList: newFileList }) => {
     setFileList(newFileList);
   };
@@ -142,25 +146,34 @@ const QuanliMedia = () => {
   const handleCallUpdate = async () => {
     // nếu là trang chủ, ko có nội dung
     if (+params.id === 1) {
-      if (!pathBannerBg || !pathBannerVideo || !link) {
+      if (
+        !pathBannerBg ||
+        !pathBannerVideo ||
+        !link ||
+        !key_word ||
+        !meta_des
+      ) {
         message.error("Hãy nhập đầy đủ thông tin");
         return;
       }
     } else {
-      if (!pathBannerBg || !pathBannerVideo || !link || !noidung) {
+      if (
+        !pathBannerBg ||
+        !pathBannerVideo ||
+        !link ||
+        !noidung ||
+        !key_word ||
+        !meta_des
+      ) {
         message.error("Hãy nhập đầy đủ thông tin");
         return;
       }
     }
-    const data = {
-      banner_bg: pathBannerBg,
-      video_bg: pathBannerVideo,
-      link: link,
-      noidung: noidung,
-    };
-    console.log("check data: ", data);
+
     const res = await callUpdateMedia(
       params.id,
+      key_word,
+      meta_des,
       pathBannerBg,
       pathBannerVideo,
       link,
@@ -176,8 +189,35 @@ const QuanliMedia = () => {
 
   return (
     <div>
+      <Flex justify="end" className="mb-5">
+        <Button type="primary" onClick={() => handleCallUpdate()}>
+          Cập nhật
+        </Button>
+      </Flex>
       <Row gutter={16}>
-        <Col span={8}>
+        <Col span={12}>
+          <Card title="Key word">
+            <TextArea
+              rows={3}
+              onChange={(e) => setKey_word(e.target.value)}
+              value={key_word}
+              maxLength={255}
+            />
+          </Card>
+        </Col>
+        <Col span={12}>
+          <Card title="Description">
+            <TextArea
+              rows={3}
+              value={meta_des}
+              onChange={(e) => setMeta_des(e.target.value)}
+              maxLength={255}
+            />
+          </Card>
+        </Col>
+      </Row>
+      <Row gutter={16}>
+        <Col span={12}>
           <Card title="Ảnh nền header" bordered={true}>
             <Upload
               listType="picture-card"
@@ -193,7 +233,7 @@ const QuanliMedia = () => {
             </Upload>
           </Card>
         </Col>
-        <Col span={8}>
+        <Col span={12}>
           <Card title="Ảnh nền video" bordered={true}>
             <Upload
               listType="picture-card"
@@ -209,8 +249,8 @@ const QuanliMedia = () => {
             </Upload>
           </Card>
         </Col>
-        <Col span={8}>
-          <Card title="Video youtube" bordered={true}>
+        <Col span={12}>
+          <Card title="Link youtube" bordered={true}>
             <Input
               className="mb-4"
               onChange={(e) => setLink(e.target.value)}
@@ -219,8 +259,7 @@ const QuanliMedia = () => {
             ></Input>
             <ReactPlayer
               url={detailMedia?.link}
-              width={"100%"}
-              height={"auto"}
+              width={"100%"}             
               controls={true}
             />
           </Card>
@@ -228,56 +267,54 @@ const QuanliMedia = () => {
       </Row>
       {/* // react edit word */}
 
-      <Editor
-        apiKey="htwmksgkmbhnyfvm52bd7ud6y20qqa47efjw5s9rxklqmkgd"
-        //onInit={(evt, editor) => (editor._beforeUnload(noidung))}
-        onChange={(evt, editor) => setNoidung(editor.getContent())}
-        initialValue={noidung}
-        
-        //value={noidung}
-        init={{
-          height: 500,
-          menubar: false,
-          plugins: [
-            "advlist",
-            "autolink",
-            "lists",
-            "link",
-            "image",
-            "charmap",
-            "preview",
-            "anchor",
-            "searchreplace",
-            "visualblocks",
-            "code",
-            "fullscreen",
-            "insertdatetime",
-            "media",
-            "table",
-            "code",
-            "help",
-            "wordcount",
-          ],
-          toolbar:
-            "undo redo | blocks | " +
-            "bold italic forecolor | alignleft aligncenter " +
-            "alignright alignjustify | bullist numlist outdent indent | " +
-            "removeformat | help | image",
-          content_style:
-            "body { font-family: Helvetica, Arial, sans-serif; font-size: 14px }",
+      {params.id != 1 && (
+        <>
+          <h4 className="mb-4">Nội dung:</h4>
+          <Editor
+            apiKey={process.env.REACT_APP_API_KEY_EDITOR}
+            //onInit={(evt, editor) => (editor._beforeUnload(noidung))}
+            onChange={(evt, editor) => setNoidung(editor.getContent())}
+            initialValue={noidung}
+            init={{
+              height: 500,
+              menubar: false,
+              plugins: [
+                "advlist",
+                "autolink",
+                "lists",
+                "link",
+                "image",
+                "charmap",
+                "preview",
+                "anchor",
+                "searchreplace",
+                "visualblocks",
+                "code",
+                "fullscreen",
+                "insertdatetime",
+                "media",
+                "table",
+                "code",
+                "help",
+                "wordcount",
+              ],
+              toolbar:
+                "undo redo | blocks | " +
+                "bold italic forecolor | alignleft aligncenter " +
+                "alignright alignjustify | bullist numlist outdent indent | " +
+                "removeformat | help | image",
+              content_style:
+                "body { font-family: Helvetica, Arial, sans-serif; font-size: 14px }",
 
-          file_picker_types: "image",
-          file_picker_callback: filePickerCallback,
-        }}
-      />
+              file_picker_types: "image",
+              file_picker_callback: filePickerCallback,
+            }}
+          />
+        </>
+      )}
 
       {/* /////////// */}
 
-      <Flex justify="center" className="mt-5">
-        <Button type="primary" onClick={() => handleCallUpdate()}>
-          Cập nhật
-        </Button>
-      </Flex>
     </div>
   );
 };

@@ -3,7 +3,12 @@ import axios from "../utils/axios-customized";
 export const callTest = (id) => {
   return axios.post("/api/v1/test", { id });
 };
-
+export const callLogin = (name, password) =>{
+  return axios.post("/api/v1/login",{name, password});
+}
+export const callChangePass = (name,password,new_password) =>{
+  return axios.put("/api/v1/changepassword",{name,password,new_password});
+}
 // liên hệ
 
 export const callAllLienhe = () => {
@@ -20,12 +25,12 @@ export const callDeleteMenu_byId = (id) => {
   return axios.delete(`/api/v1/menu/${id}`);
 };
 
-export const callUpdateMenu = (id, name) => {
-  return axios.put(`/api/v1/menu/${id}`, { name });
+export const callUpdateMenu = (id, name, active) => {
+  return axios.put(`/api/v1/menu/${id}`, { name, active });
 };
 
-export const callAddMenu = (data) => {
-  return axios.post(`/api/v1/menu/`, data.name, data.type_id);
+export const callAddMenu = (name, type_id) => {
+  return axios.post(`/api/v1/menu/`, { name, type_id });
 };
 
 // upload ảnh
@@ -41,6 +46,7 @@ export const callUpload_Single_Img = (fileImg) => {
     },
   });
 };
+
 export const callUpload_Single_Img_baiviet = (fileImg) => {
   const bodyFormData = new FormData();
   bodyFormData.append("fileImg", fileImg);
@@ -59,8 +65,18 @@ export const callDeleteImg = (file) => {
 };
 
 // media
-export const callUpdateMedia = (id, banner_bg, video_bg, link, noidung) => {
+export const callUpdateMedia = (
+  id,
+  key_word,
+  meta_des,
+  banner_bg,
+  video_bg,
+  link,
+  noidung
+) => {
   return axios.put(`/api/v1/media/${id}`, {
+    key_word,
+    meta_des,
     banner_bg,
     video_bg,
     link,
@@ -68,15 +84,24 @@ export const callUpdateMedia = (id, banner_bg, video_bg, link, noidung) => {
   });
 };
 
-export const callAddMedia = (data) => {
-  return axios.post(
-    `/api/v1/media`,
-    data.banner_bg,
-    data.video_bg,
-    data.link,
-    data.noidung,
-    data.type_id
-  );
+export const callAddMedia = (
+  type_id,
+  key_word,
+  meta_des,
+  banner_bg,
+  video_bg,
+  link,
+  noidung
+) => {
+  return axios.post(`/api/v1/media`, {
+    key_word,
+    meta_des,
+    banner_bg,
+    video_bg,
+    link,
+    noidung,
+    type_id,
+  });
 };
 
 export const callDetailMedia = (id) => {
@@ -84,19 +109,81 @@ export const callDetailMedia = (id) => {
 };
 
 // video noi bat
-export const callAddVideoNoibat = (data) => {
-  return axios.post(`/api/v1/video-noibat`, { data });
+export const callAddVideoNoibat = (type_id, video_bg, link, name) => {
+  return axios.post(`/api/v1/video-noibat`, {
+    type_id,
+    video_bg,
+    link,
+    name,
+  });
 };
 
-export const callUpadteVideoNoibat = (id, data) => {
-  return axios.put(
-    `/api/v1/video-noibat/${id}`,
-    data.video_bg,
-    data.link,
-    data.name
-  );
+export const callUpadteVideoNoibat = (id, video_bg, link, name) => {
+  return axios.put(`/api/v1/video-noibat/${id}`, { video_bg, link, name });
 };
-
-export const callGetVideoNoibat = (id) => {
+// danh sach video theo id
+export const callGetVideoNoibat_byid = (id) => {
+  return axios.get(`/api/v1/video-noibat/${id}`);
+};
+export const callGetVideo_detail_byid = (id) => {
   return axios.get(`/api/v1/video-noibat/detail/${id}`);
 };
+
+export const callDeleteViddeo = (id) => {
+  return axios.delete(`/api/v1/video-noibat/${id}`);
+};
+
+// bai viet
+
+export const callAddBaiviet = (
+  tieude,
+  key_word,
+  meta_des,
+  noidung,
+  thumbnail,
+  mota_ngan
+) => {
+  return axios.post("/api/v1/baiviet", {
+    tieude,
+    key_word,
+    meta_des,
+    noidung,
+    thumbnail,
+    mota_ngan,
+  });
+};
+
+export const callDeleteBaiviet = (id) => {
+  return axios.delete(`/api/v1/baiviet/${id}`);
+};
+
+export const callUpdateBaiviet = (
+  id,
+  tieude,
+  key_word,
+  meta_des,
+  noidung,
+  thumbnail,
+  mota_ngan
+) => {
+  return axios.put(`/api/v1/baiviet/${id}`, {
+    tieude,
+    key_word,
+    meta_des,
+    noidung,
+    thumbnail,
+    mota_ngan,
+  });
+};
+
+export const callGetdetail_Baiviet = (id) => {
+  return axios.get(`/api/v1/baiviet/${id}`);
+};
+
+export const callGetBaiviet_paginate = (page, limit) => {
+  return axios.get(`/api/v1/baiviet-page?page=${page}&limit=${limit}`);
+};
+
+export const callGetAll_Baiviet = () =>{
+  return axios.get(`/api/v1/listbaiviet`);
+}

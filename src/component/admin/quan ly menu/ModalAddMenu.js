@@ -8,7 +8,12 @@ import {
 import { useParams } from "react-router-dom";
 
 const AddMenu = (props) => {
-  const { isModalAddMenu, setIsModalAddMenu, fetchMenu_byId } = props;
+  const {
+    isModalAddMenu,
+    setIsModalAddMenu,
+    fetchMenu_byId,
+    fetchMenu_byId_layout,
+  } = props;
   const params = useParams();
   const [form] = Form.useForm();
 
@@ -22,32 +27,17 @@ const AddMenu = (props) => {
   };
 
   const fetchAddMenu = async (name) => {
-    const menu = {
-      name: name,
-      type_id: params.id,
-    };
-    let res = await callAddMenu(menu);
+    let res = await callAddMenu(name, params.id);
     if (res && res.EC === 1) {
       // thêm media khi tạo menu, để update
-      const data = {
-        banner_bg: "",
-        video_bg: "",
-        link: "",
-        noidung: "",
-        type_id: res.data.id,
-      };
-      const video_noibat = {
-        video_bg: "",
-        link: "",
-        name: "",
-        type_id: res.data.id,
-      };
-      const add_video = await callAddVideoNoibat(video_noibat);
-      const add = await callAddMedia(data);
+
+      const add_video = await callAddVideoNoibat(res.data.id, "", "", "");
+      const add = await callAddMedia(res.data.id, "", "", "", "", "", "");
 
       message.success("Thêm thành công");
       setIsModalAddMenu(false);
       fetchMenu_byId();
+      fetchMenu_byId_layout();
     } else {
       message.error("Thêm thất bại ");
     }

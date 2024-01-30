@@ -1,68 +1,62 @@
 import React, { useState } from "react";
-import { Form, Button, Alert } from "react-bootstrap";
-import "../../../scss/login.scss";
+//import "../../../scss/login.scss";
+import "../change pass/changePass.scss";
+import { callLogin } from "../../../service/api";
+import { Button, Form, Input, message } from "antd";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
-  const [inputUsername, setInputUsername] = useState("");
-  const [inputPassword, setInputPassword] = useState("");
-
-  const [show, setShow] = useState(false);
-
-
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    if (inputUsername !== "admin" || inputPassword !== "admin") {
-      setShow(true);
+  const navigate = useNavigate();
+  const onFinish = async (values) => {
+    const { name, password } = values;
+    let res = await callLogin(name, password);
+    if (res && res.EC === 1) {
+      navigate("/admin/baiviet");
+      sessionStorage.setItem("Tm media", "login");
+    } else {
+      message.error("Tài khoản hoặc mật khẩu không đúng !");
     }
-
   };
 
   return (
-    <div className="sign-in__wrapper">
-      <div className="sign-in__backdrop"></div>
-      <Form className="shadow p-4 bg-white rounded" onSubmit={handleSubmit}>
-        <div className="h4 mb-5 text-center tm" >TM MEDIA</div>
-
-        {show ? (
-          <Alert
-            className="mb-2"
-            variant="danger"
-            onClose={() => setShow(false)}
-            dismissible
+    <div className="content-p">
+      <div className="form-content">
+        <div className="tm">TM MEDIA</div>
+        <Form name="basic" onFinish={onFinish} autoComplete="off">
+          <Form.Item
+            labelCol={{ span: 24 }}
+            name="name"
+            label="Tên đăng nhập"
+            rules={[
+              {
+                required: true,
+                message: "Hãy nhập tên!",
+              },
+            ]}
           >
-            Tài khoản hoặc mật khẩu không đúng
-          </Alert>
-        ) : (
-          <div />
-        )}
-        <Form.Group className="mb-2" controlId="username">
-        
-          <Form.Control
-            type="text"
-            value={inputUsername}
-            placeholder="Tài khoản"
-            onChange={(e) => setInputUsername(e.target.value)}
-            required
-          />
-        </Form.Group>
-        <Form.Group className="mb-2" controlId="password">
-          <Form.Control
-            type="password"
-            value={inputPassword}
-            placeholder="Mật khẩu"
-            onChange={(e) => setInputPassword(e.target.value)}
-            required
-          />
-        </Form.Group>
-       
-          <Button className="w-100" variant="primary" type="submit">
-            Đăng nhập
-          </Button>
-         
-      </Form>
-    
-      <div className="w-100 mb-2 position-absolute bottom-0 start-50 translate-middle-x text-white text-center">
-        Made by TM | &copy;
+            <Input placeholder="Tên đăng nhập" />
+          </Form.Item>
+
+          <Form.Item
+            labelCol={{ span: 24 }}
+            name="password"
+            label="Mật khẩu"
+            rules={[
+              {
+                required: true,
+                message: "Nhập mật khẩu",
+              },
+            ]}
+          >
+            <Input.Password placeholder="Mật khẩu" />
+          </Form.Item>
+
+          <Form.Item>
+            <Button type="primary" htmlType="submit" style={{ width: "100%" }}>
+              Đăng nhập
+            </Button>
+          </Form.Item>
+        </Form>
       </div>
     </div>
   );

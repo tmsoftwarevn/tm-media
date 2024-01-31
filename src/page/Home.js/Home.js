@@ -3,21 +3,24 @@ import "../../scss/bannerHeader.scss";
 
 import { useEffect, useState } from "react";
 import { useOutletContext } from "react-router-dom";
-import doi_tac from "../../assets/doi-tac-tieu-bieu.png";
+
 import CountUp from "react-countup";
 
 import LienHe from "../lien he/LienHe";
-import { callActive_menu, callDetailMedia } from "../../service/api";
+import {
+  callActive_menu,
+
+  callDetailTrangchu,
+} from "../../service/api";
 import Video from "../../component/video/Video";
 import BannerHeader from "../bannerHeader";
 
 const Home = () => {
   const [isShowVideo, handleSetVideo] = useOutletContext();
-  const [mediaHome, setMediaHome] = useState("");
   const [activeMenu, setActiveMenu] = useState([]);
-
+  const [mediaHome, setMediaHome] = useState("");
   const fetch_mediaHome = async () => {
-    const res = await callDetailMedia(1);
+    const res = await callDetailTrangchu();
     if (res && res.EC === 1) {
       setMediaHome(res.data);
     }
@@ -29,7 +32,7 @@ const Home = () => {
       setActiveMenu(res.data);
     }
   };
-  
+
   useEffect(() => {
     fetch_mediaHome();
     fetch_ActiveMenu();
@@ -38,14 +41,14 @@ const Home = () => {
   return (
     <>
       <div className="home">
-        <BannerHeader media = {mediaHome} handleSetVideo = {handleSetVideo}/>
+        <BannerHeader media={mediaHome} handleSetVideo={handleSetVideo} />
         <section id="gt-6978">
           <div className="container">
             <div className="row">
               <div className="col-md-6 thong-tin">
                 <p className="thong-tin_title">TM MEDIA – VIDEO MARKETING</p>
                 <div className="thong-tin_des">
-                  <p>
+                  {/* <p>
                     Chúng tôi tự hào là đơn vị TM MEDIA cung cấp các giải pháp
                     Sản xuất video hình ảnh giúp nhiều Doanh Nghiệp quảng bá
                     thương hiệu đúng với mục đích Marketing truyền tải thông
@@ -55,19 +58,20 @@ const Home = () => {
                     Với đội ngũ nhiều năm kinh nghiệp có thể tư vấn giúp cho
                     Doanh Nghiệp tối ưu chi phí sản xuất video hình ảnh một cách
                     tinh gọn nhất.
-                  </p>
+                  </p> */}
+                  {mediaHome.mota_cty}
                 </div>
-                {/* <div className="thong-tin_btn">yêu cầu tư vấn</div> */}
-                <div className="thong-tin_btn">
-                  {/* <IoCall style={{ marginRight: "5px" }} /> */}
-                  Liên hệ ngay
-                </div>
+
+                <div className="thong-tin_btn">Liên hệ ngay</div>
               </div>
               <div className="col-md-6 thuonghieu">
-                <img src={doi_tac} alt=""/>
-                <p>
-                  HƠN 2.183 THƯƠNG HIỆU BẬC NHẤT ĐANG TIN DÙNG DỊCH VỤ SẢN XUẤT
-                  VIDEO{" "}
+                <img
+                  src={`${process.env.REACT_APP_BACKEND_URL}/images/banner/${mediaHome.thuonghieu}`}
+                  alt=""
+                />
+
+                <p className="mt-2">
+                  Các thương hiệu đã hợp tác
                 </p>
               </div>
             </div>
@@ -112,15 +116,16 @@ const Home = () => {
           </div>
         </section>
 
-        {activeMenu && activeMenu.map((item) => {
-          return (
-            <Video
-              name={item}
-              isShowVideo={isShowVideo}
-              handleSetVideo={handleSetVideo}
-            />
-          );
-        })}
+        {activeMenu &&
+          activeMenu.map((item) => {
+            return (
+              <Video
+                name={item}
+                isShowVideo={isShowVideo}
+                handleSetVideo={handleSetVideo}
+              />
+            );
+          })}
 
         <LienHe />
 

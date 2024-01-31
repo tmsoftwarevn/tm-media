@@ -2,7 +2,7 @@ import "../../scss/header.scss";
 import logo from "../../assets/logo.png";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import { useEffect, useLayoutEffect, useState } from "react";
-import { callMenu_byid } from "../../service/api";
+import { callDetailTrangchu, callMenu_byid } from "../../service/api";
 import { useNavigate } from "react-router-dom";
 
 import { convertSlug } from "../../utils/convertSlug";
@@ -16,6 +16,7 @@ const Header = () => {
   const [menu_xaykenh, setMenu_xaykenh] = useState([]);
 
   const navigate = useNavigate();
+  const [mediaHome, setMediaHome] = useState("");
 
   useLayoutEffect(() => {
     function updatePosition() {
@@ -45,8 +46,16 @@ const Header = () => {
       setMenu_xaykenh(xaykenh.data);
     }
   };
+  const fetch_mediaHome = async () => {
+    const res = await callDetailTrangchu();
+    if (res && res.EC === 1) {
+      setMediaHome(res.data);
+    }
+  };
+
   useEffect(() => {
     fetch_getMenu();
+    fetch_mediaHome();
   }, []);
 
   return (
@@ -67,7 +76,10 @@ const Header = () => {
         <div className="container">
           <div className="header-2_content">
             <div className="logo">
-              <img src={logo} alt="logo" />
+              <img
+                src={`${process.env.REACT_APP_BACKEND_URL}/images/banner/${mediaHome.logo}`}
+                alt="logo"
+              />
             </div>
             <div className="menu">
               <ul className="parent-ul">

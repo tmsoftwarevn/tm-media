@@ -3,9 +3,9 @@ import logo from "../../assets/logo tm branding.jpg";
 import iconname from "../../assets/icon-name.png";
 import iconphone from "../../assets/icon-phone.png";
 import iconemail from "../../assets/icon-email.png";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { IoCall } from "react-icons/io5";
-import { callAddLienhe } from "../../service/api";
+import { callAddLienhe, callDetailTrangchu } from "../../service/api";
 import { message } from "antd";
 
 const LienHe = () => {
@@ -13,6 +13,18 @@ const LienHe = () => {
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [noidung, setNoidung] = useState("");
+
+  const [mediaHome, setMediaHome] = useState("");
+  const fetch_mediaHome = async () => {
+    const res = await callDetailTrangchu();
+    if (res && res.EC === 1) {
+      setMediaHome(res.data);
+    }
+  };
+  useEffect(() => {
+    fetch_mediaHome();
+  
+  }, []);
 
   const handleSaveForm = async (e) => {
     e.preventDefault();
@@ -28,6 +40,7 @@ const LienHe = () => {
       message.error("Vui lòng thử lại !");
     }
   };
+  
   return (
     <div className="lienhe">
       <div className="lienhe_title">
@@ -38,7 +51,9 @@ const LienHe = () => {
           <div className="col-md-6">
             <div className="lienhe_left">
               <div className="anh">
-                <img src={logo} alt="logo" />
+                <img 
+                  src={`${process.env.REACT_APP_BACKEND_URL}/images/banner/${mediaHome.logo}`}
+                  alt="logo" />
               </div>
 
               <p>

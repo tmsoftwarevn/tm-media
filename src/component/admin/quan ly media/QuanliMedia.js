@@ -267,51 +267,49 @@ const QuanliMedia = () => {
       </Row>
       {/* // react edit word */}
 
-      {params.id != 1 && (
-        <>
-          <h4 className="mb-4">Nội dung:</h4>
-          <Editor
-            apiKey={process.env.REACT_APP_API_KEY_EDITOR}
-            //onInit={(evt, editor) => (editor._beforeUnload(noidung))}
-            onChange={(evt, editor) => setNoidung(editor.getContent())}
-            initialValue={noidung}
-            init={{
-              height: 500,
-              menubar: false,
-              plugins: [
-                "advlist",
-                "autolink",
-                "lists",
-                "link",
-                "image",
-                "charmap",
-                "preview",
-                "anchor",
-                "searchreplace",
-                "visualblocks",
-                "code",
-                "fullscreen",
-                "insertdatetime",
-                "media",
-                "table",
-                "code",
-                "help",
-                "wordcount",
-              ],
-              toolbar:
-                "undo redo | blocks | " +
-                "bold italic fontsize forecolor | alignleft aligncenter " +
-                "alignright alignjustify | bullist numlist outdent indent | " +
-                "removeformat | help | image",
-              content_style:
-                "body { font-family: Helvetica, Arial, sans-serif; font-size: 14px }",
-              fontsize_formats: "8px 10px 12px 14px 18px 24px 36px",
-              file_picker_types: "image",
-              file_picker_callback: filePickerCallback,
-            }}
-          />
-        </>
-      )}
+      <>
+        <h4 className="mb-4">Nội dung:</h4>
+        <Editor
+          apiKey={process.env.REACT_APP_API_KEY_EDITOR}
+          //onInit={(evt, editor) => (editor._beforeUnload(noidung))}
+          onChange={(evt, editor) => setNoidung(editor.getContent())}
+          initialValue={noidung}
+          init={{
+            height: 500,
+            menubar: false,
+            plugins: [
+              "advlist",
+              "autolink",
+              "lists",
+              "link",
+              "image",
+              "charmap",
+              "preview",
+              "anchor",
+              "searchreplace",
+              "visualblocks",
+              "code",
+              "fullscreen",
+              "insertdatetime",
+              "media",
+              "table",
+              "code",
+              "help",
+              "wordcount",
+            ],
+            toolbar:
+              "undo redo | blocks | " +
+              "bold italic fontsize forecolor | alignleft aligncenter " +
+              "alignright alignjustify | bullist numlist outdent indent | " +
+              "removeformat | help | image",
+            content_style:
+              "body { font-family: Helvetica, Arial, sans-serif; font-size: 14px }",
+            fontsize_formats: "8px 10px 12px 14px 18px 24px 36px",
+            file_picker_types: "image",
+            file_picker_callback: filePickerCallback,
+          }}
+        />
+      </>
 
       {/* /////////// */}
     </div>

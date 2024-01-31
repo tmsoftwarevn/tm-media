@@ -32,8 +32,20 @@ const Baiviet = () => {
   return (
     <>
       <BannerHeader media={mediaHome} handleSetVideo={handleSetVideo} />
+      
       <div className="baiviet">
         <div className="container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb breadcrumb-ov">
+              <li class="breadcrumb-item">
+                <span className="br-home" onClick={() => navigate("/")}>Trang chủ</span>
+              </li>
+             
+              <li class="breadcrumb-item active" aria-current="page">
+                Bài viết
+              </li>
+            </ol>
+          </nav>
           <div className="row">
             {listBlog &&
               listBlog.length > 0 &&
@@ -49,12 +61,32 @@ const Baiviet = () => {
                             alt="Blog image"
                           />
                         </div>
-                        <h3 class="blog-title" onClick={() => navigate(`/bai-viet/${slug}/${item.id}`)}>{item.tieude}</h3>
-                        <span class="blog-time">{moment(item?.createdAt).format("D-MM-Y")}</span>
+                        <h3
+                          class="blog-title"
+                          onClick={() =>
+                            navigate(`/bai-viet/${slug}`, {
+                              state: { id: item.id },
+                            })
+                          }
+                        >
+                          {item.tieude}
+                        </h3>
+                        <span class="blog-time">
+                          {moment(item?.createdAt).format("D-MM-Y")}
+                        </span>
                         <p class="description">{item.mota_ngan}</p>
                         <div class="options">
                           <span>Read Full Blog</span>
-                          <button class="btn-doc" onClick={() => navigate(`/bai-viet/${slug}/${item.id}`)}>Xem thêm</button>
+                          <button
+                            class="btn-doc"
+                            onClick={() =>
+                              navigate(`/bai-viet/${slug}`, {
+                                state: { id: item.id },
+                              })
+                            }
+                          >
+                            Xem thêm
+                          </button>
                         </div>
                       </div>
                     </div>

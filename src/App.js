@@ -15,6 +15,7 @@ import Baiviet from "./page/bai viet/Baiviet";
 import LienHe from "./page/lien he/LienHe";
 import VideoNoiBat from "./component/admin/quan ly video noi bat/VideoNoiBat";
 import BaivietDetail from "./page/bai viet/BaivietDetail";
+import QuanlyTrangchu from "./component/admin/quan ly trang chu/QuanlyTrangchu";
 
 const App = () => {
   const router = createBrowserRouter([
@@ -28,7 +29,7 @@ const App = () => {
           element: <LienHe />,
         },
         {
-          path: "/bai-viet/:slug/:id",
+          path: "/bai-viet/:slug",
           element: <BaivietDetail />,
         },
         {
@@ -51,6 +52,10 @@ const App = () => {
         {
           path: "lienhe",
           element: <QuanliLienhe />,
+        },
+        {
+          path: "trangchu",
+          element: <QuanlyTrangchu />,
         },
         {
           path: "menu/:id",

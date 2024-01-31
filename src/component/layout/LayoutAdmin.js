@@ -105,7 +105,7 @@ const App = () => {
       getItem(<Link to="/admin/menu/3">Dịch vụ Xây kênh</Link>, "3"),
     ]),
     getItem(
-      <Link to="/admin/media/1">Baner trang chủ</Link>,
+      <Link to="/admin/trangchu">Quản lý trang chủ</Link>,
       "/admin/trangchu",
       <HomeOutlined />
     ),

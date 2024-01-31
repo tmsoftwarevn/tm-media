@@ -3,12 +3,12 @@ import axios from "../utils/axios-customized";
 export const callTest = (id) => {
   return axios.post("/api/v1/test", { id });
 };
-export const callLogin = (name, password) =>{
-  return axios.post("/api/v1/login",{name, password});
-}
-export const callChangePass = (name,password,new_password) =>{
-  return axios.put("/api/v1/changepassword",{name,password,new_password});
-}
+export const callLogin = (name, password) => {
+  return axios.post("/api/v1/login", { name, password });
+};
+export const callChangePass = (name, password, new_password) => {
+  return axios.put("/api/v1/changepassword", { name, password, new_password });
+};
 // liên hệ
 
 export const callAllLienhe = () => {
@@ -17,17 +17,14 @@ export const callAllLienhe = () => {
 export const callDeleteLienhe = (id) => {
   return axios.delete(`/api/v1/lienhe/${id}`);
 };
-export const callAddLienhe = ( name,
-  phone,
-  email,
-  noidung) =>{
-  return axios.post(`/api/v1/lienhe`,{
+export const callAddLienhe = (name, phone, email, noidung) => {
+  return axios.post(`/api/v1/lienhe`, {
     name,
     phone,
     email,
-    noidung
+    noidung,
   });
-}
+};
 // menu
 export const callMenu_byid = (id) => {
   return axios.get(`/api/v1/menu/${id}`);
@@ -44,9 +41,9 @@ export const callAddMenu = (name, type_id) => {
   return axios.post(`/api/v1/menu/`, { name, type_id });
 };
 
-export const callActive_menu = () =>{
+export const callActive_menu = () => {
   return axios.get(`/api/v1/menu_active`);
-}
+};
 // upload ảnh
 export const callUpload_Single_Img = (fileImg) => {
   const bodyFormData = new FormData();
@@ -200,8 +197,46 @@ export const callGetBaiviet_paginate = (page, limit) => {
   return axios.get(`/api/v1/baiviet-page?page=${page}&limit=${limit}`);
 };
 
-export const callGetAll_Baiviet = () =>{
+export const callGetAll_Baiviet = () => {
   return axios.get(`/api/v1/listbaiviet`);
-}
+};
 
 //////
+export const callUpdateTrangchu = (
+  key_word,
+  meta_des,
+  banner_bg,
+  video_bg,
+  link,
+  logo,
+  mota_cty,
+  thuonghieu,
+  bg_thongke,
+  s1,
+  s2,
+  s3,
+  t1,
+  t2,
+  t3
+) => {
+  return axios.put(`/api/v1/trang-chu`, {
+    key_word,
+    meta_des,
+    banner_bg,
+    video_bg,
+    link,
+    logo,
+    mota_cty,
+    thuonghieu,
+    bg_thongke,
+    s1,
+    s2,
+    s3,
+    t1,
+    t2,
+    t3,
+  });
+};
+export const callDetailTrangchu = () => {
+  return axios.get(`/api/v1/trang-chu`);
+};

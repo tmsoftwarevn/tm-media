@@ -48,9 +48,7 @@ const AddBaiviet = (props) => {
   const [mota_ngan, setMota_ngan] = useState("");
   const [thumbnail, setThumbnail] = useState("");
 
-  const [fileList, setFileList] = useState([
-   
-  ]);
+  const [fileList, setFileList] = useState([]);
 
   const onChange = ({ fileList: newFileList }) => {
     setFileList(newFileList);
@@ -124,7 +122,7 @@ const AddBaiviet = (props) => {
     setTieude("");
     setFileList([]);
   };
- 
+
   return (
     <>
       <Modal
@@ -137,7 +135,7 @@ const AddBaiviet = (props) => {
         onCancel={handleCancel}
         maskClosable={false}
         forceRender
-        width={1000}
+        width={1200}
       >
         <div>
           <Row gutter={16}>
@@ -234,13 +232,14 @@ const AddBaiviet = (props) => {
                   ],
                   toolbar:
                     "undo redo | blocks | " +
-                    "bold italic forecolor | alignleft aligncenter " +
+                    "bold italic fontsize forecolor | alignleft aligncenter " +
                     "alignright alignjustify | bullist numlist outdent indent | " +
                     "removeformat | help | image",
                   content_style:
                     "body { font-family: Helvetica, Arial, sans-serif; font-size: 14px }",
-
+                  fontsize_formats: "8px 10px 12px 14px 18px 24px 36px",
                   file_picker_types: "image",
+
                   file_picker_callback: filePickerCallback,
                 }}
               />

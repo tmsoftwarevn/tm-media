@@ -5,7 +5,7 @@ import { MdKeyboardArrowDown } from "react-icons/md";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-
+//import "the-new-css-reset/css/reset.css";
 
 const Footer = () => {
   const [isList, setList] = useState(false);

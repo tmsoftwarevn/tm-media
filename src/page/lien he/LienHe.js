@@ -24,8 +24,7 @@ const LienHe = () => {
       setEmail("");
       setPhone("");
       setNoidung("");
-    }
-    else{
+    } else {
       message.error("Vui lòng thử lại !");
     }
   };
@@ -47,7 +46,7 @@ const LienHe = () => {
                 TP.Thủ Đức, Ho Chi Minh City, Vietnam
               </p>
               <p>
-                <span>Hotline: </span>097 924 92 22
+                <span>Hotline: </span>{process.env.REACT_APP_PHONE}
               </p>
               <p>
                 <span>Email: </span>mr.haidesign@gmail.com
@@ -104,10 +103,7 @@ const LienHe = () => {
                   placeholder="Nội dung"
                   value={noidung}
                 ></textarea>
-                <div
-                  className="btn-lienhe"
-                  //onClick={(e) => handleSaveForm(e)}
-                >
+                <div className="btn-lienhe">
                   <button type="submit" className="btn-lienhe">
                     Gửi liên hệ
                   </button>

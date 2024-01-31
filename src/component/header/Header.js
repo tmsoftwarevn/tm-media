@@ -7,6 +7,8 @@ import { useNavigate } from "react-router-dom";
 
 import { convertSlug } from "../../utils/convertSlug";
 
+//import "the-new-css-reset/css/reset.css";
+
 const Header = () => {
   const [scrollPosition, setPosition] = useState(0);
   const [menu_video, setMenu_video] = useState([]);
@@ -26,22 +28,21 @@ const Header = () => {
   const fetch_getMenu = async () => {
     //1: video, 2: chup anh, 3: xay kenh
     let video = await callMenu_byid(1);
-    {
-      if (video && video.EC === 1) {
-        setMenu_video(video.data);
-      }
+
+    if (video && video.EC === 1) {
+      setMenu_video(video.data);
     }
+
     let chupanh = await callMenu_byid(2);
-    {
-      if (chupanh && chupanh.EC === 1) {
-        setMenu_chupanh(chupanh.data);
-      }
+
+    if (chupanh && chupanh.EC === 1) {
+      setMenu_chupanh(chupanh.data);
     }
+
     let xaykenh = await callMenu_byid(3);
-    {
-      if (xaykenh && xaykenh.EC === 1) {
-        setMenu_xaykenh(xaykenh.data);
-      }
+
+    if (xaykenh && xaykenh.EC === 1) {
+      setMenu_xaykenh(xaykenh.data);
     }
   };
   useEffect(() => {
@@ -78,13 +79,15 @@ const Header = () => {
                   <MdKeyboardArrowDown className="arrow-header" />
                   <ul className="dropdown-child">
                     {menu_video.map((item, index) => {
-                      
-                      let name_slug = convertSlug(item.name) ;
+                      let name_slug = convertSlug(item.name);
                       return (
                         <li
                           key={item.id}
+                          // pass id
                           onClick={() =>
-                            navigate(`/media/${name_slug}?id=${item.id}`)
+                            navigate(`/${name_slug}`, {
+                              state: { idMedia: item.id, name: item.name },
+                            })
                           }
                         >
                           {item.name}
@@ -98,7 +101,19 @@ const Header = () => {
                   <MdKeyboardArrowDown className="arrow-header" />
                   <ul className="dropdown-child">
                     {menu_chupanh.map((item, index) => {
-                      return <li key={item.id}>{item.name}</li>;
+                      let name_slug = convertSlug(item.name);
+                      return (
+                        <li
+                          key={item.id}
+                          onClick={() =>
+                            navigate(`/${name_slug}`, {
+                              state: { idMedia: item.id, name: item.name },
+                            })
+                          }
+                        >
+                          {item.name}
+                        </li>
+                      );
                     })}
                   </ul>
                 </li>
@@ -107,12 +122,28 @@ const Header = () => {
                   <MdKeyboardArrowDown className="arrow-header" />
                   <ul className="dropdown-child">
                     {menu_xaykenh.map((item) => {
-                      return <li key={item.id}>{item.name}</li>;
+                      let name_slug = convertSlug(item.name);
+                      return (
+                        <li
+                          key={item.id}
+                          onClick={() =>
+                            navigate(`/${name_slug}`, {
+                              state: { idMedia: item.id, name: item.name },
+                            })
+                          }
+                        >
+                          {item.name}
+                        </li>
+                      );
                     })}
                   </ul>
                 </li>
-                <li className="parent-li">bài viết</li>
-                <li className="parent-li">liên hệ</li>
+                <li className="parent-li" onClick={() => navigate("/bai-viet")}>
+                  bài viết
+                </li>
+                <li className="parent-li" onClick={() => navigate("/lien-he")}>
+                  liên hệ
+                </li>
               </ul>
             </div>
           </div>

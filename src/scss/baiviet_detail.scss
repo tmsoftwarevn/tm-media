@@ -1,0 +1,21 @@
+.baiviet-detail{
+    margin-top: 100px;
+}
+
+.g-detail{
+    display: flex;
+    justify-content: space-between;
+    .title-baiviet{
+        font-size: 24px;
+        font-weight: bold;
+        color: var(--color-main);
+        text-transform: capitalize;
+        width: 80%;
+        max-width: 80%;
+    }
+    .time-baiviet{
+        font-style: italic;
+        color: #7b7979;
+    }
+}
+

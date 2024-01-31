@@ -1,5 +1,5 @@
 :root {
-    --color-red: #cf2e2e;
+    --color-main: #2124b1;
     --color-orange: #ff9900;
 }
 .carousel-item-padding-40-px {
@@ -7,8 +7,9 @@
 }
 
 .media {
+    margin-bottom: 50px;
     &_title {
-        color: var(--color-red);
+        color: var(--color-main);
         font-family: 'roboto';
         font-size: 26px;
         font-weight: 600;
@@ -22,18 +23,19 @@
             height: 1px;
             width: 400px;
             max-width: 400px;
-            background-color: rgb(235, 198, 198);
+            background-color: rgb(108, 46, 243);
+            opacity: 0.2;
             margin: auto;
         }
         p:nth-child(1){
-           // margin-right: 20px;
+           
         }
         p:nth-child(2){
-           // margin-right: 20px;
+           
         }
     }
     &_carousel {
-        padding-right: -20px;
+        //padding-right: -20px;
         position: relative;
         &_group {
             width: 100%;
@@ -109,7 +111,7 @@
             font-size: 20px;
             font-family: 'roboto';
             text-transform: uppercase;
-            color: var(--color-red);
+            color: var(--color-main);
             margin-top: 20px;
             text-align: center;
             font-weight: 600;
@@ -121,7 +123,7 @@
 .react-multiple-carousel__arrow{
     top: 32%;
     &:hover{
-        background-color: #eb3535;
+        background-color: var(--color-main);
     }
 }
 .react-multiple-carousel__arrow--right{

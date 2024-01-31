@@ -1,4 +1,4 @@
-import { useState, CSSProperties } from "react";
+
 import { BounceLoader } from "react-spinners";
 import "../../scss/loading.scss"
 const Loading = () => {
@@ -6,7 +6,7 @@ const Loading = () => {
     <div className="centered-container">
       <div className="sweet-loading">
         <BounceLoader
-          color={"#f31212"}
+          color={"#2124b1"}
           loading={true}
           size={50}
           aria-label="Loading Spinner"

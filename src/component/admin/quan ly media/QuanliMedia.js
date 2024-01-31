@@ -259,7 +259,7 @@ const QuanliMedia = () => {
             ></Input>
             <ReactPlayer
               url={detailMedia?.link}
-              width={"100%"}             
+              width={"100%"}
               controls={true}
             />
           </Card>
@@ -300,12 +300,12 @@ const QuanliMedia = () => {
               ],
               toolbar:
                 "undo redo | blocks | " +
-                "bold italic forecolor | alignleft aligncenter " +
+                "bold italic fontsize forecolor | alignleft aligncenter " +
                 "alignright alignjustify | bullist numlist outdent indent | " +
                 "removeformat | help | image",
               content_style:
                 "body { font-family: Helvetica, Arial, sans-serif; font-size: 14px }",
-
+              fontsize_formats: "8px 10px 12px 14px 18px 24px 36px",
               file_picker_types: "image",
               file_picker_callback: filePickerCallback,
             }}
@@ -314,7 +314,6 @@ const QuanliMedia = () => {
       )}
 
       {/* /////////// */}
-
     </div>
   );
 };

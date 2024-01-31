@@ -74,7 +74,7 @@ const App = () => {
     const pathString = pathArray.slice(1, 3).join('/');
     setPathActive(`/${pathString}`);
   }, [window.location.pathname]); 
-console.log(pathActive)
+
   const renderItems_video = (list) => {
     let arr = [];
     list.map((item, index) => {

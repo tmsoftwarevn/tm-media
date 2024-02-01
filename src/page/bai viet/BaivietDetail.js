@@ -4,6 +4,7 @@ import { callDetailMedia, callGetdetail_Baiviet } from "../../service/api";
 
 import "../../scss/baiviet_detail.scss";
 import BannerHeader from "../bannerHeader";
+import { Helmet } from "react-helmet-stuff";
 
 const BaivietDetail = () => {
   const [isShowVideo, handleSetVideo] = useOutletContext();
@@ -34,23 +35,31 @@ const BaivietDetail = () => {
 
   return (
     <>
-      <BannerHeader media={mediaHome} handleSetVideo={handleSetVideo} />
+      <Helmet>
+        <title>{detail?.tieude}</title>
+        <meta name="description" content={detail?.meta_des} />
+        <meta name="keywords" content={detail?.key_word} />
+        <meta property="og:title" content={detail?.tieude} />
+        <meta property="og:description" content={detail?.meta_des} />
+        
+      </Helmet>
 
+      <BannerHeader media={mediaHome} handleSetVideo={handleSetVideo} />
       <div className="baiviet-detail">
         <div className="container">
           <nav aria-label="breadcrumb">
-            <ol class="breadcrumb breadcrumb-ov">
-              <li class="breadcrumb-item">
+            <ol className="breadcrumb breadcrumb-ov">
+              <li className="breadcrumb-item">
                 <span className="br-home" onClick={() => navigate("/")}>
                   Trang chủ
                 </span>
               </li>
-              <li class="breadcrumb-item">
+              <li className="breadcrumb-item">
                 <span className="br-home" onClick={() => navigate("/bai-viet")}>
                   Bài viết
                 </span>
               </li>
-              <li class="breadcrumb-item active" aria-current="page">
+              <li className="breadcrumb-item active" aria-current="page">
                 {detail.tieude}
               </li>
             </ol>

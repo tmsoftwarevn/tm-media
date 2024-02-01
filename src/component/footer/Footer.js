@@ -1,131 +1,211 @@
 import "../../scss/footer.scss";
-import { FaFacebook, FaYoutube, FaTiktok } from "react-icons/fa";
 
-import { MdKeyboardArrowDown } from "react-icons/md";
-import { useState } from "react";
+import { MdKeyboardArrowRight, MdLocationOn } from "react-icons/md";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
-//import "the-new-css-reset/css/reset.css";
+import { IoCall } from "react-icons/io5";
+import { IoMdMail } from "react-icons/io";
+import { BiWorld } from "react-icons/bi";
+import { callMenu_byid } from "../../service/api";
+import { convertSlug } from "../../utils/convertSlug";
+import { FaFacebookSquare } from "react-icons/fa";
 
 const Footer = () => {
-  const [isList, setList] = useState(false);
+  const [menu_video, setMenu_video] = useState([]);
+  const [menu_chupanh, setMenu_chupanh] = useState([]);
+  const [menu_xaykenh, setMenu_xaykenh] = useState([]);
   const navigate = useNavigate();
+
+  const fetch_getMenu = async () => {
+    //1: video, 2: chup anh, 3: xay kenh
+    let video = await callMenu_byid(1);
+
+    if (video && video.EC === 1) {
+      setMenu_video(video.data);
+    }
+
+    let chupanh = await callMenu_byid(2);
+
+    if (chupanh && chupanh.EC === 1) {
+      setMenu_chupanh(chupanh.data);
+    }
+
+    let xaykenh = await callMenu_byid(3);
+
+    if (xaykenh && xaykenh.EC === 1) {
+      setMenu_xaykenh(xaykenh.data);
+    }
+  };
+  useEffect(() => {
+    fetch_getMenu();
+  }, []);
+
   return (
-    <div className="footer">
+    <footer className="footer">
       <div className="container">
-        <div className="main-f">
-          <div className="row d-flex justify-content-between">
-            <div className="col-xs-12 col-lg-4">
-              <div className="title-f">Thông tin về chủ sở hữu website</div>
-              <div className="des-f">
-                <p>Tên công ty: CÔNG TY TNHH CÔNG NGHỆ TM SOFTWARE</p>
-
-                <p>Địa chỉ: 5/2A Đường 112, Phường Phước Long A, TP.Thủ Đức</p>
-                <p>Hotline: 0979.193.037 - 0979.249.222</p>
-                <p>Copyright © 2019 TM. All Rights Reserved.</p>
-              </div>
-            </div>
-
-            <div className="col-xs-12 col-lg-5">
-              <div className="title-f">Hỗ trợ</div>
-              <div className="des-f">
-                <p>
-                  VP.HCM: Sky 9, 61-63 Đường số 1, Phường Phú Hữu, TP.Thủ Đức,
-                  Tp.Hồ Chí Minh.
-                </p>
-                <p>Hotline: 0979 249 222</p>
-                <p>
-                  VP.Bình Dương: Đường DX38, P.Phú Chánh, Tân Uyên, Bình Dương
-                </p>
-                <p>Hotline: 0979 193 037</p>
-                <p>
-                  {/* <FontAwesomeIcon
-                    icon={faEnvelope}
-                    style={{ marginRight: "5px" }}
-                  /> */}
-                  Email:
-                  <a
-                    href="mailto:info.tmsoftware.vn@gmail.com"
-                    className="email-f"
-                  >
-                    info.tmsoftware.vn@gmail.com
-                  </a>
-                </p>
-
-                <p>
-                  {/* <FontAwesomeIcon
-                    icon={faGlobe}
-                    style={{ marginRight: "5px" }}
-                  /> */}
-                  Website:
-                  <span
-                    className="web"
-                    onClick={() =>
-                      window.open("https://tmsoftware.vn", "_blank")
-                    }
-                  >
-                    https://tmsoftware.vn
-                  </span>
-                </p>
-              </div>
-            </div>
-
-            <div className="col-xs-12 col-lg-3 ">
-              <div className="title-f">Thông tin khác</div>
-              <div className="des-f">
-                <div className="box-tm footer-3">
-                  <p className="t-tm" onClick={() => setList(!isList)}>
-                    về TM{" "}
-                    <MdKeyboardArrowDown
-                      style={{
-                        fontSize: "25px",
-                      }}
-                    />
-                  </p>
-                  <div
-                    className="dropdown-f"
-                    style={isList ? { display: "block" } : { display: "none" }}
-                  >
-                    <li onClick={() => navigate("/san-pham")}>sản phẩm</li>
-                    <li onClick={() => navigate("/bang-gia")}>bảng giá</li>
-                    <li onClick={() => navigate("/case-study")}>case study</li>
-                    <li onClick={() => navigate("/dich-vu-chuyen-sau")}>
-                      dịch vụ chuyên sâu
-                    </li>
-                    <li onClick={() => navigate("/blogs")}>blogs</li>
-                  </div>
-                </div>
-
-                <FaFacebook
-                  style={{
-                    marginRight: "15px",
-                    fontSize: "20px",
-                    cursor: "pointer",
-                  }}
-                  className="icon-f"
-                />
-                <FaYoutube
-                  style={{
-                    marginRight: "15px",
-                    fontSize: "20px",
-                    cursor: "pointer",
-                  }}
-                  className="icon-f"
-                />
-                <FaTiktok
-                  style={{
-                    marginRight: "15px",
-                    fontSize: "20px",
-                    cursor: "pointer",
-                  }}
-                  className="icon-f"
-                />
-              </div>
+        <section id="lab_social_icon_footer">
+          <div class="container">
+            <div class="text-center center-block">
+              <a href="https://www.facebook.com/bootsnipp">
+                {/* <i
+                  id="social-fb"
+                  class="fa fa-facebook-square fa-3x social"
+                ></i> */}
+                <FaFacebookSquare id="social-fb" />
+              </a>
+              <a href="https://twitter.com/bootsnipp">
+                <i id="social-tw" class="fa fa-twitter-square fa-3x social"></i>
+              </a>
+              <a href="https://plus.google.com/+Bootsnipp-page">
+                <i
+                  id="social-gp"
+                  class="fa fa-google-plus-square fa-3x social"
+                ></i>
+              </a>
+              <a href="mailto:#">
+                <i
+                  id="social-em"
+                  class="fa fa-envelope-square fa-3x social"
+                ></i>
+              </a>
             </div>
           </div>
+        </section>
+        {/* // info  */}
+        <div className="row">
+          <div class="footer-col col-md-3">
+            <h4>Liên hệ</h4>
+            <ul className="ul-ft">
+              <li>
+                <MdLocationOn
+                  style={{
+                    marginRight: "8px",
+                    fontSize: "18px",
+                    marginBottom: "3px",
+                  }}
+                />
+                Sky9 Số 61, Đường số 1, Phường Phú Hữu, TP.Thủ Đức, Ho Chi Minh
+                City, Vietnam
+              </li>
+              <li
+                onClick={() => {
+                  window.open("tel:" + process.env.REACT_APP_PHONE);
+                }}
+              >
+                <IoCall
+                  style={{
+                    marginRight: "8px",
+                    fontSize: "18px",
+                    marginBottom: "3px",
+                  }}
+                />
+                {process.env.REACT_APP_PHONE}
+              </li>
+              <li
+                onClick={() => {
+                  window.open("mailto:" + "mr.haidesign@gmail.com");
+                }}
+              >
+                <IoMdMail
+                  style={{
+                    marginRight: "8px",
+                    fontSize: "18px",
+                    marginBottom: "3px",
+                  }}
+                />
+                mr.haidesign@gmail.com
+              </li>
+              <li
+                onClick={() => window.open("https://tmbranding.vn/", "_blank")}
+              >
+                <BiWorld
+                  style={{
+                    marginRight: "8px",
+                    fontSize: "18px",
+                    marginBottom: "3px",
+                  }}
+                />
+                tmbranding.vn
+              </li>
+            </ul>
+          </div>
+          <div class="footer-col col-md-3">
+            <h4>Sản xuất video</h4>
+            <ul className="ul-ft">
+              {menu_video.map((item, index) => {
+                let name_slug = convertSlug(item.name);
+                return (
+                  <li
+                    key={item.id}
+                    onClick={() =>
+                      navigate(`/${name_slug}`, {
+                        state: { idMedia: item.id, name: item.name },
+                      })
+                    }
+                  >
+                    <MdKeyboardArrowRight />
+                    {item.name}
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+          <div class="footer-col col-md-3">
+            <h4>Chụp ảnh quảng cáo</h4>
+            <ul className="ul-ft">
+              {menu_chupanh.map((item, index) => {
+                let name_slug = convertSlug(item.name);
+                return (
+                  <li
+                    key={item.id}
+                    onClick={() =>
+                      navigate(`/${name_slug}`, {
+                        state: { idMedia: item.id, name: item.name },
+                      })
+                    }
+                  >
+                    <MdKeyboardArrowRight />
+                    {item.name}
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+          <div class="footer-col col-md-3">
+            <h4>Xây kênh</h4>
+            <ul className="ul-ft">
+              {menu_xaykenh.map((item, index) => {
+                let name_slug = convertSlug(item.name);
+                return (
+                  <li
+                    key={item.id}
+                    onClick={() =>
+                      navigate(`/${name_slug}`, {
+                        state: { idMedia: item.id, name: item.name },
+                      })
+                    }
+                  >
+                    <MdKeyboardArrowRight />
+                    {item.name}
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
         </div>
+
+        <p className="ft-end">
+          {" "}
+          &copy; All rights reserved. Designed By{" "}
+          <span
+            className="sp-tm"
+            onClick={() => window.open("https://tmsoftware.vn/", "_blank")}
+          >
+            TM Software
+          </span>
+        </p>
       </div>
-    </div>
+    </footer>
   );
 };
 export default Footer;

@@ -84,6 +84,7 @@ const App = () => {
       element: <ChangePass />,
     },
   ]);
+  
   return <RouterProvider router={router} />;
 };
 

@@ -7,8 +7,13 @@ import { useEffect, useState } from "react";
 import { IoCall } from "react-icons/io5";
 import { callAddLienhe, callDetailTrangchu } from "../../service/api";
 import { message } from "antd";
+import { Helmet } from "react-helmet-stuff";
+import { useOutletContext } from "react-router-dom";
+import BannerHeader from "../bannerHeader";
 
 const LienHe = () => {
+  const [isShowVideo, handleSetVideo] = useOutletContext();
+
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
@@ -23,7 +28,6 @@ const LienHe = () => {
   };
   useEffect(() => {
     fetch_mediaHome();
-  
   }, []);
 
   const handleSaveForm = async (e) => {
@@ -40,95 +44,119 @@ const LienHe = () => {
       message.error("Vui lòng thử lại !");
     }
   };
-  
-  return (
-    <div className="lienhe">
-      <div className="lienhe_title">
-        <p></p> Đăng ký tư vấn <p></p>
-      </div>
-      <div className="container">
-        <div className="row">
-          <div className="col-md-6">
-            <div className="lienhe_left">
-              <div className="anh">
-                <img 
-                  src={`${process.env.REACT_APP_BACKEND_URL}/images/banner/${mediaHome.logo}`}
-                  alt="logo" />
-              </div>
 
-              <p>
-                <span>Văn phòng: </span>Sky9 Số 61, Đường số 1, Phường Phú Hữu,
-                TP.Thủ Đức, Ho Chi Minh City, Vietnam
-              </p>
-              <p>
-                <span>Hotline: </span>{process.env.REACT_APP_PHONE}
-              </p>
-              <p>
-                <span>Email: </span>mr.haidesign@gmail.com
-              </p>
-              <p
-                className="web"
-                onClick={() => window.open("https://tmbranding.vn/", "_blank")}
+  return (
+    <>
+      <Helmet>
+        <title>{process.env.REACT_APP_TITLE_TRANGCHU}</title>
+        <meta name="description" content={mediaHome?.meta_des} />
+        <meta name="keywords" content={mediaHome?.key_word} />
+        <meta
+          property="og:title"
+          content={process.env.REACT_APP_TITLE_TRANGCHU}
+        />
+        <meta property="og:description" content={mediaHome?.meta_des} />
+      </Helmet>
+
+      <BannerHeader media={mediaHome} handleSetVideo={handleSetVideo} />
+
+      <div className="lienhe">
+        <div className="lienhe_title">
+          <p></p> Đăng ký tư vấn <p></p>
+        </div>
+        <div className="container">
+          <div className="row">
+            <div className="col-md-6">
+              <div className="lienhe_left">
+                <div className="anh">
+                  <img
+                    src={`${process.env.REACT_APP_BACKEND_URL}/images/banner/${mediaHome.logo}`}
+                    alt="logo"
+                  />
+                </div>
+
+                <p>
+                  <span>Văn phòng: </span>Sky9 Số 61, Đường số 1, Phường Phú
+                  Hữu, TP.Thủ Đức, Ho Chi Minh City, Vietnam
+                </p>
+                <p>
+                  <span>Hotline: </span>
+                  {process.env.REACT_APP_PHONE}
+                </p>
+                <p>
+                  <span>Email: </span>mr.haidesign@gmail.com
+                </p>
+                <p
+                  className="web"
+                  onClick={() =>
+                    window.open("https://tmbranding.vn/", "_blank")
+                  }
+                >
+                  <span>Website: </span>tmbranding.vn
+                </p>
+              </div>
+              <div
+                className="lienhe_left_tuvan"
+                onClick={() => {
+                  window.open("tel:" + process.env.REACT_APP_PHONE);
+                }}
               >
-                <span>Website: </span>tmbranding.vn
-              </p>
+                <IoCall style={{ marginRight: "5px" }} />
+                tư vấn ngay
+              </div>
             </div>
-            <div className="lienhe_left_tuvan">
-              <IoCall style={{ marginRight: "5px" }} />
-              tư vấn ngay
-            </div>
-          </div>
-          <div className="col-md-6">
-            <div className="lienhe_right">
-              <form onSubmit={handleSaveForm}>
-                <div className="custom-input">
-                  <img src={iconname} />
-                  <input
-                    type="text"
-                    required
-                    placeholder="Họ và tên"
-                    onChange={(e) => setName(e.target.value)}
-                    value={name}
-                  />
-                </div>
-                <div className="custom-input">
-                  <img src={iconphone} />
-                  <input
-                    type="tel"
-                    required
-                    placeholder="Số điện thoại"
-                    pattern="(03|05|07|08|09)[0-9]{8}"
-                    onChange={(e) => setPhone(e.target.value)}
-                    value={phone}
-                  />
-                </div>
-                <div className="custom-input">
-                  <img src={iconemail} />
-                  <input
-                    type="email"
-                    required
-                    placeholder="Email"
-                    onChange={(e) => setEmail(e.target.value)}
-                    value={email}
-                  />
-                </div>
-                <textarea
-                  onChange={(e) => setNoidung(e.target.value)}
-                  rows={10}
-                  placeholder="Nội dung"
-                  value={noidung}
-                ></textarea>
-                <div className="btn-lienhe">
-                  <button type="submit" className="btn-lienhe">
-                    Gửi liên hệ
-                  </button>
-                </div>
-              </form>
+            <div className="col-md-6">
+              <div className="lienhe_right">
+                <form onSubmit={handleSaveForm}>
+                  <div className="custom-input">
+                    <img src={iconname} />
+                    <input
+                      type="text"
+                      required
+                      placeholder="Họ và tên"
+                      onChange={(e) => setName(e.target.value)}
+                      value={name}
+                    />
+                  </div>
+                  <div className="custom-input">
+                    <img src={iconphone} />
+                    <input
+                      type="tel"
+                      required
+                      placeholder="Số điện thoại"
+                      pattern="(03|05|07|08|09)[0-9]{8}"
+                      onChange={(e) => setPhone(e.target.value)}
+                      value={phone}
+                    />
+                  </div>
+                  <div className="custom-input">
+                    <img src={iconemail} />
+                    <input
+                      type="email"
+                      required
+                      placeholder="Email"
+                      onChange={(e) => setEmail(e.target.value)}
+                      value={email}
+                    />
+                  </div>
+                  <textarea
+                    onChange={(e) => setNoidung(e.target.value)}
+                    rows={10}
+                    placeholder="Nội dung"
+                    value={noidung}
+                  ></textarea>
+                  <div className="btn-lienhe">
+                    <button type="submit" className="btn-lh">
+                      Gửi liên hệ
+                    </button>
+                  </div>
+                </form>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

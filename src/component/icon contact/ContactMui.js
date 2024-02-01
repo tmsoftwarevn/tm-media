@@ -9,13 +9,13 @@ import mess from "../../assets/icon contact/mess.webp";
 const handleClick = (e, operation) => {
   e.preventDefault();
   if (operation == "Facebook") {
-    window.open(process.env.REACT_APP_URL_MESSENGER, "_blank");
+    window.open(process.env.REACT_APP_URL_MESSENGER);
   }
   if (operation == "phone") {
-    window.open("tel:" + process.env.REACT_APP_PHONE, "_blank");
+    window.open("tel:" + process.env.REACT_APP_PHONE);
   }
   if (operation == "zalo") {
-    window.open(`${process.env.REACT_APP_URL_ZALO}`, "_blank");
+    window.open(`${process.env.REACT_APP_URL_ZALO}`);
     
   }
 };

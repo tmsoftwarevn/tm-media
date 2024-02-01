@@ -5,6 +5,7 @@ import "../../scss/dichvumedia.scss";
 import "../../scss/bannerHeader.scss";
 import Video from "../video/Video";
 import BannerHeader from "../../page/bannerHeader";
+import { Helmet } from "react-helmet-stuff";
 
 const DichVuMedia = () => {
   const navigate = useNavigate();
@@ -33,19 +34,25 @@ const DichVuMedia = () => {
 
   return (
     <>
-      
-    <BannerHeader media = {detailMedia} handleSetVideo = {handleSetVideo}/>
+      <Helmet>
+        <title>{location.state?.name}</title>
+        <meta name="description" content={detailMedia?.meta_des} />
+        <meta name="keywords" content={detailMedia?.key_word} />
+        <meta property="og:title" content={location.state?.name} />
+        <meta property="og:description" content={detailMedia?.meta_des} />
+      </Helmet>
+
+      <BannerHeader media={detailMedia} handleSetVideo={handleSetVideo} />
       <section id="nd-9653" className="m-5">
         <div className="container">
           <div dangerouslySetInnerHTML={{ __html: detailMedia?.noidung }}></div>
         </div>
       </section>
-      
+
       <Video
         isShowVideo={isShowVideo}
         handleSetVideo={handleSetVideo}
         name={{ name: location.state?.name, id: location.state?.idMedia }}
-       
       />
     </>
   );

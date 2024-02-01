@@ -10,6 +10,7 @@ import { useParams } from "react-router-dom";
 import { Upload } from "antd";
 import ReactPlayer from "react-player";
 import TextArea from "antd/es/input/TextArea";
+import { Editor } from "@tinymce/tinymce-react";
 
 const QuanlyTrangchu = () => {
   const [trangchu, setTrangchu] = useState("");
@@ -363,12 +364,50 @@ const QuanlyTrangchu = () => {
         </Col>
         <Col span={12}>
           <Card title="Mô tả công ty" bordered={true}>
-            <TextArea
+            {/* <TextArea
               rows={5}
               value={mota_cty}
               onChange={(e) => setMota_cty(e.target.value)}
               maxLength={1000}
-            />
+            /> */}
+            <Editor
+                apiKey={process.env.REACT_APP_API_KEY_EDITOR}
+                onChange={(evt, editor) => setMota_cty(editor.getContent())}
+                initialValue={mota_cty}
+                init={{
+                  height: 200,
+                  menubar: false,
+                  plugins: [
+                    "advlist",
+                    "autolink",
+                    "lists",
+                    "link",
+                    "image",
+                    "charmap",
+                    "preview",
+                    "anchor",
+                    "searchreplace",
+                    "visualblocks",
+                    "code",
+                    "fullscreen",
+                    "insertdatetime",
+                    "media",
+                    "table",
+                    "code",
+                    "help",
+                    "wordcount",
+                  ],
+                  toolbar:
+                    "undo redo | blocks | " +
+                    "bold italic fontsize forecolor | alignleft aligncenter " +
+                    "alignright alignjustify | bullist numlist outdent indent "
+                    ,
+                  content_style:
+                    "body { font-family: Helvetica, Arial, sans-serif; font-size: 14px }",
+                  fontsize_formats: "8px 10px 12px 14px 18px 24px 36px",
+                  
+                }}
+              />
           </Card>
         </Col>
         <Col span={12}>

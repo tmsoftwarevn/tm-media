@@ -191,7 +191,7 @@ const AddBaiviet = (props) => {
                 <TextArea
                   rows={3}
                   onChange={(e) => setMota_ngan(e.target.value)}
-                  maxLength={255}
+                  maxLength={500}
                   value={mota_ngan}
                 />
               </Card>

@@ -157,6 +157,7 @@ const QuanlyBaiviet = () => {
       customBaiviet(res.data);
     }
   };
+  console.log("render");
   const confirm = async (id) => {
     let res = await callDeleteBaiviet(id);
     if (res && res.EC === 1) {
@@ -182,8 +183,8 @@ const QuanlyBaiviet = () => {
         thumbnail: item.thumbnail,
         key_word: item.key_word,
         mota_ngan: item.mota_ngan,
-        createdAt:  moment(item?.createdAt).format("DD-MM-YY hh:mm:ss"),
-        updatedAt:  moment(item?.updatedAt).format("DD-MM-YY hh:mm:ss"),
+        createdAt: moment(item?.createdAt).format("DD-MM-YY hh:mm:ss"),
+        updatedAt: moment(item?.updatedAt).format("DD-MM-YY hh:mm:ss"),
         action: index,
       });
     });
@@ -229,7 +230,8 @@ const QuanlyBaiviet = () => {
       key: "createdAt",
       sorter: {
         compare: (a, b) =>
-          moment(a.createdAt, "DD-MM-YY hh:mm:ss") - moment(b.createdAt, "DD-MM-YY hh:mm:ss"),
+          moment(a.createdAt, "DD-MM-YY hh:mm:ss") -
+          moment(b.createdAt, "DD-MM-YY hh:mm:ss"),
       },
     },
     {
@@ -238,7 +240,8 @@ const QuanlyBaiviet = () => {
       key: "updatedAt",
       sorter: {
         compare: (a, b) =>
-          moment(a.updatedAt, "DD-MM-YY hh:mm:ss") - moment(b.updatedAt, "DD-MM-YY hh:mm:ss"),
+          moment(a.updatedAt, "DD-MM-YY hh:mm:ss") -
+          moment(b.updatedAt, "DD-MM-YY hh:mm:ss"),
       },
     },
     {
@@ -322,16 +325,16 @@ const QuanlyBaiviet = () => {
         }}
       />
       <AddBaiviet
-      isModalAddBaiviet = {isModalAddBaiviet}
-      setIsModalAddBaiviet ={setIsModalAddBaiviet}
-      fetchBaiviet_All = {fetchBaiviet_All}
-       />
-       <UpdateBaiviet 
-       isModalUpdateBaiviet = {isModalUpdateBaiviet}
-       setIsModalUpdateBaiviet = {setIsModalUpdateBaiviet}
-       fetchBaiviet_All = {fetchBaiviet_All}
-       dataUpdate = {dataUpdate}
-       />
+        isModalAddBaiviet={isModalAddBaiviet}
+        setIsModalAddBaiviet={setIsModalAddBaiviet}
+        fetchBaiviet_All={fetchBaiviet_All}
+      />
+      <UpdateBaiviet
+        isModalUpdateBaiviet={isModalUpdateBaiviet}
+        setIsModalUpdateBaiviet={setIsModalUpdateBaiviet}
+        fetchBaiviet_All={fetchBaiviet_All}
+        dataUpdate={dataUpdate}
+      />
     </>
   );
 };

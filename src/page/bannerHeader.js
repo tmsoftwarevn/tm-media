@@ -1,7 +1,7 @@
 import { IoCall } from "react-icons/io5";
 
 const BannerHeader = (props) => {
-    const {media,handleSetVideo} = props
+  const { media, handleSetVideo } = props;
   return (
     <section id="b-5324">
       <div className="bg-banner">
@@ -23,7 +23,12 @@ const BannerHeader = (props) => {
               <h3 className="h3-3">
                 VỚI CHI PHÍ TỐI ƯU CHO CHIẾN DỊCH VIDEO MARKETING CỦA BẠN!
               </h3>
-              <div className="tuvan">
+              <div
+                className="tuvan"
+                onClick={() => {
+                  window.open("tel:" + process.env.REACT_APP_PHONE);
+                }}
+              >
                 <IoCall style={{ marginRight: "5px" }} />
                 Tư vấn ngay
               </div>

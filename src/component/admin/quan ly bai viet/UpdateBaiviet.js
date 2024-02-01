@@ -115,8 +115,9 @@ const UpdateBaiviet = (props) => {
     );
     if (res && res.EC === 1) {
       message.success("Cập nhật thành công");
-      fetchBaiviet_All();
       handleCancel();
+      fetchBaiviet_All();
+     
     } else {
       message.success("Cập nhật thất bại");
       handleCancel();

@@ -18,6 +18,7 @@ const Header = () => {
   const navigate = useNavigate();
   const [mediaHome, setMediaHome] = useState("");
 
+  // scroll
   useLayoutEffect(() => {
     function updatePosition() {
       setPosition(window.scrollY);
@@ -26,6 +27,7 @@ const Header = () => {
     updatePosition();
     return () => window.removeEventListener("scroll", updatePosition);
   }, []);
+
   const fetch_getMenu = async () => {
     //1: video, 2: chup anh, 3: xay kenh
     let video = await callMenu_byid(1);
@@ -46,6 +48,7 @@ const Header = () => {
       setMenu_xaykenh(xaykenh.data);
     }
   };
+  
   const fetch_mediaHome = async () => {
     const res = await callDetailTrangchu();
     if (res && res.EC === 1) {
@@ -71,7 +74,7 @@ const Header = () => {
 
       <div
         //className="header-2"
-        className={scrollPosition > 500 ? "header-sticky" : "header-2"}
+        className={scrollPosition > 600 ? "header-sticky" : "header-2"}
       >
         <div className="container">
           <div className="header-2_content">

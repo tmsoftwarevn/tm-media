@@ -1,84 +1,101 @@
-@import "./responsive.scss";
-:root {
-    --color-bg-ft: #f4f4f4;
-    --color-main: #2124b1; // #2124b1
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+}
+.ul-ft{
+    padding: 0 !important;
 }
 
 .footer {
-    background-color: var(--color-bg-ft);
-    .main-f {
-        //display: flex;
-        // justify-content: space-between;
-
-        @include xs {
-            padding: 50px 20px 20px 20px;
-        }
-        @include sm {
-            padding: 50px 20px 20px 20px;
-        }
-        @include lg {
-        }
-        @include xl {
-            padding: 70px 0;
-        }
-        .title-f {
-            color: #333;
-            font-size: 18px;
-            font-weight: 700;
-            margin-bottom: 20px;
-            margin-top: 20px;
-        }
-        .des-f {
-            font-size: 15px;
-            font-weight: 600;
-            color: #838383;
-            .footer-3 {
-                p {
-                    margin: 0;
-                }
-            }
-            .box-tm {
-                margin-bottom: 20px;
-                .t-tm {
-                    cursor: pointer;
-                    &:hover {
-                        color: var(--color-main);
-                    }
-                }
-                li {
-                    margin-bottom: 5px;
-                    text-transform: capitalize;
-                    &:hover {
-                        color: var(--color-main);
-                        cursor: pointer;
-                    }
-                }
-            }
-
-            .email-f {
-                margin-left: 5px;
-                cursor: pointer;
-                color: #838383;
-                &:hover {
-                    color: var(--color-main);
-                }
-            }
-            .web {
-                margin-left: 5px;
-                cursor: pointer;
-                &:hover {
-                    color: var(--color-main);
-                }
-            }
-            .icon-f {
-                cursor: pointer;
-                &:hover {
-                    color: var(--color-main);
-                }
-            }
-            @include xs {
-                font-size: 13px;
-            }
-        }
-    }
+    background-color: var(--color-main);
+    padding: 70px 0 10px;
+    background-image: url("../assets/bg-white-footer.png");
+    background-size: cover;
 }
+.ft-end{
+    border-top: 1px solid #646464;
+    color: #ecf0f1;
+    font-weight: 600;
+    margin-top: 30px;
+    padding-top: 20px;
+}
+.sp-tm{
+    cursor: pointer;
+    border-bottom: 1px solid white;
+}
+.footer-col h4 {
+    font-size: 18px;
+    color: #ffffff;
+    text-transform: uppercase;
+    margin-bottom: 35px;
+    font-weight: 600;
+    position: relative;
+    padding-left: 5px;
+}
+
+.footer-col ul li:not(:last-child) {
+    margin-bottom: 10px;
+}
+
+.footer-col ul li  {
+    font-size: 16px;
+    
+    color: #ecf0f1;
+    text-decoration: none;
+    font-weight: 300;
+    display: block;
+    transition: all 0.3s ease;
+    font-weight: 600;
+    
+}
+.footer-col ul li:hover {
+    cursor: pointer;
+    color: #ffffff;
+    padding-left: 8px;
+}
+/////
+#lab_social_icon_footer {
+    padding: 40px 0;
+    background-color: #dedede;
+  }
+  
+  #lab_social_icon_footer a {
+    color: #333;
+  }
+  
+  #lab_social_icon_footer .social:hover {
+    -webkit-transform: scale(1.1);
+    -moz-transform: scale(1.1);
+    -o-transform: scale(1.1);
+  }
+  
+  #lab_social_icon_footer .social {
+    -webkit-transform: scale(0.8);
+    /* Browser Variations: */
+    
+    -moz-transform: scale(0.8);
+    -o-transform: scale(0.8);
+    -webkit-transition-duration: 0.5s;
+    -moz-transition-duration: 0.5s;
+    -o-transition-duration: 0.5s;
+  }
+  /*
+      Multicoloured Hover Variations
+  */
+  
+  #lab_social_icon_footer #social-fb:hover {
+    color: #3B5998;
+  }
+  
+  #lab_social_icon_footer #social-tw:hover {
+    color: #4099FF;
+  }
+  
+  #lab_social_icon_footer #social-gp:hover {
+    color: #d34836;
+  }
+  
+  #lab_social_icon_footer #social-em:hover {
+    color: #f39c12;
+  }

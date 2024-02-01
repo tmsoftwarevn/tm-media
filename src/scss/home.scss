@@ -3,11 +3,10 @@
     --color-orange: #ff9900;
 }
 
-
 #gt-6978 {
-    margin-top: 80px;
+    margin-top: 100px;
     .thong-tin {
-        padding: 30px 0;
+        padding: 0px 20px;
         &_title {
             color: var(--color-main);
             font-weight: 600;
@@ -18,26 +17,31 @@
         }
         &_des {
             font-family: 'roboto';
-            margin-top: 30px;
+           // margin-top: 30px;
             font-size: 16px;
             line-height: 1.5;
             color: #2c2a2a;
-            p:nth-child(1) {
-                margin-bottom: 20px;
-            }
+            // p:nth-child(1) {
+            //     margin-bottom: 20px;
+            // }
         }
         &_btn {
             margin-top: 50px;
             color: #f8f8f8;
             font-weight: 600;
-            padding: 12px 20px;
+            padding: 8px 20px;
             background-color: var(--color-main);
-            border-radius: 10px;
+            border-radius: 6px;
             width: fit-content;
             text-transform: uppercase;
             font-size: 16px;
             font-family: roboto;
             cursor: pointer;
+            &:hover{
+                color: var(--color-main);
+                background-color: #ecf0f1;
+                transition: all 0.5s ease;
+            }
         }
         // &_btn{
         //     font-family: "roboto";
@@ -72,12 +76,19 @@
     width: 100%;
     position: relative;
     .bg-tk {
-        background-image: url('../assets/banner-bg/banner-thong-ke.jpeg');
-        background-repeat: no-repeat;
-        background-size: cover;
-        background-position: center;
+        // background-image: url('../assets/banner-bg/banner-thong-ke.jpeg');
+        // background-repeat: no-repeat;
+        // background-size: cover;
+        // background-position: center;
+        // height: 100%;
+        // width: 100%;
         height: 100%;
         width: 100%;
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
     }
     .overlay {
         position: absolute;

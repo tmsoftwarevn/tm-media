@@ -21,7 +21,7 @@ const DichVuMedia = () => {
       setDetailMedia(res.data);
     }
   };
-
+console.log("idđ",location)
   // useEffect(() => {
   //   if (!idMedia) {
   //     navigate("/");

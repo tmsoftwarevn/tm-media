@@ -15,7 +15,7 @@ const BannerHeader = (props) => {
       <div className="bg-banner_content">
         <div className="container">
           <div className="row">
-            <div className="col-md-6 bg-banner_content_left">
+            <div className="col-6 col-sm-6 col-md-6 bg-banner_content_left">
               <h3 className="h3-1">LÀ NHÀ CUNG CẤP</h3>
               <h3 className="h3-2">
                 GIẢI PHÁP SẢN XUẤT VIDEO HÌNH ẢNH QUẢNG CÁO
@@ -34,7 +34,7 @@ const BannerHeader = (props) => {
               </div>
             </div>
 
-            <div className="col-md-6 bg-banner_content_right">
+            <div className="col-6 col-sm-6 col-md-6 bg-banner_content_right">
               <div className="group-right">
                 <img
                   src={`${process.env.REACT_APP_BACKEND_URL}/images/banner/${media?.video_bg}`}

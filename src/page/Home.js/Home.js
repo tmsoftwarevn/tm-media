@@ -23,7 +23,7 @@ const Home = () => {
   const scrollToDiv = () => {
     if (targetDivRef.current) {
       // Scroll to the target div
-      targetDivRef.current.scrollIntoView({behavior: 'smooth'})
+      targetDivRef.current.scrollIntoView({ behavior: "smooth" });
     }
   };
 
@@ -164,11 +164,9 @@ const Home = () => {
             );
           })}
 
-        <div ref={targetDivRef}>
-         
-        </div>
+        <div ref={targetDivRef}></div>
         <LienHe />
-        
+
         <div className="bando">
           <iframe
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.093105813445!2d106.78851607405382!3d10.804180789346265!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3175299e2905e89f%3A0x56753105cfc85bb2!2zVE0gQnJhbmRpbmcgLSBUaGnhur90IGvhur8gJiBUcnV54buBbiB0aMO0bmc!5e0!3m2!1svi!2s!4v1706087870820!5m2!1svi!2s"
@@ -180,6 +178,7 @@ const Home = () => {
             referrerPolicy="no-referrer-when-downgrade"
           ></iframe>
         </div>
+        
       </div>
     </>
   );

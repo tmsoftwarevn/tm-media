@@ -42,21 +42,6 @@
         align-items: center;
         justify-content: space-between;
 
-        .dot-mb {
-            @include xs {
-                img {
-                    width: 30px;
-                }
-            }
-            @include sm {
-                img {
-                    width: 40px;
-                }
-            }
-            @include lg {
-                display: none;
-            }
-        }
         .logo {
             cursor: pointer;
             max-width: 150px;
@@ -65,9 +50,7 @@
         }
         .menu {
             padding-top: 20px;
-            @include xs {
-                display: none;
-            }
+
             .parent-ul {
                 display: flex;
                 justify-content: space-between;
@@ -79,18 +62,15 @@
                 .arrow-header {
                     font-size: 18px;
                 }
-                //padding-bottom: 20px;
 
                 .parent-li {
                     text-transform: uppercase;
                     font-size: 15px;
                     border-bottom: 3px solid transparent;
-                    //padding-bottom: 20px;
                     &:hover {
                         cursor: pointer;
                         border-bottom: 3px solid var(--color-main);
                         transition: 1s;
-                        //padding-bottom: 20px;
                     }
                 }
                 .dropdown-child {
@@ -104,7 +84,7 @@
                             display: block;
                             position: absolute;
                             left: 0;
-                            top: 110%;
+                            top: 112%;
                             padding: 20px;
                             width: 240px;
                             background-color: #ffffff;
@@ -126,5 +106,56 @@
                 }
             }
         }
+    }
+}
+
+/// responsive moblile
+///
+.t{
+
+}
+.ant-menu-light .ant-menu-item-selected{
+    background-color: var(--color-main) !important;
+    color: white;
+}
+.header-res {
+    @include xs {
+        display: block;
+    }
+    @include lg {
+        display: none;
+    }
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 99999999;
+    background-color: #ffffff;
+    .dot-mb {
+        position: relative;
+        padding: 20px 0 20px 20px;
+        img {
+            width: 30px;
+        }
+        z-index: 99999999;
+    }
+    .menu-res {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        z-index: 9999;
+        width: 100%;
+    }
+}
+
+.header-2_content {
+    @include xs {
+        display: none;
+    }
+    @include sm {
+        display: none;
+    }
+    @include lg {
+        display: flex;
     }
 }

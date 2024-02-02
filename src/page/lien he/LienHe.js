@@ -10,6 +10,7 @@ import { message } from "antd";
 import { Helmet } from "react-helmet-stuff";
 import { useLocation, useOutletContext } from "react-router-dom";
 import BannerHeader from "../bannerHeader";
+import Swal from "sweetalert2";
 
 const LienHe = () => {
   const [isShowVideo, handleSetVideo] = useOutletContext();
@@ -36,7 +37,12 @@ const LienHe = () => {
 
     const res = await callAddLienhe(name, phone, email, noidung);
     if (res && res.EC === 1) {
-      message.success("Cảm ơn bạn đã liên hệ với TM Media");
+      // message.success("Cảm ơn bạn đã liên hệ với TM Media");
+      Swal.fire({
+        title: "Đã xác nhận!",
+        text: "Cảm ơn bạn đã liên hệ với TM Media!",
+        icon: "success"
+      });
       setName("");
       setEmail("");
       setPhone("");

@@ -4,7 +4,10 @@
     --color-main: #2124b1; //#0984e3
 }
 #b-5324 {
-    //height: 400px;
+    @include xs{
+        margin-top: 100px;
+    }
+    height: 400px;
     position: relative;
     .bg-banner {
         // background-image: url('../assets/banner-bg/home.jpeg');
@@ -50,16 +53,19 @@
                 color: #f8f8f8;
                 font-weight: 600;
                 margin-bottom: 20px;
-                @include xs{
-                    font-size: 14px !important;
+                @include xs {
+                    //display: none;
+                    margin-bottom: 5px;
+                    font-size: 8px !important;
                 }
             }
             .h3-2 {
                 color: #f99b1c;
                 margin-bottom: 20px;
                 font-weight: 600;
-                @include xs{
-                    font-size: 14px !important;
+                @include xs {
+                    font-size: 8px !important;
+                    margin-bottom: 5px;
                 }
             }
             .h3-3 {
@@ -68,8 +74,10 @@
                 margin-bottom: 20px;
                 max-width: 495px;
                 line-height: 1.5;
-                @include xs{
-                    display: none;
+                @include xs {
+                    //display: none;
+                    margin-bottom: 5px;
+                    font-size: 8px !important;
                 }
             }
             .tuvan {
@@ -82,6 +90,11 @@
                 text-transform: uppercase;
                 font-size: 16px;
                 cursor: pointer;
+                @include xs {
+                    font-size: 7px;
+                    padding: 5px 15px;
+                    border-radius: 4px;
+                }
                 &:hover {
                     color: var(--color-main);
                     background-color: #ecf0f1;
@@ -90,15 +103,16 @@
             }
         }
         &_right {
-            padding: 30px;
+            //padding: 30px;
             @include xs {
                 //display: none;
+                //visibility: hidden;
             }
+            position: relative;
             .group-right {
                 width: 100%;
                 height: 100%;
-
-                position: relative;
+                // position: relative;
 
                 &:hover {
                     transform: translateY(-5px);
@@ -111,6 +125,7 @@
                     transition: 0.5s;
                 }
             }
+
             img {
                 width: 100%;
                 height: 100%;
@@ -126,6 +141,10 @@
                 top: 50%;
                 left: 50%;
                 transform: translate(-50%, -50%);
+                @include xs {
+                    width: 30px;
+                    height: 30px;
+                }
             }
             .glightbox_video {
                 position: absolute;

@@ -4,11 +4,29 @@ import menu_icon from "../../assets/menu-icon.png";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import { useEffect, useLayoutEffect, useState } from "react";
 import { callDetailTrangchu, callMenu_byid } from "../../service/api";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { convertSlug } from "../../utils/convertSlug";
 
 //import "the-new-css-reset/css/reset.css";
+
+import {
+  AppstoreOutlined,
+  HomeOutlined,
+  MailOutlined,
+  SettingOutlined,
+  VideoCameraAddOutlined,
+} from "@ant-design/icons";
+import { Menu } from "antd";
+function getItem(label, key, icon, children, type) {
+  return {
+    key,
+    icon,
+    children,
+    label,
+    type,
+  };
+}
 
 const Header = () => {
   const [scrollPosition, setPosition] = useState(0);
@@ -18,8 +36,77 @@ const Header = () => {
 
   const navigate = useNavigate();
   const [mediaHome, setMediaHome] = useState("");
-
   const [openMenuMb, setOpenMenuMb] = useState(false);
+
+  /////////menu
+  // custom antd render list
+  const renderItems = (list) => {
+    let arr = [];
+
+    list.map((item, index) => {
+      let name_slug = convertSlug(item.name);
+      arr.push(
+        getItem(
+          // <Link
+          //   to={{
+          //     pathname: `/${name_slug}`,
+          //     state: { idMedia: item.id, name: item.name },
+          //   }}
+          //   // onClick={() => setOpenMenuMb(false)}
+          // >
+          <p
+            onClick={() =>
+              navigate(
+                `/${name_slug}`,
+                {
+                  state: { idMedia: item.id, name: item.name },
+                },
+                setOpenMenuMb(false)
+              )
+            }
+          >
+            {item.name}
+          </p>,
+          // </Link>,
+          item.id
+        )
+      );
+      // arr.push(
+      //   getItem(
+      //     <Link to={`/admin/video/${item.id}`}>{item.name}</Link>,
+      //     `${item.id}-${index}`
+      //   )
+      // );
+    });
+    // console.log('renderrr arr', arr)
+    return arr;
+  };
+  //console.log(renderItems(menu_video));
+  //console.log("menu", menu_video);
+  const items = [
+    getItem(
+      <Link onClick={() => setOpenMenuMb(false)} to="/">
+        Trang chủ
+      </Link>,
+      "/"
+    ),
+    getItem("Sản xuất video", "sub1", "", renderItems(menu_video)),
+
+    getItem("Dịch vụ chụp ảnh", "sub2", "", renderItems(menu_chupanh)),
+    getItem("Dịch vụ xây kênh", "sub3", "", renderItems(menu_xaykenh)),
+    getItem(
+      <Link onClick={() => setOpenMenuMb(false)} to="/bai-viet">
+        Bài viết
+      </Link>,
+      "/bai-viet"
+    ),
+    getItem(
+      <Link onClick={() => setOpenMenuMb(false)} to="/lien-he">
+        Liên hệ
+      </Link>,
+      "/lien-he"
+    ),
+  ];
   // scroll
   useLayoutEffect(() => {
     function updatePosition() {
@@ -50,7 +137,7 @@ const Header = () => {
       setMenu_xaykenh(xaykenh.data);
     }
   };
-  
+
   const fetch_mediaHome = async () => {
     const res = await callDetailTrangchu();
     if (res && res.EC === 1) {
@@ -79,20 +166,35 @@ const Header = () => {
         className={scrollPosition > 600 ? "header-sticky" : "header-2"}
       >
         <div className="container">
-          <div className="header-2_content">
-
-          <div className="dot-mb" onClick={() => setOpenMenuMb(!openMenuMb)}>
-            <img src={menu_icon} alt="anh"></img>
+          {/* //header responsive */}
+          <div className="header-res">
+            <div className="dot-mb" onClick={() => setOpenMenuMb(!openMenuMb)}>
+              <img src={menu_icon} />
+            </div>
+            <div
+              className="menu-res"
+              style={openMenuMb ? { display: "block" } : { display: "none" }}
+            >
+              <Menu
+                //onClick={onClick}
+                style={{
+                  width: "100%",
+                }}
+                defaultSelectedKeys={["1"]}
+                defaultOpenKeys={["sub1"]}
+                mode="inline"
+                items={items}
+              />
+            </div>
           </div>
-
-            {/* /////// */}
+          {/* // */}
+          <div className="header-2_content">
             <div className="logo" onClick={() => navigate("/")}>
               <img
                 src={`${process.env.REACT_APP_BACKEND_URL}/images/banner/${mediaHome.logo}`}
                 alt="logo"
               />
             </div>
-
 
             <div className="menu">
               <ul className="parent-ul">
@@ -171,7 +273,6 @@ const Header = () => {
                 </li>
               </ul>
             </div>
-
           </div>
         </div>
       </div>

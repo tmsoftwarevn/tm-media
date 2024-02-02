@@ -23,6 +23,8 @@ const QuanlyTrangchu = () => {
   const [link, setLink] = useState();
 
   const [logo, setLogo] = useState();
+  const [logo_iconWweb, setlogo_iconWweb] = useState();
+
   const [mota_cty, setMota_cty] = useState();
   const [thuonghieu, setThuonghieu] = useState();
   const [bg_thongke, setBg_thongke] = useState();
@@ -46,6 +48,8 @@ const QuanlyTrangchu = () => {
   const [fileList_3, setFileList_3] = useState([{}]);
   const [fileList_4, setFileList_4] = useState([{}]);
   const [fileList_5, setFileList_5] = useState([{}]);
+  const [fileList_6, setFileList_6] = useState([{}]);
+
   const fetchTrangchu = async () => {
     let res = await callDetailTrangchu();
     if (res && res.EC === 1) {
@@ -92,6 +96,14 @@ const QuanlyTrangchu = () => {
           url: `${process.env.REACT_APP_BACKEND_URL}/images/banner/${res.data.bg_thongke}`,
         },
       ]);
+      setFileList_6([
+        {
+          uid: "-1",
+          name: "ảnh",
+          status: "done",
+          url: `${process.env.REACT_APP_BACKEND_URL}/images/banner/${res.data.icon_web}`,
+        },
+      ]);
     }
     // set data hiển thị khi call api thành công
     setPathBannerBg(res.data?.banner_bg);
@@ -101,6 +113,8 @@ const QuanlyTrangchu = () => {
     setMeta_des(res.data?.meta_des);
 
     setLogo(res.data.logo);
+    setlogo_iconWweb(res.data.icon_web);
+
     setMota_cty(res.data.mota_cty);
     setThuonghieu(res.data.thuonghieu);
     setBg_thongke(res.data.bg_thongke);
@@ -111,9 +125,11 @@ const QuanlyTrangchu = () => {
     setT2(res.data.t2);
     setT3(res.data.t3);
   };
+  console.log(detailMedia)
   useEffect(() => {
     fetchTrangchu();
   }, []);
+console.log("");
 
   const onChange = ({ fileList: newFileList }) => {
     setFileList(newFileList);
@@ -129,6 +145,9 @@ const QuanlyTrangchu = () => {
   };
   const onChange_5 = ({ fileList: newFileList_5 }) => {
     setFileList_5(newFileList_5);
+  };
+  const onChange_6 = ({ fileList: newFileList_6 }) => {
+    setFileList_6(newFileList_6);
   };
   const onPreview = async (file) => {
     let src = file.url;
@@ -181,6 +200,22 @@ const QuanlyTrangchu = () => {
       onError("Đã có lỗi khi upload");
     }
   };
+  const handleUploadFile_logo_iconweb = async ({
+    file,
+    onSuccess,
+    onError,
+  }) => {
+    const res = await callUpload_Single_Img(file);
+    if (res && res.data) {
+      if (logo_iconWweb) {
+        let remove = await callDeleteImg(logo_iconWweb);
+      }
+      setlogo_iconWweb(res.data.fileUploaded);
+      onSuccess("ok");
+    } else {
+      onError("Đã có lỗi khi upload");
+    }
+  };
   const handleUploadFile_thuonghieu = async ({ file, onSuccess, onError }) => {
     const res = await callUpload_Single_Img(file);
     if (res && res.data) {
@@ -213,6 +248,7 @@ const QuanlyTrangchu = () => {
       !key_word ||
       !meta_des ||
       !logo ||
+      !logo_iconWweb ||
       !mota_cty ||
       !thuonghieu ||
       !bg_thongke ||
@@ -234,6 +270,7 @@ const QuanlyTrangchu = () => {
       pathBannerVideo,
       link,
       logo,
+      logo_iconWweb,
       mota_cty,
       thuonghieu,
       bg_thongke,
@@ -313,7 +350,7 @@ const QuanlyTrangchu = () => {
             </Upload>
           </Card>
         </Col>
-        
+
         <Col span={12}>
           <Card title="Logo cty" bordered={true}>
             <Upload
@@ -331,19 +368,19 @@ const QuanlyTrangchu = () => {
           </Card>
         </Col>
         <Col span={12}>
-          <Card title="Thương hiệu" bordered={true}>
-            <Upload
-              listType="picture-card"
-              fileList={fileList_4}
-              customRequest={handleUploadFile_thuonghieu}
-              onChange={onChange_4}
-              onPreview={onPreview}
-              maxCount={1}
-              multiple={false}
-              accept="image/*"
-            >
-              Tải lên
-            </Upload>
+        <Card title="Icon website trên cùng" bordered={true}>
+          <Upload
+            listType="picture-card"
+            fileList={fileList_6}
+            customRequest={handleUploadFile_logo_iconweb}
+            onChange={onChange_6}
+            onPreview={onPreview}
+            maxCount={1}
+            multiple={false}
+            accept="image/*"
+          >
+            Tải lên
+          </Upload>
           </Card>
         </Col>
         <Col span={12}>
@@ -371,43 +408,41 @@ const QuanlyTrangchu = () => {
               maxLength={1000}
             /> */}
             <Editor
-                apiKey={process.env.REACT_APP_API_KEY_EDITOR}
-                onChange={(evt, editor) => setMota_cty(editor.getContent())}
-                initialValue={mota_cty}
-                init={{
-                  height: 200,
-                  menubar: false,
-                  plugins: [
-                    "advlist",
-                    "autolink",
-                    "lists",
-                    "link",
-                    "image",
-                    "charmap",
-                    "preview",
-                    "anchor",
-                    "searchreplace",
-                    "visualblocks",
-                    "code",
-                    "fullscreen",
-                    "insertdatetime",
-                    "media",
-                    "table",
-                    "code",
-                    "help",
-                    "wordcount",
-                  ],
-                  toolbar:
-                    "undo redo | blocks | " +
-                    "bold italic fontsize forecolor | alignleft aligncenter " +
-                    "alignright alignjustify | bullist numlist outdent indent "
-                    ,
-                  content_style:
-                    "body { font-family: Helvetica, Arial, sans-serif; font-size: 14px }",
-                  fontsize_formats: "8px 10px 12px 14px 18px 24px 36px",
-                  
-                }}
-              />
+              apiKey={process.env.REACT_APP_API_KEY_EDITOR}
+              onChange={(evt, editor) => setMota_cty(editor.getContent())}
+              initialValue={mota_cty}
+              init={{
+                height: 200,
+                menubar: false,
+                plugins: [
+                  "advlist",
+                  "autolink",
+                  "lists",
+                  "link",
+                  "image",
+                  "charmap",
+                  "preview",
+                  "anchor",
+                  "searchreplace",
+                  "visualblocks",
+                  "code",
+                  "fullscreen",
+                  "insertdatetime",
+                  "media",
+                  "table",
+                  "code",
+                  "help",
+                  "wordcount",
+                ],
+                toolbar:
+                  "undo redo | blocks | " +
+                  "bold italic fontsize forecolor | alignleft aligncenter " +
+                  "alignright alignjustify | bullist numlist outdent indent ",
+                content_style:
+                  "body { font-family: Helvetica, Arial, sans-serif; font-size: 14px }",
+                fontsize_formats: "8px 10px 12px 14px 18px 24px 36px",
+              }}
+            />
           </Card>
         </Col>
         <Col span={12}>
@@ -474,6 +509,24 @@ const QuanlyTrangchu = () => {
             ></Input>
             <ReactPlayer url={link} width={"100%"} controls={true} />
           </Card>
+        </Col>
+
+        <Col span={12}>
+          <Card title="Thương hiệu" bordered={true}>
+            <Upload
+              listType="picture-card"
+              fileList={fileList_4}
+              customRequest={handleUploadFile_thuonghieu}
+              onChange={onChange_4}
+              onPreview={onPreview}
+              maxCount={1}
+              multiple={false}
+              accept="image/*"
+            >
+              Tải lên
+            </Upload>
+          </Card>{" "}
+          */
         </Col>
       </Row>
     </>

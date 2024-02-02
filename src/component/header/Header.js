@@ -1,5 +1,6 @@
 import "../../scss/header.scss";
-import logo from "../../assets/logo.png";
+import menu_icon from "../../assets/menu-icon.png";
+
 import { MdKeyboardArrowDown } from "react-icons/md";
 import { useEffect, useLayoutEffect, useState } from "react";
 import { callDetailTrangchu, callMenu_byid } from "../../service/api";
@@ -18,6 +19,7 @@ const Header = () => {
   const navigate = useNavigate();
   const [mediaHome, setMediaHome] = useState("");
 
+  const [openMenuMb, setOpenMenuMb] = useState(false);
   // scroll
   useLayoutEffect(() => {
     function updatePosition() {
@@ -78,12 +80,20 @@ const Header = () => {
       >
         <div className="container">
           <div className="header-2_content">
-            <div className="logo">
+
+          <div className="dot-mb" onClick={() => setOpenMenuMb(!openMenuMb)}>
+            <img src={menu_icon} alt="anh"></img>
+          </div>
+
+            {/* /////// */}
+            <div className="logo" onClick={() => navigate("/")}>
               <img
                 src={`${process.env.REACT_APP_BACKEND_URL}/images/banner/${mediaHome.logo}`}
                 alt="logo"
               />
             </div>
+
+
             <div className="menu">
               <ul className="parent-ul">
                 <li className="parent-li" onClick={() => navigate("/")}>
@@ -161,6 +171,7 @@ const Header = () => {
                 </li>
               </ul>
             </div>
+
           </div>
         </div>
       </div>

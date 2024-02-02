@@ -28,6 +28,7 @@ const AddVideo = (props) => {
     setFileList([]);
     setLink("");
     setName("");
+    setPathBannerVideo("")
   };
 
   const onChange = ({ fileList: newFileList }) => {
@@ -68,7 +69,6 @@ const AddVideo = (props) => {
       return;
     }
 
-    handleCancel();
     const res = await callAddVideoNoibat(
       params.id,
       pathBannerVideo,
@@ -81,6 +81,7 @@ const AddVideo = (props) => {
     } else {
       message.error("Thêm thất bại");
     }
+    handleCancel();
   };
 
   return (

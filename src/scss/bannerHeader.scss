@@ -1,8 +1,10 @@
+@import './responsive.scss';
+
 :root {
     --color-main: #2124b1; //#0984e3
 }
 #b-5324 {
-    height: 400px;
+    //height: 400px;
     position: relative;
     .bg-banner {
         // background-image: url('../assets/banner-bg/home.jpeg');
@@ -35,17 +37,30 @@
 
         &_left {
             font-family: 'roboto';
-            font-size: 20px;
+            // font-size: 20px;
             margin: auto;
+            @include xs {
+                //display: none;
+                //font-size: 14px !important;
+            }
+            @include lg {
+                //font-size: 20px !important;
+            }
             .h3-1 {
                 color: #f8f8f8;
                 font-weight: 600;
                 margin-bottom: 20px;
+                @include xs{
+                    font-size: 14px !important;
+                }
             }
             .h3-2 {
                 color: #f99b1c;
                 margin-bottom: 20px;
                 font-weight: 600;
+                @include xs{
+                    font-size: 14px !important;
+                }
             }
             .h3-3 {
                 color: #f8f8f8;
@@ -53,6 +68,9 @@
                 margin-bottom: 20px;
                 max-width: 495px;
                 line-height: 1.5;
+                @include xs{
+                    display: none;
+                }
             }
             .tuvan {
                 color: #f8f8f8;
@@ -66,7 +84,6 @@
                 cursor: pointer;
                 &:hover {
                     color: var(--color-main);
-                    //background-color: white;
                     background-color: #ecf0f1;
                     transition: all 0.5s ease;
                 }
@@ -74,7 +91,9 @@
         }
         &_right {
             padding: 30px;
-
+            @include xs {
+                //display: none;
+            }
             .group-right {
                 width: 100%;
                 height: 100%;

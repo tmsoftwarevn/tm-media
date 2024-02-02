@@ -4,7 +4,7 @@ import Footer from "../footer/Footer";
 import { useEffect, useRef, useState } from "react";
 import "../../scss/show_video.scss";
 
-import "the-new-css-reset/css/reset.css";
+//import "the-new-css-reset/css/reset.css";
 
 import { MdCancelPresentation } from "react-icons/md";
 import Loading from "../Loading/Loading";
@@ -47,13 +47,12 @@ const Layout = () => {
     return <Loading />;
   } else
     return (
-      <div >
-        
+      <div>
         <Header />
         <Outlet context={[isShowVideo, handleSetVideo]} />
         <Footer />
-       
-        <BasicSpeedDial className="contact-mui"/>
+
+        {/* <BasicSpeedDial className="contact-mui"/> */}
 
         {isShowVideo && (
           <div className="show-video">

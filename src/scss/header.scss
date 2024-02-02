@@ -1,5 +1,5 @@
 @import './animation.scss';
-
+@import './responsive.scss';
 
 :root {
     --color-main: #2124b1;
@@ -19,7 +19,6 @@
     width: 100%;
     background-color: #fff;
     padding: 10px 0;
-    
 }
 
 .header-1 {
@@ -43,16 +42,32 @@
         align-items: center;
         justify-content: space-between;
 
+        .dot-mb {
+            @include xs {
+                img {
+                    width: 30px;
+                }
+            }
+            @include sm {
+                img {
+                    width: 40px;
+                }
+            }
+            @include lg {
+                display: none;
+            }
+        }
         .logo {
-           // width: 250px;
-            width: 100%;
+            cursor: pointer;
             max-width: 150px;
             img {
-                width: 100%;
             }
         }
         .menu {
             padding-top: 20px;
+            @include xs {
+                display: none;
+            }
             .parent-ul {
                 display: flex;
                 justify-content: space-between;

@@ -3,7 +3,6 @@
     --color-orange: #ff9900;
 }
 .lienhe {
-    margin-bottom: 80px;
     &_title {
         color: var(--color-main);
         font-family: 'roboto';
@@ -36,11 +35,11 @@
         font-size: 16px;
         padding-right: 30px;
         .anh {
-            width: 100%;
             max-width: 200px;
             margin: 0 auto;
             img {
-                width: 100%;
+                // width: 100%;
+                //object-fit: cover;
             }
             margin-bottom: 12px;
         }
@@ -118,17 +117,18 @@
             width: 100%;
             color: white;
             border-radius: 3px;
-            padding: 6px 12px;
+            padding: 8px 12px;
+            cursor: pointer;
             .btn-lh {
                 margin: 0 auto;
                 font-size: 16px;
                 font-family: roboto;
                 font-weight: 600;
                 text-transform: uppercase;
-              
+
                 outline: none;
                 border: none;
-                cursor: pointer;
+                
             }
             &:hover {
                 color: var(--color-main);

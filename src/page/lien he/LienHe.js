@@ -8,7 +8,7 @@ import { IoCall } from "react-icons/io5";
 import { callAddLienhe, callDetailTrangchu } from "../../service/api";
 import { message } from "antd";
 import { Helmet } from "react-helmet-stuff";
-import { useOutletContext } from "react-router-dom";
+import { useLocation, useOutletContext } from "react-router-dom";
 import BannerHeader from "../bannerHeader";
 
 const LienHe = () => {
@@ -18,6 +18,7 @@ const LienHe = () => {
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [noidung, setNoidung] = useState("");
+  const location = useLocation();
 
   const [mediaHome, setMediaHome] = useState("");
   const fetch_mediaHome = async () => {
@@ -58,7 +59,9 @@ const LienHe = () => {
         <meta property="og:description" content={mediaHome?.meta_des} />
       </Helmet>
 
-      <BannerHeader media={mediaHome} handleSetVideo={handleSetVideo} />
+      {location.pathname === "/lien-he" && (
+        <BannerHeader media={mediaHome} handleSetVideo={handleSetVideo} />
+      )}
 
       <div className="lienhe">
         <div className="lienhe_title">

@@ -100,9 +100,9 @@ const App = () => {
     ),
 
     getItem("Quản lý menu", "sub1", <MenuFoldOutlined />, [
-      getItem(<Link to="/admin/menu/1">Sản xuất video</Link>, "1"),
-      getItem(<Link to="/admin/menu/2">Chụp ảnh quảng cáo</Link>, "2"),
-      getItem(<Link to="/admin/menu/3">Dịch vụ Xây kênh</Link>, "3"),
+      getItem(<Link to="/admin/menu/1">Sản xuất video</Link>, "menu1"),
+      getItem(<Link to="/admin/menu/2">Chụp ảnh quảng cáo</Link>, "menu2"),
+      getItem(<Link to="/admin/menu/3">Dịch vụ Xây kênh</Link>, "menu3"),
     ]),
     getItem(
       <Link to="/admin/trangchu">Quản lý trang chủ</Link>,

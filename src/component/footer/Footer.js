@@ -8,7 +8,11 @@ import { IoMdMail } from "react-icons/io";
 import { BiWorld } from "react-icons/bi";
 import { callMenu_byid } from "../../service/api";
 import { convertSlug } from "../../utils/convertSlug";
-import { FaFacebookSquare } from "react-icons/fa";
+
+import { FaFacebookF } from "react-icons/fa";
+import { FaTiktok } from "react-icons/fa";
+import { FaYoutube } from "react-icons/fa";
+import { SiZalo } from "react-icons/si";
 
 const Footer = () => {
   const [menu_video, setMenu_video] = useState([]);
@@ -43,34 +47,6 @@ const Footer = () => {
   return (
     <footer className="footer">
       <div className="container">
-        <section id="lab_social_icon_footer">
-          <div class="container">
-            <div class="text-center center-block">
-              <a href="https://www.facebook.com/bootsnipp">
-                {/* <i
-                  id="social-fb"
-                  class="fa fa-facebook-square fa-3x social"
-                ></i> */}
-                <FaFacebookSquare id="social-fb" />
-              </a>
-              <a href="https://twitter.com/bootsnipp">
-                <i id="social-tw" class="fa fa-twitter-square fa-3x social"></i>
-              </a>
-              <a href="https://plus.google.com/+Bootsnipp-page">
-                <i
-                  id="social-gp"
-                  class="fa fa-google-plus-square fa-3x social"
-                ></i>
-              </a>
-              <a href="mailto:#">
-                <i
-                  id="social-em"
-                  class="fa fa-envelope-square fa-3x social"
-                ></i>
-              </a>
-            </div>
-          </div>
-        </section>
         {/* // info  */}
         <div className="row">
           <div class="footer-col col-md-3">
@@ -128,6 +104,43 @@ const Footer = () => {
                 tmbranding.vn
               </li>
             </ul>
+
+            {/* /// */}
+            <div className="center-icon">
+              <div
+                className="g-fb"
+                onClick={() =>
+                  window.open(process.env.REACT_APP_LINK_FACEBOOK, "_blank")
+                }
+              >
+                <FaFacebookF className="fb" />
+              </div>
+
+              <div
+                className="g-fb"
+                onClick={() =>
+                  window.open(process.env.REACT_APP_LINK_YOUTUBE, "_blank")
+                }
+              >
+                <FaYoutube className="yt" />
+              </div>
+              <div
+                className="g-fb"
+                onClick={() =>
+                  window.open(process.env.REACT_APP_LINK_TIKTOK, "_blank")
+                }
+              >
+                <FaTiktok className="tiktok" />
+              </div>
+              <div
+                className="g-fb"
+                onClick={() =>
+                  window.open(process.env.REACT_APP_URL_ZALO, "_blank")
+                }
+              >
+                <SiZalo className="zalo" />
+              </div>
+            </div>
           </div>
           <div class="footer-col col-md-3">
             <h4>Sản xuất video</h4>

@@ -7,7 +7,7 @@ import BannerHeader from "../bannerHeader";
 import { Helmet } from "react-helmet-stuff";
 
 const BaivietDetail = () => {
-  const [isShowVideo, handleSetVideo] = useOutletContext();
+  const [isShowVideo, handleSetVideo, setIsLoading] = useOutletContext();
   const navigate = useNavigate();
   const location = useLocation();
   //const params = new URLSearchParams(location.search);
@@ -20,6 +20,8 @@ const BaivietDetail = () => {
     const res = await callGetdetail_Baiviet(location.state?.id);
     if (res && res.EC === 1) {
       setDetail(res.data);
+
+      setIsLoading(false);
     }
   };
   const fetch_mediaHome = async () => {
@@ -41,7 +43,6 @@ const BaivietDetail = () => {
         <meta name="keywords" content={detail?.key_word} />
         <meta property="og:title" content={detail?.tieude} />
         <meta property="og:description" content={detail?.meta_des} />
-        
       </Helmet>
 
       <BannerHeader media={mediaHome} handleSetVideo={handleSetVideo} />
@@ -55,8 +56,8 @@ const BaivietDetail = () => {
                 </span>
               </li>
               <li className="breadcrumb-item">
-                <span className="br-home" onClick={() => navigate("/bai-viet")}>
-                  Bài viết
+                <span className="br-home" onClick={() => navigate("/tin-tuc")}>
+                  Tin tức
                 </span>
               </li>
               <li className="breadcrumb-item active" aria-current="page">

@@ -4,7 +4,7 @@ import menu_icon from "../../assets/menu-icon.png";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import { useEffect, useLayoutEffect, useState } from "react";
 import { callDetailTrangchu, callMenu_byid } from "../../service/api";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 import { convertSlug } from "../../utils/convertSlug";
 
@@ -28,7 +28,9 @@ function getItem(label, key, icon, children, type) {
   };
 }
 
-const Header = () => {
+const Header = (props) => {
+  const { setIsLoading } = props;
+  const location = useLocation();
   const [scrollPosition, setPosition] = useState(0);
   const [menu_video, setMenu_video] = useState([]);
   const [menu_chupanh, setMenu_chupanh] = useState([]);
@@ -54,7 +56,7 @@ const Header = () => {
           //   }}
           //   // onClick={() => setOpenMenuMb(false)}
           // >
-          <p
+          <div
             onClick={() =>
               navigate(
                 `/${name_slug}`,
@@ -66,23 +68,16 @@ const Header = () => {
             }
           >
             {item.name}
-          </p>,
+          </div>,
           // </Link>,
           item.id
         )
       );
-      // arr.push(
-      //   getItem(
-      //     <Link to={`/admin/video/${item.id}`}>{item.name}</Link>,
-      //     `${item.id}-${index}`
-      //   )
-      // );
     });
-    // console.log('renderrr arr', arr)
+
     return arr;
   };
-  //console.log(renderItems(menu_video));
-  //console.log("menu", menu_video);
+
   const items = [
     getItem(
       <Link onClick={() => setOpenMenuMb(false)} to="/">
@@ -95,10 +90,10 @@ const Header = () => {
     getItem("Dịch vụ chụp ảnh", "sub2", "", renderItems(menu_chupanh)),
     getItem("Dịch vụ xây kênh", "sub3", "", renderItems(menu_xaykenh)),
     getItem(
-      <Link onClick={() => setOpenMenuMb(false)} to="/bai-viet">
-        Bài viết
+      <Link onClick={() => setOpenMenuMb(false)} to="/tin-tuc">
+        Tin tức
       </Link>,
-      "/bai-viet"
+      "/tin-tuc"
     ),
     getItem(
       <Link onClick={() => setOpenMenuMb(false)} to="/lien-he">
@@ -161,35 +156,53 @@ const Header = () => {
         </div>
       </div> */}
 
-      <div
-        //className="header-2"
-        className={scrollPosition > 600 ? "header-sticky" : "header-2"}
-      >
+      <div className={scrollPosition > 600 ? "header-sticky" : "header-2"}>
         <div className="container">
           {/* //header responsive */}
-          <div className="header-res">
-            <div className="dot-mb" onClick={() => setOpenMenuMb(!openMenuMb)}>
-              <img src={menu_icon} />
-            </div>
+          <div
+            className={
+              scrollPosition > 600 ? "header-sticky header-res" : "header-res"
+            }
+          >
             <div
               className="menu-res"
               style={openMenuMb ? { display: "block" } : { display: "none" }}
             >
               <Menu
-                //onClick={onClick}
                 style={{
                   width: "100%",
+                  fontFamily: "roboto",
                 }}
-                defaultSelectedKeys={["1"]}
-                defaultOpenKeys={["sub1"]}
+                defaultSelectedKeys={["/"]}
+                //defaultOpenKeys={["sub1"]}
                 mode="inline"
                 items={items}
               />
             </div>
+            <div
+              className="logo-res"
+              onClick={() => {
+                navigate("/");
+              }}
+            >
+              <img
+                src={`${process.env.REACT_APP_BACKEND_URL}/images/banner/${mediaHome.logo}`}
+                alt="logo"
+              />
+            </div>
+            <div className="dot-mb" onClick={() => setOpenMenuMb(!openMenuMb)}>
+              <img src={menu_icon} />
+            </div>
           </div>
           {/* // */}
           <div className="header-2_content">
-            <div className="logo" onClick={() => navigate("/")}>
+            <div
+              className="logo"
+              onClick={() => {
+                navigate("/");
+                //setIsLoading(true);
+              }}
+            >
               <img
                 src={`${process.env.REACT_APP_BACKEND_URL}/images/banner/${mediaHome.logo}`}
                 alt="logo"
@@ -198,10 +211,23 @@ const Header = () => {
 
             <div className="menu">
               <ul className="parent-ul">
-                <li className="parent-li" onClick={() => navigate("/")}>
+                <li
+                  className="parent-li active-menu"
+                  // className={
+                  //   location.pathname === "/"
+                  //     ? "parent-li active-menu"
+                  //     : "parent-li"
+                  // }
+                  onClick={() => {
+                    navigate("/");
+                    //setIsLoading(true);
+                  }}
+                >
                   Trang chủ
                 </li>
-                <li className="drop-parent parent-li">
+                <li 
+                className="drop-parent parent-li"
+                >
                   sản xuất video
                   <MdKeyboardArrowDown className="arrow-header" />
                   <ul className="dropdown-child">
@@ -211,11 +237,12 @@ const Header = () => {
                         <li
                           key={item.id}
                           // pass id
-                          onClick={() =>
+                          onClick={() => {
                             navigate(`/${name_slug}`, {
                               state: { idMedia: item.id, name: item.name },
-                            })
-                          }
+                            });
+                            setIsLoading(true);
+                          }}
                         >
                           {item.name}
                         </li>
@@ -232,11 +259,12 @@ const Header = () => {
                       return (
                         <li
                           key={item.id}
-                          onClick={() =>
+                          onClick={() => {
                             navigate(`/${name_slug}`, {
                               state: { idMedia: item.id, name: item.name },
-                            })
-                          }
+                            });
+                            setIsLoading(true);
+                          }}
                         >
                           {item.name}
                         </li>
@@ -253,11 +281,12 @@ const Header = () => {
                       return (
                         <li
                           key={item.id}
-                          onClick={() =>
+                          onClick={() => {
                             navigate(`/${name_slug}`, {
                               state: { idMedia: item.id, name: item.name },
-                            })
-                          }
+                            });
+                            setIsLoading(true);
+                          }}
                         >
                           {item.name}
                         </li>
@@ -265,10 +294,22 @@ const Header = () => {
                     })}
                   </ul>
                 </li>
-                <li className="parent-li" onClick={() => navigate("/bai-viet")}>
-                  bài viết
+                <li
+                  className="parent-li"
+                  onClick={() => {
+                    navigate("/tin-tuc");
+                    setIsLoading(true);
+                  }}
+                >
+                  Tin tức
                 </li>
-                <li className="parent-li" onClick={() => navigate("/lien-he")}>
+                <li
+                  className="parent-li"
+                  onClick={() => {
+                    navigate("/lien-he");
+                    setIsLoading(true);
+                  }}
+                >
                   liên hệ
                 </li>
               </ul>

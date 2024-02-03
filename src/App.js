@@ -20,41 +20,6 @@ import { useEffect, useState } from "react";
 import { callDetailTrangchu } from "./service/api";
 
 const App = () => {
-  const [mediaHome, setMediaHome] = useState("");
-
-  const fetch_mediaHome = async () => {
-    const res = await callDetailTrangchu();
-    if (res && res.EC === 1) {
-      setMediaHome(res.data);
-    }
-  };
-  useEffect(() => {
-    fetch_mediaHome();
-  }, []);
-  useEffect(() => {
-    let link = document.querySelector("link[rel~='icon']");
-    if (!link) {
-      link = document.createElement("link");
-      link.rel = "icon";
-      document.getElementsByTagName("head")[0].appendChild(link);
-    }
-    const logoImage = new Image();
-    logoImage.src = `${process.env.REACT_APP_BACKEND_URL}/images/banner/${mediaHome.icon_web}`;
-   
-    logoImage.onload = () => {
-      link.href = logoImage.src;
-      
-    };
-
-    logoImage.onerror = () => {
-      console.error("Error loading logo image");
-    };
-    return () => {
-      logoImage.onload = null;
-      logoImage.onerror = null;
-    };
-  }, [mediaHome?.icon_web]);
-
   const router = createBrowserRouter([
     {
       path: "/",
@@ -66,11 +31,11 @@ const App = () => {
           element: <LienHe />,
         },
         {
-          path: "/bai-viet/:slug",
+          path: "/tin-tuc/:slug",
           element: <BaivietDetail />,
         },
         {
-          path: "/bai-viet",
+          path: "/tin-tuc",
           element: <Baiviet />,
         },
         {

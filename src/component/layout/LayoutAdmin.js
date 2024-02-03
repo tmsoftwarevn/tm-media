@@ -11,7 +11,7 @@ import {
 } from "@ant-design/icons";
 import { Breadcrumb, Button, Layout, Menu, theme } from "antd";
 import { Link, Outlet, useNavigate } from "react-router-dom";
-import { callMenu_byid } from "../../service/api";
+import { callDetailTrangchu, callMenu_byid } from "../../service/api";
 const { Header, Content, Footer, Sider } = Layout;
 function getItem(label, key, icon, children) {
   return {
@@ -23,6 +23,39 @@ function getItem(label, key, icon, children) {
 }
 
 const App = () => {
+  const [mediaHome, setMediaHome] = useState("");
+  const fetch_mediaHome = async () => {
+    const res = await callDetailTrangchu();
+    if (res && res.EC === 1) {
+      setMediaHome(res.data);
+    }
+  };
+  useEffect(() => {
+    fetch_mediaHome();
+  }, []);
+  useEffect(() => {
+    let link = document.querySelector("link[rel~='icon']");
+    if (!link) {
+      link = document.createElement("link");
+      link.rel = "icon";
+      document.getElementsByTagName("head")[0].appendChild(link);
+    }
+    const logoImage = new Image();
+    logoImage.src = `${process.env.REACT_APP_BACKEND_URL}/images/banner/${mediaHome.icon_web}`;
+
+    logoImage.onload = () => {
+      link.href = logoImage.src;
+    };
+
+    logoImage.onerror = () => {
+      console.error("Error loading logo image");
+    };
+    return () => {
+      logoImage.onload = null;
+      logoImage.onerror = null;
+    };
+  }, [mediaHome?.icon_web]);
+  ////icon
   const navigate = useNavigate();
   const [collapsed, setCollapsed] = useState(false);
   const [listMenu_1, setListMenu_1] = useState([]);

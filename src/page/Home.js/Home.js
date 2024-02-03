@@ -11,9 +11,10 @@ import { callActive_menu, callDetailTrangchu } from "../../service/api";
 import Video from "../../component/video/Video";
 import BannerHeader from "../bannerHeader";
 import { Helmet } from "react-helmet-stuff";
+import SlideBaiviet from "../bai viet/slideBaiviet";
 
 const Home = () => {
-  const [isShowVideo, handleSetVideo] = useOutletContext();
+  const [isShowVideo, handleSetVideo, setIsLoading] = useOutletContext();
   const [activeMenu, setActiveMenu] = useState([]);
   const [mediaHome, setMediaHome] = useState("");
 
@@ -31,6 +32,7 @@ const Home = () => {
     const res = await callDetailTrangchu();
     if (res && res.EC === 1) {
       setMediaHome(res.data);
+      setIsLoading(false);
     }
   };
 
@@ -164,21 +166,10 @@ const Home = () => {
             );
           })}
 
+        <SlideBaiviet />
+
         <div ref={targetDivRef}></div>
         <LienHe />
-
-        <div className="bando">
-          <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.093105813445!2d106.78851607405382!3d10.804180789346265!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3175299e2905e89f%3A0x56753105cfc85bb2!2zVE0gQnJhbmRpbmcgLSBUaGnhur90IGvhur8gJiBUcnV54buBbiB0aMO0bmc!5e0!3m2!1svi!2s!4v1706087870820!5m2!1svi!2s"
-            width="100%"
-            height="450"
-            style={{ border: 0 }}
-            allowFullScreen=""
-            loading="lazy"
-            referrerPolicy="no-referrer-when-downgrade"
-          ></iframe>
-        </div>
-        
       </div>
     </>
   );

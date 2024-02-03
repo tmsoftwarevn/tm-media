@@ -10,7 +10,7 @@ import { Helmet } from "react-helmet-stuff";
 const DichVuMedia = () => {
   const navigate = useNavigate();
 
-  const [isShowVideo, handleSetVideo] = useOutletContext();
+  const [isShowVideo, handleSetVideo,setIsLoading] = useOutletContext();
   const location = useLocation();
   const [idMedia, setIdMedia] = useState(location.state?.idMedia);
 
@@ -19,14 +19,15 @@ const DichVuMedia = () => {
     let res = await callDetailMedia(location.state?.idMedia);
     if (res && res.EC === 1) {
       setDetailMedia(res.data);
+      setIsLoading(false);
     }
   };
-console.log("idđ",location)
-  // useEffect(() => {
-  //   if (!idMedia) {
-  //     navigate("/");
-  //   }
-  // }, [idMedia]);
+
+  useEffect(() => {
+    if (!idMedia) {
+      navigate("/");
+    }
+  }, [idMedia]);
 
   useEffect(() => {
     fetch_DetailMedia();
@@ -43,7 +44,7 @@ console.log("idđ",location)
       </Helmet>
 
       <BannerHeader media={detailMedia} handleSetVideo={handleSetVideo} />
-      <section id="nd-9653" className="m-5">
+      <section id="nd-9653" className="mt-4">
         <div className="container">
           <div dangerouslySetInnerHTML={{ __html: detailMedia?.noidung }}></div>
         </div>

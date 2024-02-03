@@ -1,3 +1,4 @@
+@import './responsive.scss';
 :root {
     --color-main: #2124b1;
     --color-orange: #ff9900;
@@ -8,30 +9,46 @@
 
 .media {
     margin-bottom: 50px;
+    @include xs {
+        margin-bottom: 30px;
+    }
     &_title {
         color: var(--color-main);
         font-family: 'roboto';
         font-size: 26px;
         font-weight: 600;
         margin-top: 100px;
+        @include xs {
+            margin-top: 30px;
+        }
         margin-bottom: 30px;
         display: flex;
         align-items: center;
         justify-content: center;
-        
+        @include xs {
+            border-bottom: 1px solid var(--color-main);
+        }
         p {
             height: 1px;
-            width: 400px;
+            width: 100%;
             max-width: 400px;
             background-color: rgb(108, 46, 243);
             opacity: 0.2;
             margin: auto;
+            @include xs {
+                display: none;
+            }
+            @include sm {
+                display: none;
+            }
+
+            @include lg{
+                display: block;
+            }
         }
-        p:nth-child(1){
-           
+        p:nth-child(1) {
         }
-        p:nth-child(2){
-           
+        p:nth-child(2) {
         }
     }
     &_carousel {
@@ -40,8 +57,8 @@
         &_group {
             width: 100%;
             position: relative;
-           
-            &:hover{
+
+            &:hover {
                 cursor: pointer;
                 .outer_circle {
                     stroke-dashoffset: 410;
@@ -49,12 +66,12 @@
                         stroke 0.7s 0.4s ease-out,
                         stroke-dashoffset 0.4s ease-out;
                 }
-    
+
                 .inner-circle {
                     fill: #bf2428;
                     transition: fill 0.4s 0.3s ease-out;
                 }
-    
+
                 .play {
                     fill: white;
                     transition: fill 0.4s 0.3s ease-out;
@@ -63,7 +80,6 @@
             img {
                 width: 100%;
                 max-width: 100%;
-                
             }
             svg {
                 cursor: pointer;
@@ -105,7 +121,6 @@
                 fill: white;
                 transition: fill 0.4s 0.3s ease-out;
             }
-           
         }
         p {
             font-size: 20px;
@@ -119,16 +134,19 @@
     }
 }
 
-// ghi de carousel 
-.react-multiple-carousel__arrow{
+// ghi de carousel
+.react-multiple-carousel__arrow {
     top: 32%;
-    &:hover{
+    &:hover {
         background-color: var(--color-main);
     }
 }
-.react-multiple-carousel__arrow--right{
+.react-multiple-carousel__arrow--right {
     right: calc(2% + 1px);
+    @include xs {
+        right: 20px;
+    }
 }
-.react-multiple-carousel__arrow--left{
+.react-multiple-carousel__arrow--left {
     left: calc(1% + 1px);
 }

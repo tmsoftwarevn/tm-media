@@ -1,5 +1,6 @@
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
+
 import "../../scss/slide_video.scss";
 import { callGetVideoNoibat_byid } from "../../service/api";
 import { useEffect, useState } from "react";

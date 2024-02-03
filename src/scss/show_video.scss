@@ -1,5 +1,4 @@
-
-
+@import './responsive.scss';
 .show-video {
     position: fixed;
     top: 0;
@@ -23,6 +22,12 @@
 
     .video-yt {
         z-index: 999999;
+        .react-player {
+            @include xs {
+                width: 100% !important;
+                height: auto !important;
+            }
+        }
     }
     .icon-x {
         position: absolute;

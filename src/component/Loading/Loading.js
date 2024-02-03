@@ -1,6 +1,6 @@
-
 import { BounceLoader } from "react-spinners";
-import "../../scss/loading.scss"
+import "../../scss/loading.scss";
+
 const Loading = () => {
   return (
     <div className="centered-container">

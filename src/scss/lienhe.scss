@@ -1,23 +1,40 @@
+@import './responsive.scss';
 :root {
     --color-main: #2124b1;
     --color-orange: #ff9900;
 }
 .lienhe {
+    margin-top: 80px;
+    @include xs {
+        margin-top: 30px;
+    }
     &_title {
         color: var(--color-main);
         font-family: 'roboto';
         font-size: 26px;
         font-weight: 600;
         text-transform: uppercase;
-        margin-top: 100px;
+        //
         margin-bottom: 30px;
         display: flex;
         align-items: center;
         justify-content: center;
-
+        @include xs {
+            border-bottom: 1px solid var(--color-main);
+        }
         p {
+            @include xs {
+                display: none;
+            }
+            @include sm {
+                display: none;
+            }
+
+            @include lg {
+                display: block;
+            }
             height: 1px;
-            width: 400px;
+            width: 100%;
             max-width: 400px;
             background-color: rgb(108, 46, 243);
             margin: 0;
@@ -33,7 +50,7 @@
     &_left {
         font-family: roboto;
         font-size: 16px;
-        padding-right: 30px;
+        //padding-right: 30px;
         .anh {
             max-width: 200px;
             margin: 0 auto;
@@ -68,7 +85,16 @@
             font-size: 16px;
             cursor: pointer;
             font-family: roboto;
-            margin-top: 70px;
+            // margin-top: 70px;
+            @include xs {
+                margin: 30px 0;
+            }
+            @include sm {
+                margin: 30px 0;
+            }
+            @include lg {
+                margin-top: 70px;
+            }
             &:hover {
                 color: var(--color-main);
                 background-color: #ecf0f1;
@@ -136,5 +162,8 @@
                 }
             }
         }
+    }
+    .bando {
+        margin-top: 50px;
     }
 }

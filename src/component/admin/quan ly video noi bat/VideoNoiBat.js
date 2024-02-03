@@ -81,20 +81,22 @@ const VideoNoiBat = () => {
       title: "STT",
       dataIndex: "STT",
       key: "STT",
+      align: "center",
     },
     {
       title: "Tên video",
       dataIndex: "name",
       key: "name",
+      align: "center",
     },
     {
       title: "Ảnh nền video",
       dataIndex: "video_bg",
       key: "video_bg",
-
+      align: "center",
       render: (text, record, index) => {
         return (
-          <div>
+          <div style={{margin:"auto"}}>
             <Image
               width={200}
               src={`${process.env.REACT_APP_BACKEND_URL}/images/banner/${record?.video_bg}`}
@@ -107,14 +109,14 @@ const VideoNoiBat = () => {
       title: "Video",
       dataIndex: "link",
       key: "link",
-
+      align: "center",
       render: (text, record, index) => {
         return (
           <div>
             <ReactPlayer
               url={record?.link}
-              width={"200px"}
-              height={"auto"}
+              width={"auto"}
+              height={200}
               controls={true}
             />
           </div>
@@ -126,6 +128,7 @@ const VideoNoiBat = () => {
       title: "Thao tác",
       dataIndex: "action",
       key: "action",
+      align: "center",
       render: (text, record, index) => {
         return (
           <div

@@ -17,7 +17,7 @@ const Baiviet = () => {
   const location = useLocation();
   const params = new URLSearchParams(location.search);
 
-  const [isShowVideo, handleSetVideo] = useOutletContext();
+  const [isShowVideo, handleSetVideo,setIsLoading] = useOutletContext();
   const [mediaHome, setMediaHome] = useState("");
   const [listBlog, setListBlog] = useState([]);
   const [totalBlog, setTotalBlog] = useState(1);
@@ -31,6 +31,8 @@ const Baiviet = () => {
     const res = await callDetailTrangchu();
     if (res && res.EC === 1) {
       setMediaHome(res.data);
+
+      setIsLoading(false);
     }
   };
 
@@ -89,7 +91,7 @@ const Baiviet = () => {
               </li>
 
               <li className="breadcrumb-item active" aria-current="page">
-                Bài viết
+                Tin tức
               </li>
             </ol>
           </nav>
@@ -103,7 +105,7 @@ const Baiviet = () => {
                     <div
                       className="card"
                       onClick={() =>
-                        navigate(`/bai-viet/${slug}`, {
+                        navigate(`/tin-tuc/${slug}`, {
                           state: { id: item.id },
                         })
                       }
@@ -116,7 +118,7 @@ const Baiviet = () => {
                       <h3
                         className="blog-title"
                         onClick={() =>
-                          navigate(`/bai-viet/${slug}`, {
+                          navigate(`/tin-tuc/${slug}`, {
                             state: { id: item.id },
                           })
                         }
@@ -132,7 +134,7 @@ const Baiviet = () => {
                         <button
                           className="btn-doc"
                           onClick={() =>
-                            navigate(`/bai-viet/${slug}`, {
+                            navigate(`/tin-tuc/${slug}`, {
                               state: { id: item.id },
                             })
                           }

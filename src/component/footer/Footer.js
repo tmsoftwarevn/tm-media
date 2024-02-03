@@ -156,7 +156,7 @@ const Footer = () => {
                       })
                     }
                   >
-                    <MdKeyboardArrowRight />
+                    <MdKeyboardArrowRight  />
                     {item.name}
                   </li>
                 );

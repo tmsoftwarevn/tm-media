@@ -125,11 +125,10 @@ const QuanlyTrangchu = () => {
     setT2(res.data.t2);
     setT3(res.data.t3);
   };
-  console.log(detailMedia)
+  
   useEffect(() => {
     fetchTrangchu();
   }, []);
-console.log("");
 
   const onChange = ({ fileList: newFileList }) => {
     setFileList(newFileList);

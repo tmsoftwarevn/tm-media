@@ -1,6 +1,9 @@
-
-.baiviet{
+@import './responsive.scss';
+.baiviet {
   margin-top: 50px;
+  @include xs {
+    margin-top: 30px;
+  }
 }
 
 .card {
@@ -14,7 +17,7 @@
   margin-bottom: 20px;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   border: 1px solid transparent;
-  &:hover{
+  &:hover {
     transform: translateY(-5px);
     transition: 0.5s;
     border: 1px solid var(--color-main);
@@ -89,7 +92,7 @@
   background: #eef7fe;
   color: var(--color-main);
   cursor: pointer;
-  &:hover{
+  &:hover {
     background-color: #d9edfd;
   }
 }

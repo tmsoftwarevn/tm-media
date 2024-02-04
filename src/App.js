@@ -20,72 +20,77 @@ import { useEffect, useState } from "react";
 import { callDetailTrangchu } from "./service/api";
 
 const App = () => {
-  const router = createBrowserRouter([
-    {
-      path: "/",
-      element: <Layout />,
-      children: [
-        { index: true, element: <Home /> },
-        {
-          path: "/lien-he",
-          element: <LienHe />,
-        },
-        {
-          path: "/tin-tuc/:slug",
-          element: <BaivietDetail />,
-        },
-        {
-          path: "/tin-tuc",
-          element: <Baiviet />,
-        },
-        {
-          path: "/*",
-          element: <DichVuMedia />,
-        },
-      ],
-    },
+  const router = createBrowserRouter(
+    [
+      {
+        path: "/",
+        element: <Layout />,
+        children: [
+          { index: true, element: <Home /> },
+          {
+            path: "/lien-he",
+            element: <LienHe />,
+          },
+          {
+            path: "/tin-tuc/:slug",
+            element: <BaivietDetail />,
+          },
+          {
+            path: "/tin-tuc",
+            element: <Baiviet />,
+          },
+          {
+            path: "/*",
+            element: <DichVuMedia />,
+          },
+        ],
+      },
 
-    {
-      path: "/admin",
-      element: <LayoutAdmin />,
+      {
+        path: "/admin",
+        element: <LayoutAdmin />,
 
-      children: [
-        { index: true, element: <QuanliLienhe /> },
-        {
-          path: "lienhe",
-          element: <QuanliLienhe />,
-        },
-        {
-          path: "trangchu",
-          element: <QuanlyTrangchu />,
-        },
-        {
-          path: "menu/:id",
-          element: <QuanliMenu />,
-        },
-        {
-          path: "media/:id",
-          element: <QuanliMedia />,
-        },
-        {
-          path: "video/:id",
-          element: <VideoNoiBat />,
-        },
-        {
-          path: "baiviet",
-          element: <QuanlyBaiviet />,
-        },
-      ],
-    },
+        children: [
+          { index: true, element: <QuanliLienhe /> },
+          {
+            path: "lienhe",
+            element: <QuanliLienhe />,
+          },
+          {
+            path: "trangchu",
+            element: <QuanlyTrangchu />,
+          },
+          {
+            path: "menu/:id",
+            element: <QuanliMenu />,
+          },
+          {
+            path: "media/:id",
+            element: <QuanliMedia />,
+          },
+          {
+            path: "video/:id",
+            element: <VideoNoiBat />,
+          },
+          {
+            path: "baiviet",
+            element: <QuanlyBaiviet />,
+          },
+        ],
+      },
+      {
+        path: "/login",
+        element: <Login />,
+      },
+      {
+        path: "/doimatkhau",
+        element: <ChangePass />,
+      },
+    ],
     {
-      path: "/login",
-      element: <Login />,
-    },
-    {
-      path: "/doimatkhau",
-      element: <ChangePass />,
-    },
-  ]);
+      basename: "/deploy_FE_TM_Media",
+    }
+  );
 
   return <RouterProvider router={router} />;
 };

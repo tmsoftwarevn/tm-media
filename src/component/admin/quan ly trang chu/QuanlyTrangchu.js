@@ -112,18 +112,18 @@ const QuanlyTrangchu = () => {
     setKey_word(res.data?.key_word);
     setMeta_des(res.data?.meta_des);
 
-    setLogo(res.data.logo);
-    setlogo_iconWweb(res.data.icon_web);
+    setLogo(res.data?.logo);
+    setlogo_iconWweb(res.data?.icon_web);
 
-    setMota_cty(res.data.mota_cty);
-    setThuonghieu(res.data.thuonghieu);
-    setBg_thongke(res.data.bg_thongke);
-    setS1(res.data.s1);
-    setS2(res.data.s2);
-    setS3(res.data.s3);
-    setT1(res.data.t1);
-    setT2(res.data.t2);
-    setT3(res.data.t3);
+    setMota_cty(res.data?.mota_cty);
+    setThuonghieu(res.data?.thuonghieu);
+    setBg_thongke(res.data?.bg_thongke);
+    setS1(res.data?.s1);
+    setS2(res.data?.s2);
+    setS3(res.data?.s3);
+    setT1(res.data?.t1);
+    setT2(res.data?.t2);
+    setT3(res.data?.t3);
   };
   
   useEffect(() => {

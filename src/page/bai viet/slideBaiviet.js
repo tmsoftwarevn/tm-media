@@ -2,7 +2,7 @@ import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a lo
 import { Carousel } from "react-responsive-carousel";
 import "../../scss/slideBaiviet.scss";
 
-import { callGetAll_Baiviet } from "../../service/api";
+import { callGetAll_Baiviet, callGet_baiviet_noibat } from "../../service/api";
 import { useEffect, useRef, useState } from "react";
 import moment from "moment";
 import { convertSlug } from "../../utils/convertSlug";
@@ -14,18 +14,24 @@ const SlideBaiviet = () => {
   const [listBlog, setListBlog] = useState([]);
   const navigate = useNavigate();
 
-  const fetchAllBaiviet = async () => {
-    // tính tổng số blog
-    const res = await callGetAll_Baiviet();
+  // const fetchAllBaiviet = async () => {
+  //   // tính tổng số blog
+  //   const res = await callGetAll_Baiviet();
+  //   if (res && res.EC === 1) {
+  //     setListBlog(res.data);
+  //   }
+  // };
+  const fetch_baiviet_noibat = async () => {
+    const res = await callGet_baiviet_noibat();
     if (res && res.EC === 1) {
       setListBlog(res.data);
     }
   };
-
   useEffect(() => {
-    fetchAllBaiviet();
+    fetch_baiviet_noibat();
   }, []);
-  const isMobile = window.innerWidth <= 768; 
+
+  const isMobile = window.innerWidth <= 740; 
 
   const centerSlidePercentage = isMobile ? 100 : 33;
   return (
@@ -69,7 +75,11 @@ const SlideBaiviet = () => {
                 let slug = convertSlug(item.tieude);
                 return (
                   <>
-                    <div className="card-slide">
+                    <div className="card-slide" onClick={() =>
+                            navigate(`/tin-tuc/${slug}`, {
+                              state: { id: item.id },
+                            })
+                          }>
                       <div className="card-img-holder">
                         <img
                           src={`${process.env.REACT_APP_BACKEND_URL}/images/banner/${item?.thumbnail}`}

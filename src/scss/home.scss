@@ -29,8 +29,8 @@
             // }
         }
         &_btn {
-            @include xs{
-                display: none;
+            @include xs {
+                //display: none;
             }
             margin-top: 50px;
             color: #f8f8f8;

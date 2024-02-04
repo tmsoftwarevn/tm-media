@@ -1,4 +1,4 @@
-import { Card, Col, Input, Modal, Row, message } from "antd";
+import { Card, Checkbox, Col, Input, Modal, Row, message } from "antd";
 import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Upload } from "antd";
@@ -49,6 +49,7 @@ const UpdateBaiviet = (props) => {
   const [tieude, setTieude] = useState("");
   const [mota_ngan, setMota_ngan] = useState("");
   const [thumbnail, setThumbnail] = useState("");
+  const [active, setActive] = useState(false);
 
   const [fileList, setFileList] = useState([
     {
@@ -111,13 +112,13 @@ const UpdateBaiviet = (props) => {
       meta_des,
       noidung,
       thumbnail,
-      mota_ngan
+      mota_ngan,
+      active
     );
     if (res && res.EC === 1) {
       message.success("Cập nhật thành công");
       handleCancel();
       fetchBaiviet_All();
-     
     } else {
       message.success("Cập nhật thất bại");
       handleCancel();
@@ -133,6 +134,8 @@ const UpdateBaiviet = (props) => {
     setNoidung(dataUpdate?.noidung);
     setThumbnail(dataUpdate?.thumbnail);
     setTieude(dataUpdate?.tieude);
+    setActive(dataUpdate?.active);
+
     setFileList([
       {
         uid: "-1",
@@ -142,6 +145,10 @@ const UpdateBaiviet = (props) => {
       },
     ]);
   }, [dataUpdate]);
+  const onChangeActive = (e) => {
+    if (e.target.checked) setActive(1);
+    else setActive(0);
+  };
   return (
     <>
       <Modal
@@ -215,6 +222,16 @@ const UpdateBaiviet = (props) => {
                 />
               </Card>
             </Col>
+            <Col span={12}>
+              <Card title="Trạng thái ở trang chủ">
+                <Checkbox
+                  checked={+active === 1 ? true : false}
+                  onChange={onChangeActive}
+                >
+                  Hiện
+                </Checkbox>
+              </Card>
+            </Col>
           </Row>
           {/* // react edit word */}
 
@@ -230,7 +247,6 @@ const UpdateBaiviet = (props) => {
                   height: 500,
                   menubar: false,
                   plugins: [
-                    
                     "advlist",
                     "autolink",
                     "lists",

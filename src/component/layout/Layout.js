@@ -27,9 +27,11 @@ const Layout = () => {
     setLink(video);
   };
 
-  // useEffect(() => {
-  //   setIsLoading(true);
-  // }, [location]);
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
+  }, []);
 
   useEffect(() => {
     const handleClickOutside = (event) => {

@@ -157,7 +157,7 @@ const QuanlyBaiviet = () => {
       customBaiviet(res.data);
     }
   };
-  console.log("render");
+
   const confirm = async (id) => {
     let res = await callDeleteBaiviet(id);
     if (res && res.EC === 1) {
@@ -186,6 +186,7 @@ const QuanlyBaiviet = () => {
         createdAt: moment(item?.createdAt).format("DD-MM-YY hh:mm:ss"),
         updatedAt: moment(item?.updatedAt).format("DD-MM-YY hh:mm:ss"),
         action: index,
+        active: item.active,
       });
     });
 
@@ -221,6 +222,18 @@ const QuanlyBaiviet = () => {
               src={`${process.env.REACT_APP_BACKEND_URL}/images/banner/${record?.thumbnail}`}
             />
           </div>
+        );
+      },
+    },
+    {
+      title: "Hiện ở trang chủ",
+      dataIndex: "active",
+      key: "active",
+      render: (text, record, index) => {
+        return (
+          <Checkbox checked={+listBaiviet[index]?.active == 1 ? true : false}>
+            Hiện
+          </Checkbox>
         );
       },
     },

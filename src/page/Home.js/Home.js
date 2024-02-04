@@ -7,7 +7,11 @@ import { useOutletContext } from "react-router-dom";
 import CountUp from "react-countup";
 
 import LienHe from "../lien he/LienHe";
-import { callActive_menu, callDetailTrangchu } from "../../service/api";
+import {
+  callActive_menu,
+  callDetailTrangchu,
+  callGet_baiviet_noibat,
+} from "../../service/api";
 import Video from "../../component/video/Video";
 import BannerHeader from "../bannerHeader";
 import { Helmet } from "react-helmet-stuff";
@@ -16,7 +20,7 @@ import SlideBaiviet from "../bai viet/slideBaiviet";
 const Home = () => {
   const [isShowVideo, handleSetVideo, setIsLoading] = useOutletContext();
   const [activeMenu, setActiveMenu] = useState([]);
-  const [mediaHome, setMediaHome] = useState("");
+  const [mediaHome, setMediaHome] = useState({});
 
   const targetDivRef = useRef(null);
 
@@ -32,7 +36,7 @@ const Home = () => {
     const res = await callDetailTrangchu();
     if (res && res.EC === 1) {
       setMediaHome(res.data);
-      setIsLoading(false);
+      
     }
   };
 

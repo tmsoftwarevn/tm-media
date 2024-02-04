@@ -14,7 +14,7 @@ const DichVuMedia = () => {
   const location = useLocation();
   const [idMedia, setIdMedia] = useState(location.state?.idMedia);
 
-  const [detailMedia, setDetailMedia] = useState();
+  const [detailMedia, setDetailMedia] = useState({});
   const fetch_DetailMedia = async () => {
     let res = await callDetailMedia(location.state?.idMedia);
     if (res && res.EC === 1) {

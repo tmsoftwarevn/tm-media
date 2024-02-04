@@ -18,7 +18,7 @@ const Baiviet = () => {
   const params = new URLSearchParams(location.search);
 
   const [isShowVideo, handleSetVideo,setIsLoading] = useOutletContext();
-  const [mediaHome, setMediaHome] = useState("");
+  const [mediaHome, setMediaHome] = useState({});
   const [listBlog, setListBlog] = useState([]);
   const [totalBlog, setTotalBlog] = useState(1);
   const [pageNumber, setPage] = useState(
@@ -101,7 +101,7 @@ const Baiviet = () => {
               listBlog.map((item) => {
                 let slug = convertSlug(item.tieude);
                 return (
-                  <div key={item.id} className="col-sm-6 col-md-4">
+                  <div key={item.id} className="col-sm-6 col-lg-4">
                     <div
                       className="card"
                       onClick={() =>

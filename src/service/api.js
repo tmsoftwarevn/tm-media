@@ -177,7 +177,8 @@ export const callUpdateBaiviet = (
   meta_des,
   noidung,
   thumbnail,
-  mota_ngan
+  mota_ngan,
+  active
 ) => {
   return axios.put(`/api/v1/baiviet/${id}`, {
     tieude,
@@ -186,6 +187,7 @@ export const callUpdateBaiviet = (
     noidung,
     thumbnail,
     mota_ngan,
+    active
   });
 };
 
@@ -201,6 +203,9 @@ export const callGetAll_Baiviet = () => {
   return axios.get(`/api/v1/listbaiviet`);
 };
 
+export const callGet_baiviet_noibat = () =>{
+  return axios.get(`/api/v1/tintuc-noibat`);
+}
 //////
 export const callUpdateTrangchu = (
   key_word,

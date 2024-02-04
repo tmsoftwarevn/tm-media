@@ -10,6 +10,9 @@
     @include sm {
         margin-top: 60px;
     }
+    @include md {
+        margin-top: 0;
+    }
     // height: 400px;
     position: relative;
     .bg-banner {

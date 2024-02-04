@@ -23,7 +23,7 @@ const LienHe = () => {
   const [noidung, setNoidung] = useState("");
   const location = useLocation();
 
-  const [mediaHome, setMediaHome] = useState("");
+  const [mediaHome, setMediaHome] = useState({});
   const [loadingTest, setTest] = useState(true);
 
   const fetch_mediaHome = async () => {

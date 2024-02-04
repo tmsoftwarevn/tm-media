@@ -1,17 +1,24 @@
 import { useEffect } from "react";
 import { IoCall } from "react-icons/io5";
-
+import bg_render from "../assets/banner-bg/home.jpeg";
+import video_render from "../assets/banner-bg/home-video.jpg";
 const BannerHeader = (props) => {
   const { media, handleSetVideo } = props;
-
+  
   return (
     <>
       <section id="b-5324">
         <div className="bg-banner">
-          <img
-            src={`${process.env.REACT_APP_BACKEND_URL}/images/banner/${media?.banner_bg}`}
-            alt=""
-          />
+          {media?.banner_bg === null ||
+          media?.banner_bg === undefined ||
+          media?.banner_bg === "" ? (
+            <img src={bg_render} alt="" />
+          ) : (
+            <img
+              src={`${process.env.REACT_APP_BACKEND_URL}/images/banner/${media?.banner_bg}`}
+              alt=""
+            />
+          )}
         </div>
         <div className="overlay"></div>
 
@@ -39,10 +46,16 @@ const BannerHeader = (props) => {
 
               <div className="col-6 col-sm-6 col-md-6 bg-banner_content_right">
                 <div className="group-right">
-                  <img
-                    src={`${process.env.REACT_APP_BACKEND_URL}/images/banner/${media?.video_bg}`}
-                    alt=""
-                  />
+                  {media?.video_bg === null ||
+                  media?.video_bg === undefined ||
+                  media?.video_bg === "" ? (
+                    <img src={video_render} alt="" />
+                  ) : (
+                    <img
+                      src={`${process.env.REACT_APP_BACKEND_URL}/images/banner/${media?.video_bg}`}
+                      alt=""
+                    />
+                  )}
 
                   <div
                     className="glightbox_video"

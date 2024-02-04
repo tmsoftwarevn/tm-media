@@ -200,7 +200,6 @@ const Header = (props) => {
               className="logo"
               onClick={() => {
                 navigate("/");
-                //setIsLoading(true);
               }}
             >
               <img
@@ -212,22 +211,14 @@ const Header = (props) => {
             <div className="menu">
               <ul className="parent-ul">
                 <li
-                  className="parent-li active-menu"
-                  // className={
-                  //   location.pathname === "/"
-                  //     ? "parent-li active-menu"
-                  //     : "parent-li"
-                  // }
+                  className="parent-li"
                   onClick={() => {
                     navigate("/");
-                    //setIsLoading(true);
                   }}
                 >
                   Trang chủ
                 </li>
-                <li 
-                className="drop-parent parent-li"
-                >
+                <li className="drop-parent parent-li">
                   sản xuất video
                   <MdKeyboardArrowDown className="arrow-header" />
                   <ul className="dropdown-child">
@@ -241,7 +232,6 @@ const Header = (props) => {
                             navigate(`/${name_slug}`, {
                               state: { idMedia: item.id, name: item.name },
                             });
-                            setIsLoading(true);
                           }}
                         >
                           {item.name}
@@ -263,7 +253,6 @@ const Header = (props) => {
                             navigate(`/${name_slug}`, {
                               state: { idMedia: item.id, name: item.name },
                             });
-                            setIsLoading(true);
                           }}
                         >
                           {item.name}
@@ -285,7 +274,6 @@ const Header = (props) => {
                             navigate(`/${name_slug}`, {
                               state: { idMedia: item.id, name: item.name },
                             });
-                            setIsLoading(true);
                           }}
                         >
                           {item.name}
@@ -298,7 +286,6 @@ const Header = (props) => {
                   className="parent-li"
                   onClick={() => {
                     navigate("/tin-tuc");
-                    setIsLoading(true);
                   }}
                 >
                   Tin tức
@@ -307,7 +294,6 @@ const Header = (props) => {
                   className="parent-li"
                   onClick={() => {
                     navigate("/lien-he");
-                    setIsLoading(true);
                   }}
                 >
                   liên hệ

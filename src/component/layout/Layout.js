@@ -30,8 +30,8 @@ const Layout = () => {
   useEffect(() => {
     setTimeout(() => {
       setIsLoading(false);
-    }, 1000);
-  }, []);
+    }, 500);
+  }, [isLoading]);
 
   useEffect(() => {
     const handleClickOutside = (event) => {

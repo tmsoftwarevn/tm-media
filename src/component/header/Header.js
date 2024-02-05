@@ -214,6 +214,7 @@ const Header = (props) => {
                   className="parent-li"
                   onClick={() => {
                     navigate("/");
+                    setIsLoading(true);
                   }}
                 >
                   Trang chủ

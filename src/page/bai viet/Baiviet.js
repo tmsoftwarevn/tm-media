@@ -87,7 +87,13 @@ const Baiviet = () => {
           <nav aria-label="breadcrumb">
             <ol className="breadcrumb breadcrumb-ov">
               <li className="breadcrumb-item">
-                <span className="br-home" onClick={() => navigate("/")}>
+                <span
+                  className="br-home"
+                  onClick={() => {
+                    navigate("/");
+                    setIsLoading(true);
+                  }}
+                >
                   Trang chủ
                 </span>
               </li>

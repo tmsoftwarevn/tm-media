@@ -38,7 +38,9 @@ const SlideBaiviet = (props) => {
   return (
     <>
       <div className="tintuc-slide">
-        <p className="title-tintuc">Tin tức</p>
+        <div className="title-tintuc">
+        <p></p>Tin tức<p></p>
+          </div>
         <div className="container">
           <Carousel
             showIndicators={false}

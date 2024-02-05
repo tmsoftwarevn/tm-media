@@ -73,7 +73,7 @@ const Layout = () => {
     };
 
     logoImage.onerror = () => {
-      console.error("Error loading logo image");
+      //console.error("Error loading logo image");
     };
     return () => {
       logoImage.onload = null;

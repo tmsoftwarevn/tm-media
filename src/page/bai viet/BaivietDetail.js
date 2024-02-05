@@ -5,6 +5,7 @@ import { callDetailMedia, callGetdetail_Baiviet } from "../../service/api";
 import "../../scss/baiviet_detail.scss";
 import BannerHeader from "../bannerHeader";
 import { Helmet } from "react-helmet-stuff";
+import moment from "moment";
 
 const BaivietDetail = () => {
   const [isShowVideo, handleSetVideo, setIsLoading] = useOutletContext();
@@ -32,6 +33,7 @@ const BaivietDetail = () => {
       setMediaHome(res.data);
     }
   };
+
   useEffect(() => {
     fetch_mediaHome();
     fetch_DetialBaiviet();
@@ -53,12 +55,24 @@ const BaivietDetail = () => {
           <nav aria-label="breadcrumb">
             <ol className="breadcrumb breadcrumb-ov">
               <li className="breadcrumb-item">
-                <span className="br-home" onClick={() => navigate("/")}>
+                <span
+                  className="br-home"
+                  onClick={() => {
+                    navigate("/");
+                    setIsLoading(true);
+                  }}
+                >
                   Trang chủ
                 </span>
               </li>
               <li className="breadcrumb-item">
-                <span className="br-home" onClick={() => navigate("/tin-tuc")}>
+                <span
+                  className="br-home"
+                  onClick={() => {
+                    navigate("/tin-tuc");
+                    setIsLoading(true);
+                  }}
+                >
                   Tin tức
                 </span>
               </li>
@@ -67,6 +81,13 @@ const BaivietDetail = () => {
               </li>
             </ol>
           </nav>
+
+          <div className="g-detail">
+            <h1 className="title-baiviet">{detail?.tieude}</h1>
+            <div className="time-baiviet">
+              {moment(detail?.createdAt).format("DD-MM-Y")}
+            </div>
+          </div>
 
           <div className="noidung">
             <div dangerouslySetInnerHTML={{ __html: detail?.noidung }}></div>

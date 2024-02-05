@@ -24,9 +24,7 @@
             font-size: 16px;
             line-height: 1.5;
             color: #2c2a2a;
-            // p:nth-child(1) {
-            //     margin-bottom: 20px;
-            // }
+           
         }
         &_btn {
             @include xs {
@@ -111,6 +109,7 @@
 
         p:nth-child(1) {
             color: var(--color-orange);
+            // color: var(--color-main);
             font-size: 26px;
             text-align: center;
         }

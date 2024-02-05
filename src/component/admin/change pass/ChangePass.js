@@ -3,18 +3,19 @@ import { Button, Checkbox, Form, Input, message } from "antd";
 import "./changePass.scss";
 import { callChangePass } from "../../../service/api";
 import { useNavigate } from "react-router-dom";
-const onFinish = async (values) => {
-  const res = await callChangePass(values.name, values.oldpass, values.newpass);
-  console.log("rrrr", res);
-  if (res && res.data) {
-    message.success("Cập nhật thành công");
-  } else if (res && res.message) {
-    message.error("Tài khoản hoặc mật khẩu không đúng");
-  }
-};
+
 
 const ChangePass = () => {
   const navigate = useNavigate();
+  const onFinish = async (values) => {
+    const res = await callChangePass(values.name, values.oldpass, values.newpass);
+    if (res && res.data) {
+      message.success("Đổi mật khẩu thành công");
+      //navigate("/admin/lienhe")
+    } else if (res && res.message) {
+      message.error("Tài khoản hoặc mật khẩu không đúng");
+    }
+  };
   return (
     <>
       <div className="content-p">

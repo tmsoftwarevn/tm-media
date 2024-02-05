@@ -36,6 +36,7 @@ const Home = () => {
     const res = await callDetailTrangchu();
     if (res && res.EC === 1) {
       setMediaHome(res.data);
+      setIsLoading(false);
     }
   };
 

@@ -87,9 +87,9 @@ const App = () => {
         element: <ChangePass />,
       },
     ],
-    {
-      basename: "/deploy_FE_TM_Media",
-    }
+    // {
+    //   basename: "/deploy_FE_TM_Media",
+    // }
   );
 
   return <RouterProvider router={router} />;

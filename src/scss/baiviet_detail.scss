@@ -1,57 +1,70 @@
-.baiviet-detail{
+@import './responsive.scss';
+.baiviet-detail {
     margin-top: 50px;
+    @include xs {
+        margin-top: 30px;
+    }
 }
 
-.g-detail{
+.g-detail {
     display: flex;
     justify-content: space-between;
-    .title-baiviet{
+    margin-top: 30px;
+    margin-bottom: 15px;
+    .title-baiviet {
         font-size: 24px;
         font-weight: bold;
-        color: var(--color-main);
-        text-transform: capitalize;
+        text-transform: uppercase;
         width: 80%;
         max-width: 80%;
+        @include xs {
+            width: 100%;
+            max-width: 100%;
+        }
     }
-    .time-baiviet{
+    .time-baiviet {
         font-style: italic;
         color: #7b7979;
+        @include xs {
+            display: none;
+        }
     }
 }
 
-.noidung{
+.noidung {
     font-family: roboto;
-    // trả về mặc định
-    ul { 
-        list-style-type: disc; 
-        list-style-position: inside; 
-     }
-     ol { 
-        list-style-type: decimal; 
-        list-style-position: inside; 
-     }
-     ul ul, ol ul { 
-        list-style-type: circle; 
-        list-style-position: inside; 
-        margin-left: 15px; 
-     }
-     ol ol, ul ol { 
-        list-style-type: lower-latin; 
-        list-style-position: inside; 
-        margin-left: 15px; 
-     }
-     em{
+    margin-bottom: 50px;
+    ul {
+        list-style-type: disc;
+        list-style-position: inside;
+    }
+    ol {
+        list-style-type: decimal;
+        list-style-position: inside;
+    }
+    ul ul,
+    ol ul {
+        list-style-type: circle;
+        list-style-position: inside;
+        margin-left: 15px;
+    }
+    ol ol,
+    ul ol {
+        list-style-type: lower-latin;
+        list-style-position: inside;
+        margin-left: 15px;
+    }
+    em {
         font-style: italic !important;
-     }
+    }
 }
 
-.br-home{
-    &:hover{
+.br-home {
+    &:hover {
         cursor: pointer;
         color: var(--color-main);
     }
 }
-.breadcrumb-ov{
+.breadcrumb-ov {
     font-size: 18px !important;
-    
 }

@@ -45,12 +45,12 @@ const Video = (props) => {
             <Carousel
               responsive={responsive}
               itemClass="carousel-item-padding-40-px"
-              //showDots={true}
-              //arrows={false}
               focusOnSelect={false}
               draggable={false} // ko kéo
               swipeable={false} // vuốt
               partialVisbile={false}
+              infinite={true}
+              autoPlay={true}
             >
               {listVideo.length > 0 &&
                 listVideo.map((item) => {

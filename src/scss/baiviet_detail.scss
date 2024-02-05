@@ -17,6 +17,7 @@
         text-transform: uppercase;
         width: 80%;
         max-width: 80%;
+        font-family: 'roboto';
         @include xs {
             width: 100%;
             max-width: 100%;
@@ -34,6 +35,8 @@
 .noidung {
     font-family: roboto;
     margin-bottom: 50px;
+    overflow: hidden;
+
     ul {
         list-style-type: disc;
         list-style-position: inside;

@@ -234,15 +234,16 @@ const AddBaiviet = (props) => {
                     "undo redo | blocks | " +
                     "bold italic fontsize forecolor | alignleft aligncenter " +
                     "alignright alignjustify | bullist numlist outdent indent | " +
-                    "removeformat | help | image",
+                    "removeformat | help | image media",
                   content_style:
                     "body { font-family: Helvetica, Arial, sans-serif; font-size: 14px }",
                   fontsize_formats: "8px 10px 12px 14px 18px 24px 36px",
                   file_picker_types: "image",
-
                   file_picker_callback: filePickerCallback,
+
                 }}
               />
+
             </>
           )}
 

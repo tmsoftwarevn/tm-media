@@ -32,11 +32,15 @@
     }
 }
 
+
 .noidung {
     font-family: roboto;
     margin-bottom: 50px;
     overflow: hidden;
-
+    iframe{
+        max-width: 100%;
+        
+    }
     ul {
         list-style-type: disc;
         list-style-position: inside;

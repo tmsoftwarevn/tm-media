@@ -36,7 +36,6 @@ const Home = () => {
     const res = await callDetailTrangchu();
     if (res && res.EC === 1) {
       setMediaHome(res.data);
-      
     }
   };
 
@@ -170,7 +169,7 @@ const Home = () => {
             );
           })}
 
-        <SlideBaiviet />
+        <SlideBaiviet setIsLoading={setIsLoading} />
 
         <div ref={targetDivRef}></div>
         <LienHe />

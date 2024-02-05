@@ -286,6 +286,7 @@ const Header = (props) => {
                   className="parent-li"
                   onClick={() => {
                     navigate("/tin-tuc");
+                    setIsLoading(true);
                   }}
                 >
                   Tin tức
@@ -294,6 +295,7 @@ const Header = (props) => {
                   className="parent-li"
                   onClick={() => {
                     navigate("/lien-he");
+                    setIsLoading(true);
                   }}
                 >
                   liên hệ

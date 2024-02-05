@@ -10,7 +10,8 @@ import { useNavigate } from "react-router-dom";
 
 import { FaChevronLeft } from "react-icons/fa";
 import { FaChevronRight } from "react-icons/fa";
-const SlideBaiviet = () => {
+const SlideBaiviet = (props) => {
+  const { setIsLoading } = props;
   const [listBlog, setListBlog] = useState([]);
   const navigate = useNavigate();
 
@@ -31,7 +32,7 @@ const SlideBaiviet = () => {
     fetch_baiviet_noibat();
   }, []);
 
-  const isMobile = window.innerWidth <= 740; 
+  const isMobile = window.innerWidth <= 740;
 
   const centerSlidePercentage = isMobile ? 100 : 33;
   return (
@@ -75,11 +76,15 @@ const SlideBaiviet = () => {
                 let slug = convertSlug(item.tieude);
                 return (
                   <>
-                    <div className="card-slide" onClick={() =>
-                            navigate(`/tin-tuc/${slug}`, {
-                              state: { id: item.id },
-                            })
-                          }>
+                    <div
+                      className="card-slide"
+                      onClick={() => {
+                        navigate(`/tin-tuc/${slug}`, {
+                          state: { id: item.id },
+                        });
+                        setIsLoading(true);
+                      }}
+                    >
                       <div className="card-img-holder">
                         <img
                           src={`${process.env.REACT_APP_BACKEND_URL}/images/banner/${item?.thumbnail}`}
@@ -103,11 +108,11 @@ const SlideBaiviet = () => {
                         <span>Read Full Blog</span>
                         <button
                           className="btn-doc"
-                          onClick={() =>
-                            navigate(`/tin-tuc/${slug}`, {
-                              state: { id: item.id },
-                            })
-                          }
+                          // onClick={() =>
+                          //   navigate(`/tin-tuc/${slug}`, {
+                          //     state: { id: item.id },
+                          //   })
+                          // }
                         >
                           Xem thêm
                         </button>

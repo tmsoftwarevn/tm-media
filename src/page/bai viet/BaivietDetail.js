@@ -20,8 +20,10 @@ const BaivietDetail = () => {
     const res = await callGetdetail_Baiviet(location.state?.id);
     if (res && res.EC === 1) {
       setDetail(res.data);
-
-      setIsLoading(false);
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 1000);
+      //setIsLoading(false);
     }
   };
   const fetch_mediaHome = async () => {

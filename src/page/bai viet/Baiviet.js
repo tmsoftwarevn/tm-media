@@ -17,7 +17,7 @@ const Baiviet = () => {
   const location = useLocation();
   const params = new URLSearchParams(location.search);
 
-  const [isShowVideo, handleSetVideo,setIsLoading] = useOutletContext();
+  const [isShowVideo, handleSetVideo, setIsLoading] = useOutletContext();
   const [mediaHome, setMediaHome] = useState({});
   const [listBlog, setListBlog] = useState([]);
   const [totalBlog, setTotalBlog] = useState(1);
@@ -31,8 +31,10 @@ const Baiviet = () => {
     const res = await callDetailTrangchu();
     if (res && res.EC === 1) {
       setMediaHome(res.data);
-
-      setIsLoading(false);
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 500);
+      // setIsLoading(false);
     }
   };
 
@@ -104,11 +106,12 @@ const Baiviet = () => {
                   <div key={item.id} className="col-sm-6 col-lg-4">
                     <div
                       className="card"
-                      onClick={() =>
+                      onClick={() => {
                         navigate(`/tin-tuc/${slug}`, {
                           state: { id: item.id },
-                        })
-                      }
+                        });
+                        setIsLoading(true);
+                      }}
                     >
                       <div className="card-img-holder">
                         <img
@@ -117,11 +120,11 @@ const Baiviet = () => {
                       </div>
                       <h3
                         className="blog-title"
-                        onClick={() =>
-                          navigate(`/tin-tuc/${slug}`, {
-                            state: { id: item.id },
-                          })
-                        }
+                        // onClick={() =>
+                        //   navigate(`/tin-tuc/${slug}`, {
+                        //     state: { id: item.id },
+                        //   })
+                        // }
                       >
                         {item.tieude}
                       </h3>
@@ -133,11 +136,11 @@ const Baiviet = () => {
                         <span>Read Full Blog</span>
                         <button
                           className="btn-doc"
-                          onClick={() =>
-                            navigate(`/tin-tuc/${slug}`, {
-                              state: { id: item.id },
-                            })
-                          }
+                          // onClick={() =>
+                          //   navigate(`/tin-tuc/${slug}`, {
+                          //     state: { id: item.id },
+                          //   })
+                          // }
                         >
                           Xem thêm
                         </button>

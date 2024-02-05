@@ -31,8 +31,10 @@ const LienHe = () => {
     if (res && res.EC === 1) {
       setMediaHome(res.data);
 
-
-      setIsLoading(false);
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 500);
+      //setIsLoading(false);
      
     }
   };

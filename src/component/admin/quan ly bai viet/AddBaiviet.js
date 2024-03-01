@@ -18,7 +18,7 @@ import TextArea from "antd/es/input/TextArea";
 const AddBaiviet = (props) => {
   const { isModalAddBaiviet, setIsModalAddBaiviet, fetchBaiviet_All } = props;
   //////////////////
-  const editorRef = useRef(null);
+  const refEditor = useRef(null);
   const filePickerCallback = function (cb, value, meta) {
     const input = document.createElement("input");
     input.setAttribute("type", "file");
@@ -43,7 +43,7 @@ const AddBaiviet = (props) => {
 
   const [key_word, setKey_word] = useState("");
   const [meta_des, setMeta_des] = useState("");
-  const [noidung, setNoidung] = useState("");
+  let [noidung, setNoidung] = useState("");
   const [tieude, setTieude] = useState("");
   const [mota_ngan, setMota_ngan] = useState("");
   const [thumbnail, setThumbnail] = useState("");
@@ -83,6 +83,8 @@ const AddBaiviet = (props) => {
   };
 
   const handleCallAdd = async () => {
+    noidung = refEditor?.current?.getContent();
+
     if (
       !key_word ||
       !meta_des ||
@@ -105,13 +107,14 @@ const AddBaiviet = (props) => {
     );
     if (res && res.EC === 1) {
       message.success("Thêm thành công");
-      fetchBaiviet_All();
       handleCancel();
+      fetchBaiviet_All();
     } else {
       message.success("Thêm thất bại");
       handleCancel();
     }
   };
+
   const handleCancel = () => {
     setIsModalAddBaiviet(false);
     setKey_word("");
@@ -204,9 +207,10 @@ const AddBaiviet = (props) => {
               <h4 className="mb-4">Nội dung:</h4>
               <Editor
                 apiKey={process.env.REACT_APP_API_KEY_EDITOR}
-                //onInit={(evt, editor) => (editor._beforeUnload(noidung))}
-                onChange={(evt, editor) => setNoidung(editor.getContent())}
+                //onChange={(evt, editor) => setNoidung(editor.getContent())}
+                onChange={(evt, editor) => (refEditor.current = editor)}
                 initialValue={noidung}
+                
                 init={{
                   height: 500,
                   menubar: false,
@@ -240,10 +244,8 @@ const AddBaiviet = (props) => {
                   fontsize_formats: "8px 10px 12px 14px 18px 24px 36px",
                   file_picker_types: "image",
                   file_picker_callback: filePickerCallback,
-
                 }}
               />
-
             </>
           )}
 

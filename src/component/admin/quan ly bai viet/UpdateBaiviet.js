@@ -13,6 +13,8 @@ import { Editor } from "@tinymce/tinymce-react";
 import TextArea from "antd/es/input/TextArea";
 
 const UpdateBaiviet = (props) => {
+  const refEditor = useRef(null);
+
   const {
     isModalUpdateBaiviet,
     setIsModalUpdateBaiviet,
@@ -20,7 +22,7 @@ const UpdateBaiviet = (props) => {
     dataUpdate,
   } = props;
   //////////////////
-  const editorRef = useRef(null);
+
   const filePickerCallback = function (cb, value, meta) {
     const input = document.createElement("input");
     input.setAttribute("type", "file");
@@ -45,7 +47,7 @@ const UpdateBaiviet = (props) => {
 
   const [key_word, setKey_word] = useState("");
   const [meta_des, setMeta_des] = useState("");
-  const [noidung, setNoidung] = useState("");
+  let [noidung, setNoidung] = useState("");
   const [tieude, setTieude] = useState("");
   const [mota_ngan, setMota_ngan] = useState("");
   const [thumbnail, setThumbnail] = useState("");
@@ -93,6 +95,7 @@ const UpdateBaiviet = (props) => {
   };
 
   const handleCallUpdate = async () => {
+    
     if (
       !key_word ||
       !meta_des ||
@@ -103,6 +106,10 @@ const UpdateBaiviet = (props) => {
     ) {
       message.error("Vui lòng nhập đầy đủ thông tin");
       return;
+    }
+
+    if(refEditor?.current?.getContent()){
+      noidung = refEditor?.current?.getContent()
     }
 
     const res = await callUpdateBaiviet(
@@ -145,10 +152,12 @@ const UpdateBaiviet = (props) => {
       },
     ]);
   }, [dataUpdate]);
+
   const onChangeActive = (e) => {
     if (e.target.checked) setActive(1);
     else setActive(0);
   };
+
   return (
     <>
       <Modal
@@ -239,9 +248,9 @@ const UpdateBaiviet = (props) => {
             <>
               <h4 className="mb-4">Nội dung:</h4>
               <Editor
+                onChange={(evt, editor) => (refEditor.current = editor)}
                 apiKey={process.env.REACT_APP_API_KEY_EDITOR}
-                //onInit={(evt, editor) => (editor._beforeUnload(noidung))}
-                onChange={(evt, editor) => setNoidung(editor.getContent())}
+                //onChange={(evt, editor) => setNoidung(editor.getContent())}
                 initialValue={noidung}
                 init={{
                   height: 500,
@@ -271,6 +280,7 @@ const UpdateBaiviet = (props) => {
                     "bold italic fontsize forecolor | alignleft aligncenter " +
                     "alignright alignjustify | bullist numlist outdent indent | " +
                     "removeformat | help | image media",
+
                   content_style:
                     "body { font-family: Helvetica, Arial, sans-serif; font-size: 14px }",
                   fontsize_formats: "8px 10px 12px 14px 18px 24px 36px",

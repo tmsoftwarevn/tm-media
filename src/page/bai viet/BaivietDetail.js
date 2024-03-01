@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate, useOutletContext } from "react-router-dom";
-import { callDetailMedia, callGetdetail_Baiviet } from "../../service/api";
+import { callDetailMedia, callDetailTrangchu, callGetdetail_Baiviet } from "../../service/api";
 
 import "../../scss/baiviet_detail.scss";
 import BannerHeader from "../bannerHeader";
@@ -28,7 +28,7 @@ const BaivietDetail = () => {
     }
   };
   const fetch_mediaHome = async () => {
-    const res = await callDetailMedia(1);
+    const res = await callDetailTrangchu();
     if (res && res.EC === 1) {
       setMediaHome(res.data);
     }

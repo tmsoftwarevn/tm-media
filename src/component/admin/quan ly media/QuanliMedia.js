@@ -16,7 +16,7 @@ import { Editor } from "@tinymce/tinymce-react";
 import TextArea from "antd/es/input/TextArea";
 
 const QuanliMedia = () => {
-  const editorRef = useRef(null);
+  const refEditor = useRef(null);
   // luu anh phan noi dung
   const filePickerCallback = function (cb, value, meta) {
     const input = document.createElement("input");
@@ -44,7 +44,7 @@ const QuanliMedia = () => {
   const [meta_des, setMeta_des] = useState("");
   const [pathBannerBg, setPathBannerBg] = useState();
   const [pathBannerVideo, setPathBannerVideo] = useState();
-  const [noidung, setNoidung] = useState("");
+  let [noidung, setNoidung] = useState("");
   const [link, setLink] = useState();
 
   const [fileList, setFileList] = useState([
@@ -170,6 +170,10 @@ const QuanliMedia = () => {
       }
     }
 
+    if(refEditor?.current?.getContent()){
+      noidung = refEditor?.current?.getContent()
+    }
+
     const res = await callUpdateMedia(
       params.id,
       key_word,
@@ -272,7 +276,8 @@ const QuanliMedia = () => {
         <Editor
           apiKey={process.env.REACT_APP_API_KEY_EDITOR}
           //onInit={(evt, editor) => (editor._beforeUnload(noidung))}
-          onChange={(evt, editor) => setNoidung(editor.getContent())}
+          //onChange={(evt, editor) => setNoidung(editor.getContent())}
+          onChange={(evt, editor) => (refEditor.current = editor)}
           initialValue={noidung}
           init={{
             height: 500,

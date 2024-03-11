@@ -6,6 +6,7 @@ import {
   callAddVideoNoibat,
 } from "../../../service/api";
 import { useParams } from "react-router-dom";
+import { convertSlug } from "../../../utils/convertSlug";
 
 const AddMenu = (props) => {
   const {
@@ -30,9 +31,8 @@ const AddMenu = (props) => {
     let res = await callAddMenu(name, params.id);
     if (res && res.EC === 1) {
       // thêm media khi tạo menu, để update
-
-      //const add_video = await callAddVideoNoibat(res.data.id, "", "", "");
-      const add = await callAddMedia(res.data.id, "", "", "", "", "", "");
+      let slug = convertSlug(name)
+      const add = await callAddMedia(res.data.id, "", "", "", "", "", "",slug,name);
 
       message.success("Thêm thành công");
       setIsModalAddMenu(false);

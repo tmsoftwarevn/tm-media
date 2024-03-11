@@ -30,22 +30,22 @@
             //border-bottom: 1px solid var(--color-main);
         }
         p {
-            height: 1px;
-            width: 100%;
-            max-width: 400px;
-            background-color: rgb(108, 46, 243);
-            opacity: 0.2;
-            margin: auto;
-            @include xs {
-                display: none;
-            }
-            @include sm {
-                display: none;
-            }
+            // height: 1px;
+            // width: 100%;
+            // max-width: 400px;
+            // background-color: rgb(108, 46, 243);
+            // opacity: 0.2;
+            // margin: auto;
+            // @include xs {
+            //     display: none;
+            // }
+            // @include sm {
+            //     display: none;
+            // }
 
-            @include lg {
-                display: block;
-            }
+            // @include lg {
+            //     display: block;
+            // }
         }
         p:nth-child(1) {
         }

@@ -5,7 +5,18 @@
     margin-top: 30px;
   }
 }
-
+.group-search {
+  display: flex;
+  justify-content: space-between;
+  .search {
+    width: 400px;
+    max-width: 100%;
+  }
+  @include xs {
+    display: block;
+    margin-bottom: 20px;
+  }
+}
 .card {
   width: 100%;
   height: auto;
@@ -20,7 +31,6 @@
   &:hover {
     transform: translateY(-5px);
     transition: 0.5s;
-    //border: 1px solid var(--color-main);
     cursor: pointer;
   }
 }
@@ -48,10 +58,7 @@
   font-size: 20px;
   margin-top: 10px;
   cursor: pointer;
-  min-height: 48px;
-  // &:hover{
-  //   color: var(--color-main);
-  // }
+  min-height: 50px;
 }
 
 .description {
@@ -78,10 +85,14 @@
   font-size: 1rem;
 }
 
-.options span {
-  font-weight: 600;
-  color: #22215b;
-  visibility: hidden;
+.options {
+  .view {
+    display: flex;
+    align-items: center;
+    span {
+      margin-left: 5px;
+    }
+  }
 }
 
 .btn-doc {

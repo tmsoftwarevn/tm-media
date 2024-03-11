@@ -1,4 +1,13 @@
-import { Card, Checkbox, Col, Input, Modal, Row, message } from "antd";
+import {
+  Card,
+  Checkbox,
+  Col,
+  Input,
+  InputNumber,
+  Modal,
+  Row,
+  message,
+} from "antd";
 import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Upload } from "antd";
@@ -11,6 +20,7 @@ import {
 
 import { Editor } from "@tinymce/tinymce-react";
 import TextArea from "antd/es/input/TextArea";
+import { convertSlug } from "../../../utils/convertSlug";
 
 const UpdateBaiviet = (props) => {
   const refEditor = useRef(null);
@@ -52,6 +62,7 @@ const UpdateBaiviet = (props) => {
   const [mota_ngan, setMota_ngan] = useState("");
   const [thumbnail, setThumbnail] = useState("");
   const [active, setActive] = useState(false);
+  const [uu_tien, setuu_tien] = useState(0);
 
   const [fileList, setFileList] = useState([
     {
@@ -95,21 +106,13 @@ const UpdateBaiviet = (props) => {
   };
 
   const handleCallUpdate = async () => {
-    
-    if (
-      !key_word ||
-      !meta_des ||
-      !mota_ngan ||
-      !noidung ||
-      !thumbnail ||
-      !tieude
-    ) {
+    if (!key_word || !meta_des || !mota_ngan || !thumbnail || !tieude) {
       message.error("Vui lòng nhập đầy đủ thông tin");
       return;
     }
-
-    if(refEditor?.current?.getContent()){
-      noidung = refEditor?.current?.getContent()
+    let slug = convertSlug(tieude);
+    if (refEditor?.current?.getContent()) {
+      noidung = refEditor?.current?.getContent();
     }
 
     const res = await callUpdateBaiviet(
@@ -120,7 +123,9 @@ const UpdateBaiviet = (props) => {
       noidung,
       thumbnail,
       mota_ngan,
-      active
+      active,
+      slug,
+      uu_tien
     );
     if (res && res.EC === 1) {
       message.success("Cập nhật thành công");
@@ -142,7 +147,7 @@ const UpdateBaiviet = (props) => {
     setThumbnail(dataUpdate?.thumbnail);
     setTieude(dataUpdate?.tieude);
     setActive(dataUpdate?.active);
-
+    setuu_tien(dataUpdate?.uu_tien);
     setFileList([
       {
         uid: "-1",
@@ -157,7 +162,9 @@ const UpdateBaiviet = (props) => {
     if (e.target.checked) setActive(1);
     else setActive(0);
   };
-
+  const onChangeInputNumber = (value) => {
+    setuu_tien(value);
+  };
   return (
     <>
       <Modal
@@ -231,7 +238,7 @@ const UpdateBaiviet = (props) => {
                 />
               </Card>
             </Col>
-            <Col span={12}>
+            <Col span={6}>
               <Card title="Trạng thái ở trang chủ">
                 <Checkbox
                   checked={+active === 1 ? true : false}
@@ -239,6 +246,16 @@ const UpdateBaiviet = (props) => {
                 >
                   Hiện
                 </Checkbox>
+              </Card>
+            </Col>
+            <Col span={6}>
+              <Card title="Ưu tiên">
+                <InputNumber
+                  min={0}
+                  max={100}
+                  value={uu_tien}
+                  onChange={onChangeInputNumber}
+                />
               </Card>
             </Col>
           </Row>

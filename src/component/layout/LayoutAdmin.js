@@ -12,6 +12,7 @@ import {
 import { Breadcrumb, Button, Layout, Menu, theme } from "antd";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import { callDetailTrangchu, callMenu_byid } from "../../service/api";
+import { convertSlug } from "../../utils/convertSlug";
 const { Header, Content, Footer, Sider } = Layout;
 function getItem(label, key, icon, children) {
   return {
@@ -92,9 +93,10 @@ const App = () => {
     let arr = [];
 
     list.map((item, index) => {
+      let slug = convertSlug(item.name);
       arr.push(
         getItem(
-          <Link to={`/admin/media/${item.id}`}>{item.name}</Link>,
+          <Link to={`/admin/media/${slug}`}>{item.name}</Link>,
           item.id
         )
       );

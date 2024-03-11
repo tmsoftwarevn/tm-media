@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useLocation, useNavigate, useOutletContext } from "react-router-dom";
+import { useLocation, useOutletContext, useParams } from "react-router-dom";
 import { callDetailMedia } from "../../service/api";
 import "../../scss/dichvumedia.scss";
 import "../../scss/bannerHeader.scss";
@@ -8,15 +8,14 @@ import BannerHeader from "../../page/bannerHeader";
 import { Helmet } from "react-helmet-stuff";
 
 const DichVuMedia = () => {
-  const navigate = useNavigate();
 
   const [isShowVideo, handleSetVideo,setIsLoading] = useOutletContext();
   const location = useLocation();
-  const [idMedia, setIdMedia] = useState(location.state?.idMedia);
-
+  const params = useParams();
   const [detailMedia, setDetailMedia] = useState({});
+ 
   const fetch_DetailMedia = async () => {
-    let res = await callDetailMedia(location.state?.idMedia);
+    let res = await callDetailMedia(params.slug);
     if (res && res.EC === 1) {
       setDetailMedia(res.data);
       setIsLoading(false);
@@ -24,22 +23,16 @@ const DichVuMedia = () => {
   };
 
   useEffect(() => {
-    if (!idMedia) {
-      navigate("/");
-    }
-  }, [idMedia]);
-
-  useEffect(() => {
     fetch_DetailMedia();
-  }, [location]);
+  }, [params.slug]);
 
   return (
     <>
       <Helmet>
-        <title>{location.state?.name}</title>
+        <title>{detailMedia?.title_menu}</title>
         <meta name="description" content={detailMedia?.meta_des} />
         <meta name="keywords" content={detailMedia?.key_word} />
-        <meta property="og:title" content={location.state?.name} />
+        <meta property="og:title" content={detailMedia?.title_menu} />
         <meta property="og:description" content={detailMedia?.meta_des} />
       </Helmet>
 
@@ -53,7 +46,7 @@ const DichVuMedia = () => {
       <Video
         isShowVideo={isShowVideo}
         handleSetVideo={handleSetVideo}
-        name={{ name: location.state?.name, id: location.state?.idMedia }}
+        name={detailMedia}
       />
     </>
   );

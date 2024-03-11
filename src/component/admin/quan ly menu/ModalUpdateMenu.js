@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Button, Checkbox, Col, Form, Input, Modal, Row, message } from "antd";
-import { callUpdateMenu } from "../../../service/api";
+import { callUpdateMenu, callUpdateSlugMedia } from "../../../service/api";
 import { Await } from "react-router-dom";
+import { convertSlug } from "../../../utils/convertSlug";
 const UpdateMenu = (props) => {
   const {
     isModalUpdateMenu,
@@ -32,11 +33,14 @@ const UpdateMenu = (props) => {
   };
   const fetchUpdateMenu = async (name, active) => {
     let res = await callUpdateMenu(dataUpdate?.id, name, active);
+    let slug = convertSlug(name);
     if (res && res.EC === 1) {
       message.success("Cập nhật thành công");
       setIsModalUpdateMenu(false);
       fetchMenu_byId();
       fetchMenu_byId_layout();
+
+      let updateSlug = await callUpdateSlugMedia(slug, dataUpdate?.id, name)
     } else {
       message.error("Cập nhật thất bại ");
     }

@@ -16,8 +16,8 @@ import LienHe from "./page/lien he/LienHe";
 import VideoNoiBat from "./component/admin/quan ly video noi bat/VideoNoiBat";
 import BaivietDetail from "./page/bai viet/BaivietDetail";
 import QuanlyTrangchu from "./component/admin/quan ly trang chu/QuanlyTrangchu";
-import { useEffect, useState } from "react";
-import { callDetailTrangchu } from "./service/api";
+
+import TimKiem from "./page/tim kiem/TimKiem";
 
 const App = () => {
   const router = createBrowserRouter(
@@ -40,7 +40,11 @@ const App = () => {
             element: <Baiviet />,
           },
           {
-            path: "/*",
+            path: "/tim-kiem",
+            element: <TimKiem />,
+          },
+          {
+            path: "/:slug",
             element: <DichVuMedia />,
           },
         ],
@@ -65,7 +69,7 @@ const App = () => {
             element: <QuanliMenu />,
           },
           {
-            path: "media/:id",
+            path: "media/:slug",
             element: <QuanliMedia />,
           },
           {
@@ -76,6 +80,7 @@ const App = () => {
             path: "baiviet",
             element: <QuanlyBaiviet />,
           },
+          
         ],
       },
       {

@@ -1,9 +1,10 @@
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-
+import LazyLoad from "react-lazyload";
 import "../../scss/slide_video.scss";
 import { callGetVideoNoibat_byid } from "../../service/api";
 import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 
 const responsive = {
   md: {
@@ -22,7 +23,7 @@ const responsive = {
 
 const Video = (props) => {
   const { isShowVideo, handleSetVideo, name } = props;
-  const [listVideo, setListVideo] = useState([{}]);
+  const [listVideo, setListVideo] = useState([]);
 
   const fetchVideo_byIdmenu = async () => {
     let res = await callGetVideoNoibat_byid(name?.id);
@@ -35,11 +36,24 @@ const Video = (props) => {
   }, [name?.id]);
 
   if (listVideo[0]?.name) {
+    // check list có phần tử nào ko
     return (
-      <div className="media">
+      <motion.div
+        className="media"
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        transition={{ duration: 0.5 }}
+        viewport={{ once: true }}
+      >
         <div className="container">
-          <div className="media_title">
-            <p></p> {name?.name} <p></p>
+          <div
+            className="media_title"
+            //   initial={{ y: -400, opacity: 0.2 }}
+            //   whileInView={{ y: 0, opacity: 1 }}
+            //   transition={{ type: "tween" }}
+            //  viewport={{ once: true }}
+          >
+            <p></p> {name.title_menu ? name.title_menu : name.name} <p></p>
           </div>
           <div className="media_carousel">
             <Carousel
@@ -60,10 +74,13 @@ const Video = (props) => {
                         className="media_carousel_group"
                         onClick={() => handleSetVideo(true, item.link)}
                       >
-                        <img
-                          src={`${process.env.REACT_APP_BACKEND_URL}/images/banner/${item?.video_bg}`}
-                          alt=""
-                        />
+                        <LazyLoad height={400}>
+                          <img
+                            src={`${process.env.REACT_APP_BACKEND_URL}/images/banner/${item?.video_bg}`}
+                            alt=""
+                          />
+                        </LazyLoad>
+
                         <div className="glightbox_video">
                           <svg
                             viewBox="0 0 131 131"
@@ -100,7 +117,7 @@ const Video = (props) => {
             </Carousel>
           </div>
         </div>
-      </div>
+      </motion.div>
     );
   }
   return <></>;

@@ -63,8 +63,9 @@ const QuanliMedia = () => {
       url: `${process.env.REACT_APP_BACKEND_URL}/images/banner/${detailMedia?.video_bg}`,
     },
   ]);
+  
   const fetchDetailMedia = async () => {
-    const res = await callDetailMedia(params.id);
+    const res = await callDetailMedia(params.slug);
     if (res && res.EC === 1) {
       setDetailMedia(res.data);
       setFileList([
@@ -96,7 +97,7 @@ const QuanliMedia = () => {
 
   useEffect(() => {
     fetchDetailMedia();
-  }, [params.id]);
+  }, [params.slug]);
 
   const onChange = ({ fileList: newFileList }) => {
     setFileList(newFileList);
@@ -161,7 +162,6 @@ const QuanliMedia = () => {
         !pathBannerBg ||
         !pathBannerVideo ||
         !link ||
-        !noidung ||
         !key_word ||
         !meta_des
       ) {
@@ -175,7 +175,7 @@ const QuanliMedia = () => {
     }
 
     const res = await callUpdateMedia(
-      params.id,
+      params.slug,
       key_word,
       meta_des,
       pathBannerBg,

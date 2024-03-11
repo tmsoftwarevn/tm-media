@@ -77,7 +77,7 @@ export const callDeleteImg = (file) => {
 
 // media
 export const callUpdateMedia = (
-  id,
+  slug,
   key_word,
   meta_des,
   banner_bg,
@@ -85,7 +85,7 @@ export const callUpdateMedia = (
   link,
   noidung
 ) => {
-  return axios.put(`/api/v1/media/${id}`, {
+  return axios.put(`/api/v1/media/${slug}`, {
     key_word,
     meta_des,
     banner_bg,
@@ -102,7 +102,9 @@ export const callAddMedia = (
   banner_bg,
   video_bg,
   link,
-  noidung
+  noidung,
+  slug,
+  title_menu
 ) => {
   return axios.post(`/api/v1/media`, {
     key_word,
@@ -112,13 +114,18 @@ export const callAddMedia = (
     link,
     noidung,
     type_id,
+    slug,
+    title_menu
   });
 };
 
-export const callDetailMedia = (id) => {
-  return axios.get(`/api/v1/media/${id}`);
+export const callDetailMedia = (slug) => {
+  return axios.get(`/api/v1/media/${slug}`);
 };
 
+export const callUpdateSlugMedia = (slug, id, title_menu) => {
+  return axios.put(`/api/v1/slug_media`, { slug, id, title_menu });
+};
 // video noi bat
 export const callAddVideoNoibat = (type_id, video_bg, link, name) => {
   return axios.post(`/api/v1/video-noibat`, {
@@ -154,7 +161,8 @@ export const callAddBaiviet = (
   meta_des,
   noidung,
   thumbnail,
-  mota_ngan
+  mota_ngan,
+  slug
 ) => {
   return axios.post("/api/v1/baiviet", {
     tieude,
@@ -163,6 +171,7 @@ export const callAddBaiviet = (
     noidung,
     thumbnail,
     mota_ngan,
+    slug,
   });
 };
 
@@ -178,7 +187,9 @@ export const callUpdateBaiviet = (
   noidung,
   thumbnail,
   mota_ngan,
-  active
+  active,
+  slug,
+  uu_tien
 ) => {
   return axios.put(`/api/v1/baiviet/${id}`, {
     tieude,
@@ -187,12 +198,14 @@ export const callUpdateBaiviet = (
     noidung,
     thumbnail,
     mota_ngan,
-    active
+    active,
+    slug,
+    uu_tien
   });
 };
 
-export const callGetdetail_Baiviet = (id) => {
-  return axios.get(`/api/v1/baiviet/${id}`);
+export const callGetdetail_Baiviet = (slug) => {
+  return axios.get(`/api/v1/baiviet/${slug}`);
 };
 
 export const callGetBaiviet_paginate = (page, limit) => {
@@ -203,8 +216,16 @@ export const callGetAll_Baiviet = () => {
   return axios.get(`/api/v1/listbaiviet`);
 };
 
-export const callGet_baiviet_noibat = () =>{
+export const callGet_baiviet_noibat = () => {
   return axios.get(`/api/v1/tintuc-noibat`);
+};
+
+export const call_up_view_baiviet = (id) =>{
+  return axios.put(`/api/v1/baiviet_view/${id}`);
+}
+
+export const call_search_baiviet = (search, page, limit) =>{
+  return axios.get(`/api/v1/search-baiviet?search=${search}&page=${page}&limit=${limit}`)
 }
 //////
 export const callUpdateTrangchu = (

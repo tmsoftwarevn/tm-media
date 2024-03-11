@@ -152,10 +152,14 @@
     font-size: 1rem;
 }
 
-.options span {
-    font-weight: 600;
-    color: #22215b;
-    visibility: hidden;
+.options {
+    .view {
+        display: flex;
+        align-items: center;
+        span {
+            margin-left: 5px;
+        }
+    }
 }
 
 .btn-doc {

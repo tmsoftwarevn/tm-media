@@ -5,17 +5,16 @@ import { useEffect, useRef, useState } from "react";
 import { useOutletContext } from "react-router-dom";
 
 import CountUp from "react-countup";
-
+import LazyLoad from "react-lazyload";
 import LienHe from "../lien he/LienHe";
-import {
-  callActive_menu,
-  callDetailTrangchu,
-  callGet_baiviet_noibat,
-} from "../../service/api";
+
+import { callActive_menu, callDetailTrangchu } from "../../service/api";
 import Video from "../../component/video/Video";
 import BannerHeader from "../bannerHeader";
 import { Helmet } from "react-helmet-stuff";
 import SlideBaiviet from "../bai viet/slideBaiviet";
+
+import { motion } from "framer-motion";
 
 const Home = () => {
   const [isShowVideo, handleSetVideo, setIsLoading] = useOutletContext();
@@ -71,27 +70,21 @@ const Home = () => {
 
       <div className="home">
         <BannerHeader media={mediaHome} handleSetVideo={handleSetVideo} />
-        <section id="gt-6978">
+        <motion.section
+          id="gt-6978"
+          initial={{ y: 200, opacity: 0 }}
+          whileInView={{ y: 0, opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ type: "tween", duration: 1 }}
+        >
           <div className="container">
             <div className="row">
               <div className="col-md-6 thong-tin">
                 <p className="thong-tin_title">TM MEDIA – VIDEO MARKETING</p>
                 <div className="thong-tin_des">
-                  {/* <p>
-                    Chúng tôi tự hào là đơn vị TM MEDIA cung cấp các giải pháp
-                    Sản xuất video hình ảnh giúp nhiều Doanh Nghiệp quảng bá
-                    thương hiệu đúng với mục đích Marketing truyền tải thông
-                    điệp nhận diện đúng đến với khách hàng.
-                  </p>
-                  <p>
-                    Với đội ngũ nhiều năm kinh nghiệp có thể tư vấn giúp cho
-                    Doanh Nghiệp tối ưu chi phí sản xuất video hình ảnh một cách
-                    tinh gọn nhất.
-                  </p> */}
                   <div
                     dangerouslySetInnerHTML={{ __html: mediaHome.mota_cty }}
                   ></div>
-                  {/* {mediaHome.mota_cty} */}
                 </div>
 
                 <div className="thong-tin_btn" onClick={scrollToDiv}>
@@ -99,11 +92,12 @@ const Home = () => {
                 </div>
               </div>
               <div className="col-md-6 thuonghieu">
-                <img
-                  src={`${process.env.REACT_APP_BACKEND_URL}/images/banner/${mediaHome.thuonghieu}`}
-                  alt=""
-                />
-
+                <LazyLoad height={400}>
+                  <img
+                    src={`${process.env.REACT_APP_BACKEND_URL}/images/banner/${mediaHome.thuonghieu}`}
+                    alt=""
+                  />
+                </LazyLoad>
                 <p
                   className="mt-2"
                   style={{ textTransform: "uppercase", fontSize: "16px" }}
@@ -113,9 +107,15 @@ const Home = () => {
               </div>
             </div>
           </div>
-        </section>
+        </motion.section>
 
-        <section id="tk-5234">
+        <motion.section
+          id="tk-5234"
+          initial={{ y: 200, opacity: 0 }}
+          whileInView={{ y: 0, opacity: 1 }}
+          transition={{ duration: 1 }}
+          viewport={{ once: true }}
+        >
           <div className="bg-tk">
             <img
               src={`${process.env.REACT_APP_BACKEND_URL}/images/banner/${mediaHome?.bg_thongke}`}
@@ -161,7 +161,7 @@ const Home = () => {
               </div>
             </div>
           </div>
-        </section>
+        </motion.section>
 
         {activeMenu &&
           activeMenu.map((item) => {

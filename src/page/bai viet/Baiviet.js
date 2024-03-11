@@ -1,18 +1,18 @@
 import { useEffect, useState } from "react";
 import "../../scss/baiviet.scss";
 import {
-  callDetailMedia,
   callDetailTrangchu,
   callGetAll_Baiviet,
   callGetBaiviet_paginate,
 } from "../../service/api";
 import { useLocation, useNavigate, useOutletContext } from "react-router-dom";
-import { convertSlug } from "../../utils/convertSlug";
+import LazyLoad from "react-lazyload";
 import BannerHeader from "../bannerHeader";
 import moment from "moment";
-import { Flex, Pagination } from "antd";
+import { Flex, Input, Pagination } from "antd";
 import { Helmet } from "react-helmet-stuff";
-
+import { TfiEye } from "react-icons/tfi";
+import Search from "antd/es/input/Search";
 const Baiviet = () => {
   const location = useLocation();
   const params = new URLSearchParams(location.search);
@@ -67,7 +67,10 @@ const Baiviet = () => {
     //chỉ hiển thị path , còn setpage khi onchange rồi
     navigate(`?page=${page}`);
   };
-
+  const onSearch = (value, _e, info) => {
+    navigate(`/tim-kiem?tu-khoa=${value}`);
+    setIsLoading(true);
+  };
   return (
     <>
       <Helmet>
@@ -84,72 +87,62 @@ const Baiviet = () => {
       <BannerHeader media={mediaHome} handleSetVideo={handleSetVideo} />
       <div className="baiviet">
         <div className="container">
-          <nav aria-label="breadcrumb">
-            <ol className="breadcrumb breadcrumb-ov">
-              <li className="breadcrumb-item">
-                <span
-                  className="br-home"
-                  onClick={() => {
-                    navigate("/");
-                    setIsLoading(true);
-                  }}
-                >
-                  Trang chủ
-                </span>
-              </li>
+          <div className="group-search">
+            <nav aria-label="breadcrumb">
+              <ol className="breadcrumb breadcrumb-ov">
+                <li className="breadcrumb-item">
+                  <span
+                    className="br-home"
+                    onClick={() => {
+                      navigate("/");
+                      setIsLoading(true);
+                    }}
+                  >
+                    Trang chủ
+                  </span>
+                </li>
 
-              <li className="breadcrumb-item active" aria-current="page">
-                Tin tức
-              </li>
-            </ol>
-          </nav>
+                <li className="breadcrumb-item active" aria-current="page">
+                  Tin tức
+                </li>
+              </ol>
+            </nav>
+            <div className="search">
+              <Search placeholder="Tìm kiếm" onSearch={onSearch} enterButton />
+            </div>
+          </div>
+
           <div className="row">
             {listBlog &&
               listBlog.length > 0 &&
               listBlog.map((item) => {
-                let slug = convertSlug(item.tieude);
                 return (
                   <div key={item.id} className="col-sm-6 col-lg-4">
                     <div
                       className="card"
                       onClick={() => {
-                        navigate(`/tin-tuc/${slug}`, {
-                          state: { id: item.id },
-                        });
+                        navigate(`/tin-tuc/${item.slug}`);
                         setIsLoading(true);
                       }}
                     >
                       <div className="card-img-holder">
-                        <img
-                          src={`${process.env.REACT_APP_BACKEND_URL}/images/banner/${item?.thumbnail}`}
-                        />
+                        <LazyLoad height={400}>
+                          <img
+                            src={`${process.env.REACT_APP_BACKEND_URL}/images/banner/${item?.thumbnail}`}
+                          />
+                        </LazyLoad>
                       </div>
-                      <h3
-                        className="blog-title"
-                        // onClick={() =>
-                        //   navigate(`/tin-tuc/${slug}`, {
-                        //     state: { id: item.id },
-                        //   })
-                        // }
-                      >
-                        {item.tieude}
-                      </h3>
+                      <h3 className="blog-title">{item.tieude}</h3>
                       <span className="blog-time">
                         {moment(item?.createdAt).format("DD-MM-Y")}
                       </span>
                       <p className="description">{item.mota_ngan}</p>
                       <div className="options">
-                        <span>Read Full Blog</span>
-                        <button
-                          className="btn-doc"
-                          // onClick={() =>
-                          //   navigate(`/tin-tuc/${slug}`, {
-                          //     state: { id: item.id },
-                          //   })
-                          // }
-                        >
-                          Xem thêm
-                        </button>
+                        <div className="view">
+                          <TfiEye />
+                          <span>{item?.view}</span>
+                        </div>
+                        <button className="btn-doc">Xem thêm</button>
                       </div>
                     </div>
                   </div>

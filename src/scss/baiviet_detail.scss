@@ -9,32 +9,54 @@
 .g-detail {
     display: flex;
     justify-content: space-between;
+    align-items: flex-start;
     margin-top: 30px;
     margin-bottom: 15px;
     .title-baiviet {
         font-size: 24px;
         font-weight: bold;
         text-transform: uppercase;
-        width: 80%;
-        max-width: 80%;
+        //width: 80%;
+        max-width: 75%;
         font-family: 'roboto';
         @include xs {
             width: 100%;
             max-width: 100%;
         }
     }
-    .time-baiviet {
-        font-style: italic;
-        color: #7b7979;
-        @include xs {
-            display: none;
+    .v-t {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        .view {
+            font-family: roboto;
+            span {
+                margin-left: 5px;
+            }
+            @include xs {
+                display: none;
+            }
+            @include sm{
+                display: none;
+            }
+            @include lg{
+                display: block;
+            }
+        }
+        .time-baiviet {
+            font-style: italic;
+            color: #7b7979;
+            margin-left: 50px;
+            @include xs {
+                display: none;
+            }
         }
     }
 }
 
 .noidung {
     font-family: roboto;
-    margin-bottom: 50px;
+    margin-bottom: 20px;
     overflow: hidden;
     iframe {
         max-width: 100%;

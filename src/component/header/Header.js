@@ -49,20 +49,14 @@ const Header = (props) => {
       let name_slug = convertSlug(item.name);
       arr.push(
         getItem(
-          // <Link
-          //   to={{
-          //     pathname: `/${name_slug}`,
-          //     state: { idMedia: item.id, name: item.name },
-          //   }}
-          //   // onClick={() => setOpenMenuMb(false)}
-          // >
+          
           <div
             onClick={() =>
               navigate(
                 `/${name_slug}`,
-                {
-                  state: { idMedia: item.id, name: item.name },
-                },
+                // {
+                //   state: { idMedia: item.id, name: item.name },
+                // },
                 setOpenMenuMb(false)
               )
             }
@@ -200,6 +194,7 @@ const Header = (props) => {
               className="logo"
               onClick={() => {
                 navigate("/");
+                setIsLoading(true);
               }}
             >
               <img
@@ -230,14 +225,12 @@ const Header = (props) => {
                           key={item.id}
                           // pass id
                           onClick={() => {
-                            navigate(`/${name_slug}`, {
-                              state: { idMedia: item.id, name: item.name },
-                            });
+                            navigate(`/${name_slug}`);
                           }}
                         >
                           {item.name}
                         </li>
-                      );
+                      )
                     })}
                   </ul>
                 </li>
@@ -251,9 +244,7 @@ const Header = (props) => {
                         <li
                           key={item.id}
                           onClick={() => {
-                            navigate(`/${name_slug}`, {
-                              state: { idMedia: item.id, name: item.name },
-                            });
+                            navigate(`/${name_slug}`);
                           }}
                         >
                           {item.name}
@@ -272,9 +263,7 @@ const Header = (props) => {
                         <li
                           key={item.id}
                           onClick={() => {
-                            navigate(`/${name_slug}`, {
-                              state: { idMedia: item.id, name: item.name },
-                            });
+                            navigate(`/${name_slug}`);
                           }}
                         >
                           {item.name}

@@ -5,7 +5,7 @@
 }
 #b-5324 {
     @include xs {
-        margin-top: 60px;
+        margin-top: 35px;
     }
     @include sm {
         margin-top: 60px;
@@ -140,12 +140,25 @@
         }
         &_right {
             position: relative;
+            .wave-image {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                z-index: 1;
+                background: linear-gradient(to right, transparent 90%, #a7f4fe 20%);
+                background-size: 50% 100%;
+                animation: waveAnimation 5s linear infinite;
+                filter: blur(100px);
+            }
+
             .group-right {
                 width: 100%;
                 height: 100%;
+                position: relative;
 
                 &:hover {
-                    transform: translateY(-5px);
                     box-shadow:
                         rgba(0, 0, 0, 0.25) 0px 54px 55px,
                         rgba(0, 0, 0, 0.12) 0px -12px 30px,
@@ -154,18 +167,16 @@
                         rgba(0, 0, 0, 0.09) 0px -3px 5px;
                     transition: 0.5s;
                 }
-            }
-
-            img {
-                width: 100%;
-                height: 100%;
-
-                object-fit: cover;
-                border-radius: 5px;
+                img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                    border-radius: 5px;
+                }
             }
             svg {
                 cursor: pointer;
-
+                z-index: 99999999;
                 position: absolute;
                 top: 50%;
                 left: 50%;
@@ -188,6 +199,7 @@
                 top: 50%;
                 left: 50%;
                 transform: translate(-50%, -50%);
+                z-index: 999999999;
             }
 
             .outer_circle {
@@ -215,5 +227,15 @@
                 transition: fill 0.4s 0.3s ease-out;
             }
         }
+    }
+}
+
+@keyframes waveAnimation {
+    0% {
+        background-position: 100% 0;
+    }
+
+    100% {
+        background-position: 0 0;
     }
 }

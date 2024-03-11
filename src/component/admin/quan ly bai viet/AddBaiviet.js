@@ -14,6 +14,7 @@ import ReactPlayer from "react-player";
 
 import { Editor } from "@tinymce/tinymce-react";
 import TextArea from "antd/es/input/TextArea";
+import { convertSlug } from "../../../utils/convertSlug";
 
 const AddBaiviet = (props) => {
   const { isModalAddBaiviet, setIsModalAddBaiviet, fetchBaiviet_All } = props;
@@ -89,21 +90,22 @@ const AddBaiviet = (props) => {
       !key_word ||
       !meta_des ||
       !mota_ngan ||
-      !noidung ||
+      
       !thumbnail ||
       !tieude
     ) {
       message.error("Vui lòng nhập đầy đủ thông tin");
       return;
     }
-
+    let slug = convertSlug(tieude);
     const res = await callAddBaiviet(
       tieude,
       key_word,
       meta_des,
       noidung,
       thumbnail,
-      mota_ngan
+      mota_ngan,
+      slug
     );
     if (res && res.EC === 1) {
       message.success("Thêm thành công");

@@ -151,9 +151,7 @@ const Footer = () => {
                   <li
                     key={item.id}
                     onClick={() =>
-                      navigate(`/${name_slug}`, {
-                        state: { idMedia: item.id, name: item.name },
-                      })
+                      navigate(`/${name_slug}`)
                     }
                   >
                     <MdKeyboardArrowRight  />
@@ -172,9 +170,7 @@ const Footer = () => {
                   <li
                     key={item.id}
                     onClick={() =>
-                      navigate(`/${name_slug}`, {
-                        state: { idMedia: item.id, name: item.name },
-                      })
+                      navigate(`/${name_slug}`)
                     }
                   >
                     <MdKeyboardArrowRight />
@@ -193,9 +189,7 @@ const Footer = () => {
                   <li
                     key={item.id}
                     onClick={() =>
-                      navigate(`/${name_slug}`, {
-                        state: { idMedia: item.id, name: item.name },
-                      })
+                      navigate(`/${name_slug}`)
                     }
                   >
                     <MdKeyboardArrowRight />

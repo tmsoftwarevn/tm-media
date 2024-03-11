@@ -187,6 +187,8 @@ const QuanlyBaiviet = () => {
         updatedAt: moment(item?.updatedAt).format("DD-MM-YY hh:mm:ss"),
         action: index,
         active: item.active,
+        view: item.view,
+        uu_tien: item.uu_tien
       });
     });
 
@@ -238,14 +240,18 @@ const QuanlyBaiviet = () => {
       },
     },
     {
-      title: "Ngày tạo",
-      dataIndex: "createdAt",
-      key: "createdAt",
+      title: "Lượt xem",
+      dataIndex: "view",
+      key: "view",
       sorter: {
-        compare: (a, b) =>
-          moment(a.createdAt, "DD-MM-YY hh:mm:ss") -
-          moment(b.createdAt, "DD-MM-YY hh:mm:ss"),
+        compare: (a, b) => a.view - b.view,
       },
+    },
+    {
+      title: "Ưu tiên",
+      dataIndex: "uu_tien",
+      key: "uu_tien",
+      
     },
     {
       title: "Ngày cập nhật",

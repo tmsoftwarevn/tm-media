@@ -10,7 +10,7 @@ import LazyLoad from "react-lazyload";
 import BannerHeader from "../bannerHeader";
 import moment from "moment";
 import { Flex, Input, Pagination } from "antd";
-import { Helmet } from "react-helmet-stuff";
+import { Helmet } from "react-helmet";
 import { TfiEye } from "react-icons/tfi";
 import Search from "antd/es/input/Search";
 const Baiviet = () => {

@@ -1,5 +1,4 @@
 import "../../scss/lienhe.scss";
-import logo from "../../assets/logo tm branding.jpg";
 import iconname from "../../assets/icon-name.png";
 import iconphone from "../../assets/icon-phone.png";
 import iconemail from "../../assets/icon-email.png";
@@ -7,7 +6,7 @@ import { useEffect, useState } from "react";
 import { IoCall } from "react-icons/io5";
 import { callAddLienhe, callDetailTrangchu } from "../../service/api";
 import { message } from "antd";
-import { Helmet } from "react-helmet-stuff";
+import { Helmet } from "react-helmet";
 import { useLocation, useOutletContext } from "react-router-dom";
 import BannerHeader from "../bannerHeader";
 import Swal from "sweetalert2";

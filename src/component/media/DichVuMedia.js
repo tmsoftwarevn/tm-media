@@ -5,7 +5,7 @@ import "../../scss/dichvumedia.scss";
 import "../../scss/bannerHeader.scss";
 import Video from "../video/Video";
 import BannerHeader from "../../page/bannerHeader";
-import { Helmet } from "react-helmet-stuff";
+import { Helmet } from "react-helmet";
 
 const DichVuMedia = () => {
 

@@ -13,9 +13,8 @@ import {
 
 import "../../scss/baiviet_detail.scss";
 import BannerHeader from "../bannerHeader";
-import { Helmet } from "react-helmet-stuff";
+import { Helmet } from "react-helmet";
 import moment from "moment";
-import { PiEyeLight } from "react-icons/pi";
 
 const BaivietDetail = () => {
   const [isShowVideo, handleSetVideo, setIsLoading] = useOutletContext();

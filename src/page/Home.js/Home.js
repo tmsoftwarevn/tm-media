@@ -11,7 +11,7 @@ import LienHe from "../lien he/LienHe";
 import { callActive_menu, callDetailTrangchu } from "../../service/api";
 import Video from "../../component/video/Video";
 import BannerHeader from "../bannerHeader";
-import { Helmet } from "react-helmet-stuff";
+import { Helmet } from "react-helmet";
 import SlideBaiviet from "../bai viet/slideBaiviet";
 
 import { motion } from "framer-motion";

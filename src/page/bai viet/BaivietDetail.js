@@ -54,7 +54,7 @@ const BaivietDetail = () => {
 
   return (
     <>
-      <Helmet>
+      <Helmet defer={false}>
         <title>{detail?.tieude}</title>
         <meta name="description" content={detail?.meta_des} />
         <meta name="keywords" content={detail?.key_word} />

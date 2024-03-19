@@ -226,6 +226,7 @@ const Header = (props) => {
                           // pass id
                           onClick={() => {
                             navigate(`/${name_slug}`);
+                            
                           }}
                         >
                           {item.name}

@@ -61,7 +61,7 @@ const LienHe = () => {
 
   return (
     <>
-      <Helmet>
+      <Helmet defer={false}>
         <title>{process.env.REACT_APP_TITLE_TRANGCHU}</title>
         <meta name="description" content={mediaHome?.meta_des} />
         <meta name="keywords" content={mediaHome?.key_word} />

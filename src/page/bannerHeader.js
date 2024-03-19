@@ -1,6 +1,6 @@
 import { IoCall } from "react-icons/io5";
 import bg_render from "../assets/banner-bg/home.jpeg";
-import video_render from "../assets/banner-bg/home-video.jpg";
+import video_render from "../assets/banner-bg/home-video.jpeg";
 import { motion } from "framer-motion";
 
 const BannerHeader = (props) => {

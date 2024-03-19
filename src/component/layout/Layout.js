@@ -28,6 +28,10 @@ const Layout = () => {
   };
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
+
+  useEffect(() => {
     setTimeout(() => {
       setIsLoading(false);
     }, 500);

@@ -115,7 +115,7 @@ export const callAddMedia = (
     noidung,
     type_id,
     slug,
-    title_menu,
+    title_menu
   });
 };
 

@@ -83,6 +83,7 @@ const BannerHeader = (props) => {
                     ></path>
                   </svg>
                 </div>
+                
                 <motion.div
                   className="group-right"
                   initial={{ y: -5 }}

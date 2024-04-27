@@ -110,8 +110,10 @@ const Layout = () => {
           <div className="video-yt" ref={refOutside}>
             <ReactPlayer className="react-player" url={link} controls={true} />
           </div>
+          
         </div>
       )}
+
     </div>
   );
 };

@@ -111,6 +111,7 @@ const BaivietDetail = () => {
           <div className="noidung">
             <div dangerouslySetInnerHTML={{ __html: detail?.noidung }}></div>
           </div>
+          
         </div>
       </div>
     </>
